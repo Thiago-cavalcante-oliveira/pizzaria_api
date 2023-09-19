@@ -1,10 +1,7 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.PizzaTipoDTO;
-import com.example.pizzaria.repository.PizzaTipoRepository;
-import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import com.example.pizzaria.service.PizzaTipoService;
-import com.example.pizzaria.service.ProdutoDiversoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +20,7 @@ public class PizzaTipoController {
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody final PizzaTipoDTO pizzaTipoDTO) {
         try {
-            return ResponseEntity.ok( this.pizzaTipoService.cadastrar(pizzaTipoDTO));
+            return ResponseEntity.ok(this.pizzaTipoService.cadastrar(pizzaTipoDTO));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

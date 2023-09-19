@@ -16,7 +16,6 @@ public class FuncionarioController {
 
     @Autowired
     private FuncionarioService funcionarioService;
-
     @GetMapping("all")
     public ResponseEntity<List<FuncionarioDTO>> findAll()
     {

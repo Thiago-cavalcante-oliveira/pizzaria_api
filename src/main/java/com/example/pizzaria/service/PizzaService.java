@@ -24,6 +24,12 @@ public class PizzaService {
     @Autowired
     private ModelMapper modelMapper;
 
+    static String success = "Pizza cadastrada com sucesso",
+            fail = "Pizza não cadastrada",
+            edited = "Pizza editada com sucesso",
+            delete = "Pizza deletada com sucesso";
+
+
 
     public PizzaDTO convertToDTO(Pizza pizza) {
         PizzaDTO pizzaDTO = new PizzaDTO();
@@ -42,7 +48,7 @@ public class PizzaService {
         PizzaDTO pizzaDTO = new PizzaDTO();
         pizzaDTO = modelMapper.map(this.pizzaRepository.findById(id).orElse(null), PizzaDTO.class);
         if (pizzaDTO == null) {
-            throw new RuntimeException("Registro não encontrado");
+            throw new RuntimeException(fail);
         }
         return pizzaDTO;
     }
@@ -50,7 +56,7 @@ public class PizzaService {
     public List<PizzaDTO> findAll() {
         List<Pizza> pizzas = this.pizzaRepository.findAll();
         if (pizzas.isEmpty()) {
-            throw new RuntimeException("Não há pizzas cadastradas");
+            throw new RuntimeException(fail);
         } else {
             List<PizzaDTO> pizzasDTO = new ArrayList<>();
             for (Pizza i : pizzas
@@ -64,27 +70,27 @@ public class PizzaService {
     public String cadastrar(PizzaDTO pizza) {
         Pizza salvarEmBanco = modelMapper.map(pizza, Pizza.class);
         this.pizzaRepository.save(salvarEmBanco);
-        return "Pizza cadastrada com sucesso";
+        return success;
     }
 
     public String editar(PizzaDTO pizza, Long id) {
         if (!Objects.equals(pizza.getId(), id)) {
             throw new RuntimeException("Os IDs não coincidem");
         } else if (!pizzaRepository.existsById(id)) {
-            throw new RuntimeException("Pizza não encontrada");
+            throw new RuntimeException(fail);
         } else {
 
             this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
-            return "Pizza editada com sucesso";
+            return edited;
         }
     }
 
     public String deletar(Long id) {
         if (!pizzaRepository.existsById(id)) {
-            throw new RuntimeException("Pizza não encontrada");
+            throw new RuntimeException(fail);
         } else {
             this.pizzaRepository.deleteById(id);
-            return "Pizza deletada com sucesso";
+            return delete;
         }
 
 

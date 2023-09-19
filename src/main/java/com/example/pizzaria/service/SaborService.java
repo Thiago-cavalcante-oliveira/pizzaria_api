@@ -22,24 +22,30 @@ public class SaborService {
     @Autowired
     private ModelMapper modelMapper;
 
+    static String success = "Sabor cadastrado com sucesso",
+            fail="Sabor não cadastrado",
+    edited = "Sabor editado com sucesso",
+            delete = "Sabor deletado com sucesso",
+            disable = "Sabor desativado com sucesso",
+    duplicated = "Sabor já cadastrado";
+
     public String cadastrar(SaborDTO saborDTO) {
         if (this.saborRepository.existsByNome(saborDTO.getNome())) {
-            throw new RuntimeException("Sabor já cadastrado");
+            throw new RuntimeException(duplicated);
         }
 
         this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
-        return "Sabor cadastrado com sucesso";
+        return success;
     }
     public String editar(SaborDTO saborDTO, Long id) {
         Long idFront = id;
         if (saborDTO.getId() != idFront) {
             throw new RuntimeException("Os IDs não coincidem");
         } else if (saborRepository.findByNome(saborDTO.getNome()).getId() != idFront) {
-            throw new RuntimeException("Sabor já cadastrado");
+            throw new RuntimeException(duplicated);
         }
-
         this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
-        return "Sabor editado com sucesso";
+        return edited;
     }
     public List<SaborDTO> findAll() {
         List<Sabor> sabores = this.saborRepository.findAll();
@@ -64,11 +70,11 @@ public class SaborService {
         if(saborRepository.saborExistTb_pizza(id)){
             Optional<Sabor> sabor = this.saborRepository.findById(id);
             sabor.get().setAtivo(false);
-            throw new RuntimeException("Sabor foi inativado, pois está sendo usado em uma pizza");
+            throw new RuntimeException(disable);
         }
         else{
             this.saborRepository.deleteById(id);
-            return "Sabor deletado com sucesso";
+            return delete;
         }
     }
 

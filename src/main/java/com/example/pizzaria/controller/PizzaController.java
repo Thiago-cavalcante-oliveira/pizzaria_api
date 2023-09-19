@@ -1,7 +1,6 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.PizzaDTO;
-import com.example.pizzaria.entity.Pizza;
 import com.example.pizzaria.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,23 +34,18 @@ public class PizzaController {
 @PostMapping
     public ResponseEntity<String> cadastrar(@Validated @RequestBody final PizzaDTO pizza){
         try{
-
-
             return ResponseEntity.ok(this.pizzaService.cadastrar(pizza));
         }
         catch (Exception e)
         {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-
     }
 
     @PutMapping
     public ResponseEntity<String> editar(@Validated @RequestParam("id") final Long id, @RequestBody final PizzaDTO pizza){
 
         try{
-
-
             return ResponseEntity.ok( this.pizzaService.editar(pizza, id));
         }
         catch (Exception e)
@@ -63,9 +57,7 @@ public class PizzaController {
     @DeleteMapping
     public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
         try{
-
             String msg =  this.pizzaService.deletar(id);
-
             return ResponseEntity.ok(msg);
         }
         catch (Exception e)
@@ -73,6 +65,4 @@ public class PizzaController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
-
-
 }

@@ -20,50 +20,49 @@ public class ClienteService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<ClienteDTO> findAll()
-    {
+    static String notFound = "Registro não encontrado", cpfNotFound = "CPF não encontrado", cpfDuplicated = "CPF já cadastrado",
+            sucess = "Operação realizada com sucesso";
+
+    public List<ClienteDTO> findAll()    {
         List<Cliente> clientes = this.clienteRepository.findAll();
         List<ClienteDTO> clientesDTO = new ArrayList<>();
-
         for(Cliente i : clientes)
         {
             clientesDTO.add(modelMapper.map(i, ClienteDTO.class));
         }
-
         return clientesDTO;
 
     }
 
     public ClienteDTO findById(Long id)
     {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
-
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(notFound));
         return modelMapper.map(cliente, ClienteDTO.class);
     }
 
     public void cadastrar(ClienteDTO clienteDTO)
     {
-        Assert.isTrue(!(this.clienteRepository.alreadyExists(clienteDTO.getCpf())), "CPF já cadastrado");
+        Assert.isTrue(!(this.clienteRepository.alreadyExists(clienteDTO.getCpf())), cpfNotFound);
 
         this.clienteRepository.save(modelMapper.map(clienteDTO, Cliente.class));
     }
 
-    public void editar(ClienteDTO clienteDTO, Long id)
+    public String editar(ClienteDTO clienteDTO, Long id)
     {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(notFound));
         if(this.clienteRepository.alreadyExists(clienteDTO.getCpf()))
         {
-            Assert.isTrue( this.clienteRepository.isTheSame(clienteDTO.getCpf()).equals(id), "CPF já cadastrado");
+           return  cpfDuplicated;
         }
-
         modelMapper.map(clienteDTO,cliente);
-
         this.clienteRepository.save(cliente);
+        return sucess;
+
     }
 
     public boolean deletar(Long id)
     {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(notFound));
         cliente.setAtivo(false);
         this.clienteRepository.save(cliente);
         return true;

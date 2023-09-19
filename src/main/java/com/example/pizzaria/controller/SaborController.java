@@ -1,8 +1,6 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.SaborDTO;
-import com.example.pizzaria.entity.Sabor;
-import com.example.pizzaria.repository.SaborRepository;
 import com.example.pizzaria.service.SaborService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,11 +30,8 @@ public class SaborController {
 
     @PutMapping
     public ResponseEntity<String> editar(@RequestParam("id") final Long id, @RequestBody final SaborDTO saborDTO){
-
         try{
-            this.saborService.editar(saborDTO, id);
-
-            return ResponseEntity.ok("Editado com sucesso!");
+            return ResponseEntity.ok( this.saborService.editar(saborDTO, id));
         }
         catch (Exception e)
         {
@@ -56,7 +51,6 @@ public class SaborController {
     }
     @GetMapping
     public ResponseEntity<SaborDTO> findById(@RequestParam final Long id){
-
     try{
         return ResponseEntity.ok(this.saborService.findById(id));
     }

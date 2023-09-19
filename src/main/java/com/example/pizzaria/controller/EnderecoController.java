@@ -32,7 +32,6 @@ public class EnderecoController {
 
     @GetMapping
     public ResponseEntity<EnderecoDTO> findById(@RequestParam("id") final Long id){
-
         try{
             return ResponseEntity.ok(this.enderecoService.findById(id));
         }
@@ -44,7 +43,6 @@ public class EnderecoController {
 
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody final EnderecoDTO enderecoDTO){
-
         try{
             this.enderecoService.cadastrar(enderecoDTO);
 

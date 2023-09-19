@@ -62,7 +62,6 @@ public class PedidoController {
     {
         try {
             this.pedidoService.editar(pedidoDTO, id);
-
             return ResponseEntity.ok("Pedido alterado com sucesso");
         }
         catch (Exception e)
@@ -77,7 +76,6 @@ public class PedidoController {
         try {
             this.pedidoService.deletar(id);
             return ResponseEntity.ok("Pedido desativado com sucesso");
-
         }
         catch (Exception e)
         {

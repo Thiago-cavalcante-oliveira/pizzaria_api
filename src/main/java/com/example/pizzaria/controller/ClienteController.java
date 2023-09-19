@@ -18,6 +18,8 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    static String success = "Operação realizada com sucesso", fail = "Operação falhou", delete = "Cliente deletado", disable = "Cliente desativado";
+
     @GetMapping("all")
     public ResponseEntity<List<ClienteDTO>> findAll()
     {
@@ -48,7 +50,7 @@ public class ClienteController {
         try{
             this.clienteService.cadastrar(clienteDTO);
 
-            return ResponseEntity.ok("Funcionario cadastrado com sucesso");
+            return ResponseEntity.ok(success);
         }
         catch (Exception e)
         {
@@ -62,9 +64,7 @@ public class ClienteController {
             @RequestBody final ClienteDTO clienteDTO)
     {
         try {
-            this.clienteService.editar(clienteDTO, id);
-
-            return ResponseEntity.ok("Cliente alterado com sucesso");
+            return ResponseEntity.ok( this.clienteService.editar(clienteDTO, id));
         }
         catch (Exception e)
         {
@@ -77,10 +77,10 @@ public class ClienteController {
     {
         try {
             if(this.clienteService.deletar(id)){
-                return ResponseEntity.ok("Cliente desativado");
+                return ResponseEntity.ok(disable);
             }
             else{
-                return ResponseEntity.ok("Cliente deletado");
+                return ResponseEntity.ok(delete);
             }
         }
         catch (Exception e)

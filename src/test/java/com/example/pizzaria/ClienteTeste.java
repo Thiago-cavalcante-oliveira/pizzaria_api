@@ -7,8 +7,10 @@ import com.example.pizzaria.repository.ClienteRepository;
 import com.example.pizzaria.service.ClienteService;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,12 +21,12 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ClienteTeste {
     @MockBean
     ClienteRepository clienteRepository;
     @Autowired
     ClienteService clienteService;
-
     @Autowired
     ClienteController clienteController;
 
@@ -72,7 +74,7 @@ public class ClienteTeste {
     void TesteCadastrarCliente(){
         ClienteDTO clienteDTO = new ClienteDTO("Eduardo", "45 99815-2683", "109.989.963-75");
         var cliente = clienteController.cadastrar(clienteDTO);
-        Assert.assertEquals("Cliente cadastrado com sucesso",cliente.getBody());
+        Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
     @Test
