@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,8 +25,11 @@ public class ProdutoDiversoTeste {
     ProdutoDiversoRepositorio repositorio;
     @Autowired
     ProdutoDiversoController controller;
-    @BeforeEach
-    void injectData() {
+
+    @Autowired
+    ModelMapper modelMapper;
+
+    protected ProdutoDiverso criaProdutoDiverso(){
         ProdutoDiverso produtoDiverso = new ProdutoDiverso();
         produtoDiverso.setId(1l);
         produtoDiverso.setNome("coca-cola");
@@ -33,12 +37,27 @@ public class ProdutoDiversoTeste {
         produtoDiverso.setTipo("refrigerante");
         produtoDiverso.setQuantidade(1);
         produtoDiverso.setAtivo(true);
+        return produtoDiverso;
+    }
 
+    protected List<ProdutoDiverso> listaProdutosDiverso()
+    {
         List<ProdutoDiverso> produtosDiversos = new ArrayList<>();
-        produtosDiversos.add(produtoDiverso);
+        produtosDiversos.add(criaProdutoDiverso());
 
-        Mockito.when(repositorio.findById(1l)).thenReturn(Optional.of(produtoDiverso));
-        Mockito.when(repositorio.findAll()).thenReturn(produtosDiversos);
+        return  produtosDiversos;
+    }
+
+    protected ProdutoDiversoDTO criaProdutoDiversoDTO(ProdutoDiverso produtoDiverso){
+        return modelMapper.map(produtoDiverso, ProdutoDiversoDTO.class);
+    }
+
+
+    @BeforeEach
+    void injectData() {
+
+        Mockito.when(repositorio.findById(1l)).thenReturn(Optional.of(criaProdutoDiverso()));
+        Mockito.when(repositorio.findAll()).thenReturn(listaProdutosDiverso());
     }
 
     @Test
@@ -57,17 +76,14 @@ public class ProdutoDiversoTeste {
     @Test
     void testeCadastrar()
     {
-        ProdutoDiversoDTO produtoDiversoDTO = new ProdutoDiversoDTO("coca-cola","refrigerante",1,4.99);
-        var teste = controller.cadastrar(produtoDiversoDTO);
+        var teste = controller.cadastrar(criaProdutoDiversoDTO(criaProdutoDiverso()));
         Assert.assertTrue(teste.getBody().contains("Cadastrado"));
     }
 
     @Test
     void testeEditar()
     {
-        ProdutoDiversoDTO produtoDiversoDTO = new ProdutoDiversoDTO("coca-cola","refrigerante",1,4.99);
-        produtoDiversoDTO.setId(1l);
-        var teste = controller.editar(1l, produtoDiversoDTO);
+        var teste = controller.editar(1l, criaProdutoDiversoDTO(criaProdutoDiverso()));
         Assert.assertTrue(teste.getBody().contains("Editado"));
     }
 
