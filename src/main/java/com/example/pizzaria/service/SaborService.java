@@ -1,14 +1,11 @@
 package com.example.pizzaria.service;
 
-import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.dto.SaborDTO;
-import com.example.pizzaria.entity.ProdutoDiverso;
 import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.SaborRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;

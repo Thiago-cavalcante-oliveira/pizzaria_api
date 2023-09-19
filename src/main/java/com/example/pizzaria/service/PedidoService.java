@@ -1,22 +1,15 @@
 package com.example.pizzaria.service;
 
 
-import com.example.pizzaria.dto.ClienteDTO;
-import com.example.pizzaria.dto.EnderecoDTO;
-import com.example.pizzaria.dto.FuncionarioDTO;
 import com.example.pizzaria.dto.PedidoDTO;
 import com.example.pizzaria.entity.*;
-import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.repository.PedidoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PedidoService {

@@ -1,21 +1,20 @@
 package com.example.pizzaria.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 
 @MappedSuperclass
+@Data
 public abstract class AbstractEntity {
 
     @Id
-    @Getter @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Getter @Setter
     @Column(name = "ativo")
     private boolean ativo;
 

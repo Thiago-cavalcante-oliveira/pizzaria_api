@@ -33,7 +33,6 @@ public class ClienteService {
             clientesDTO.add(modelMapper.map(i, ClienteDTO.class));
         }
         return clientesDTO;
-
     }
 
     public ClienteDTO findById(Long id)
