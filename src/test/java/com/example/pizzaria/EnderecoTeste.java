@@ -1,9 +1,7 @@
 package com.example.pizzaria;
 
 import com.example.pizzaria.controller.EnderecoController;
-import com.example.pizzaria.dto.ClienteDTO;
 import com.example.pizzaria.dto.EnderecoDTO;
-import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.repository.EnderecoRepository;
 import org.junit.Assert;
@@ -29,6 +27,8 @@ public class EnderecoTeste {
     @Autowired
     ModelMapper modelMapper;
 
+    ClienteTeste clienteTeste;
+
     protected Endereco criaEndereco()
     {
         Endereco endereco = new Endereco();
@@ -39,7 +39,7 @@ public class EnderecoTeste {
         endereco.setBairro("Morumbi");
         endereco.setTelResidencia("45 99999-8855");
         endereco.setComplemento("casa");
-        //endereco.setCliente(cliente);
+        endereco.setCliente(clienteTeste.criarCliente());
 
         return endereco;
     }
