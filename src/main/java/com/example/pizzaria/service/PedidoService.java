@@ -24,52 +24,40 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
-
     @Autowired
     private ModelMapper modelMapper;
-
-
+    static String fail = "Registro nao encontrado.";
     public List<PedidoDTO> findAll(){
         List<Pedido> pedidos = this.pedidoRepository.findAll();
         List<PedidoDTO> pedidosDTO = new ArrayList<>();
-
         for(Pedido i : pedidos)
         {
             pedidosDTO.add(modelMapper.map(i, PedidoDTO.class));
         }
-
         return pedidosDTO;
     }
 
     public PedidoDTO findById(Long id)
     {
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
-
-
+        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
         return modelMapper.map(pedido, PedidoDTO.class);
     }
 
     public void cadastrar(PedidoDTO pedidoDTO)
     {
-
-
-
         this.pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
     }
 
     public void editar(PedidoDTO pedidoDTO, Long id)
     {
-
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
+        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
         modelMapper.map(pedidoDTO, pedido);
-
         this.pedidoRepository.save(pedido);
     }
 
     public void deletar(Long id)
     {
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
-
+        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
         pedido.setAtivo(false);
         this.pedidoRepository.save(pedido);
     }

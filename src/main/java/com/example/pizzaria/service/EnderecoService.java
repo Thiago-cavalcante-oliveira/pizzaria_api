@@ -22,42 +22,38 @@ public class EnderecoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<EnderecoDTO> findAll()
-    {
+    static String fail = "Registro não encontrado";
+
+    public List<EnderecoDTO> findAll() {
         List<Endereco> enderecos = this.enderecoRepository.findAll();
         List<EnderecoDTO> enderecosDTO = new ArrayList<>();
 
-        for(Endereco i : enderecos)
-        {
+        for (Endereco i : enderecos) {
             enderecosDTO.add(modelMapper.map(i, EnderecoDTO.class));
         }
 
         return enderecosDTO;
     }
 
-    public EnderecoDTO findById(Long id)
-    {
-        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
+    public EnderecoDTO findById(Long id) {
+        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(fail));
 
         return modelMapper.map(endereco, EnderecoDTO.class);
     }
 
-    public void cadastrar(EnderecoDTO enderecoDTO)
-    {
+    public void cadastrar(EnderecoDTO enderecoDTO) {
         this.enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
     }
 
-    public void editar(EnderecoDTO enderecoDTO, Long id)
-    {
-        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
+    public void editar(EnderecoDTO enderecoDTO, Long id) {
+        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(fail));
 
-        modelMapper.map(enderecoDTO,endereco);
+        modelMapper.map(enderecoDTO, endereco);
         this.enderecoRepository.save(endereco);
     }
 
-    public boolean deletar(Long id)
-    {
-        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(()-> new RuntimeException("Registro não encontrado"));
+    public boolean deletar(Long id) {
+        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(fail));
         endereco.setAtivo(false);
         this.enderecoRepository.save(endereco);
         return true;

@@ -17,6 +17,9 @@ public class EnderecoController {
 
     @Autowired
     private EnderecoService enderecoService;
+    final String success = "Operacao realizada com sucesso";
+    final String deleted = "Item deletado com sucesso";
+    final String disabled = "Item inativado com sucesso";
 
     @GetMapping("all")
     public ResponseEntity<List<EnderecoDTO>> findAll()
@@ -46,7 +49,7 @@ public class EnderecoController {
         try{
             this.enderecoService.cadastrar(enderecoDTO);
 
-            return ResponseEntity.ok("Endereço cadastrado com sucesso");
+            return ResponseEntity.ok(success);
         }
         catch (Exception e)
         {
@@ -62,7 +65,7 @@ public class EnderecoController {
         try {
             this.enderecoService.editar(enderecoDTO, id);
 
-            return ResponseEntity.ok("Endereço alterado com sucesso");
+            return ResponseEntity.ok(success);
         }
         catch (Exception e)
         {
@@ -75,10 +78,10 @@ public class EnderecoController {
     {
         try {
             if(this.enderecoService.deletar(id)){
-                return ResponseEntity.ok("Endereço desativado");
+                return ResponseEntity.ok(deleted);
             }
             else{
-                return ResponseEntity.ok("Endereço deletado");
+                return ResponseEntity.ok(disabled);
             }
         }
         catch (Exception e)

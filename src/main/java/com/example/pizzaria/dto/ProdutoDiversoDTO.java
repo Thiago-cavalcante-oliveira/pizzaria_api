@@ -16,14 +16,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProdutoDiversoDTO extends AbstractEntityDTO{
 
+    final String messageSize = "Valor invalido, deve ter entre 3 e 250 caracteres";
+    final String messageQtd = "O valor não pode ser negativo";
 
-
-    @Size(min = 3, max = 150, message = "O nome deve ter entre 3 e 150 caracteres")
+    @Size(min = 3, max = 150, message = messageSize)
     private String nome;
-    @Size(min = 3, max = 250, message = "O tipo deve ter entre 3 e 250 caracteres")
+    @Size(min = 3, max = 250, message = messageSize)
     private String tipo;
-    @Min(value = 0, message = "O valor não pode ser negativo")
+    @Min(value = 0, message = messageQtd)
     private int quantidade;
-    @Min(value = 0, message = "O valor não pode ser negativo")
+    @Min(value = 0, message = messageQtd)
     private double preco;
 }

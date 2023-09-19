@@ -18,7 +18,10 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    static String success = "Operação realizada com sucesso", fail = "Operação falhou", delete = "Cliente deletado", disable = "Cliente desativado";
+    final String success = "Operação realizada com sucesso";
+    final String fail = "Operação falhou";
+    final String delete = "Cliente deletado";
+    final String disable = "Cliente desativado";
 
     @GetMapping("all")
     public ResponseEntity<List<ClienteDTO>> findAll()

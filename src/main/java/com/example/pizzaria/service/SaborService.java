@@ -22,12 +22,12 @@ public class SaborService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String success = "Sabor cadastrado com sucesso",
-            fail="Sabor não cadastrado",
-    edited = "Sabor editado com sucesso",
-            delete = "Sabor deletado com sucesso",
-            disable = "Sabor desativado com sucesso",
-    duplicated = "Sabor já cadastrado";
+    static String success = "Sabor cadastrado com sucesso";
+    static String fail="Sabor não cadastrado";
+    static String edited = "Sabor editado com sucesso";
+    static String delete = "Sabor deletado com sucesso";
+    static String disable = "Sabor desativado com sucesso";
+    static String duplicated = "Sabor já cadastrado";
 
     public String cadastrar(SaborDTO saborDTO) {
         if (this.saborRepository.existsByNome(saborDTO.getNome())) {
@@ -50,7 +50,7 @@ public class SaborService {
     public List<SaborDTO> findAll() {
         List<Sabor> sabores = this.saborRepository.findAll();
         if(sabores.isEmpty()){
-            throw new RuntimeException("Não há sabores cadastrados");
+            throw new RuntimeException(fail);
         }else{
         List<SaborDTO> saboresDTO = new ArrayList<>();
         for (Sabor i : sabores
