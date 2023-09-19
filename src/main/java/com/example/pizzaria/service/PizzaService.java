@@ -24,10 +24,10 @@ public class PizzaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String success = "Pizza cadastrada com sucesso",
-            fail = "Pizza não cadastrada",
-            edited = "Pizza editada com sucesso",
-            delete = "Pizza deletada com sucesso";
+    static String success = "Pizza cadastrada com sucesso";
+    static String      fail = "Pizza não cadastrada";
+    static String     edited = "Pizza editada com sucesso";
+    static String       delete = "Pizza deletada com sucesso";
 
 
 

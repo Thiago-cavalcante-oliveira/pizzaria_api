@@ -51,7 +51,7 @@ public class PedidoTeste {
         PizzaTipo pizzaTipo = new PizzaTipo("pizza", "pequeno", 35);
         pizzaTipo.setId(1l);
         pizzaTipo.setAtivo(true);
-        Pizza pizza = new Pizza(pizzaTipo,saborTeste.criaSabor());
+        Pizza pizza = new Pizza(pizzaTipo, SaborTeste.criaSabor());
         pizza.setId(1l);
         pizza.setAtivo(true);
         Set<Pizza> pizzas = new HashSet<>();

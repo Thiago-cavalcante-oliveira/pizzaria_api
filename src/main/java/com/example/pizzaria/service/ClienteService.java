@@ -20,10 +20,10 @@ public class ClienteService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String notFound = "Registro não encontrado",
-            cpfNotFound = "CPF não encontrado",
-            cpfDuplicated = "CPF já cadastrado",
-            sucess = "Operação realizada com sucesso";
+    static String notFound = "Registro não encontrado";
+    static String  cpfNotFound = "CPF não encontrado";
+    static String      cpfDuplicated = "CPF já cadastrado";
+    static String       sucess = "Operação realizada com sucesso";
 
     public List<ClienteDTO> findAll()    {
         List<Cliente> clientes = this.clienteRepository.findAll();
@@ -45,7 +45,6 @@ public class ClienteService {
     public void cadastrar(ClienteDTO clienteDTO)
     {
         Assert.isTrue(!(this.clienteRepository.alreadyExists(clienteDTO.getCpf())), cpfNotFound);
-
         this.clienteRepository.save(modelMapper.map(clienteDTO, Cliente.class));
     }
 
