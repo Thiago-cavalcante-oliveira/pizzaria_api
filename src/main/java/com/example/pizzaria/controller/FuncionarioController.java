@@ -55,7 +55,7 @@ public class FuncionarioController {
     }
 
     @PutMapping
-    ResponseEntity<String> editar(
+    public ResponseEntity<String> editar(
             @RequestParam("id") final Long id,
             @RequestBody final FuncionarioDTO funcionarioDTO)
     {
@@ -70,7 +70,8 @@ public class FuncionarioController {
         }
     }
 
-    @DeleteMapping ResponseEntity<String> deletar(@RequestParam("id") final Long id)
+    @DeleteMapping
+    public ResponseEntity<String> deletar(@RequestParam("id") final Long id)
     {
         try {
             if(this.funcionarioService.deletar(id)){
