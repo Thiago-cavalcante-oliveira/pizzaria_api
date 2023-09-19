@@ -20,6 +20,8 @@ public class ClienteService {
     @Autowired
     private ModelMapper modelMapper;
 
+
+
     static String notFound = "Registro não encontrado";
     static String  cpfNotFound = "CPF não encontrado";
     static String      cpfDuplicated = "CPF já cadastrado";

@@ -8,9 +8,10 @@ import com.example.pizzaria.service.ClienteService;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -29,38 +30,42 @@ public class ClienteTeste {
     @Autowired
     ClienteController clienteController;
 
-    @BeforeEach
-    void injectDado(){
+    static
+    ModelMapper modelMapper = new ModelMapper();
 
+    protected static Cliente criarCliente(){
         Cliente cliente = new Cliente();
-        cliente.setId(1l);
+        cliente.setId(1L);
         cliente.setNome("Eduardo");
         cliente.setCpf("109.999.789-98");
         cliente.setTelCelular("45 99985-5563");
-        List<Cliente> clientes  = new ArrayList<>();
-        clientes.add(cliente);
-
-
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setId(cliente.getId());
-        clienteDTO.setNome(cliente.getNome());
-        clienteDTO.setCpf(clienteDTO.getCpf());
-        clienteDTO.setTelCelular(cliente.getTelCelular());
-        List<ClienteDTO> clientesList  = new ArrayList<>();
-        clientesList.add(clienteDTO);
-
-        Mockito.when(clienteRepository.findById(cliente.getId())).thenReturn(Optional.of(cliente));
-        Mockito.when(clienteRepository.findAll()).thenReturn(clientes);
-        Mockito.when(clienteRepository.save(cliente)).thenReturn(cliente);
-        Mockito.when(clienteRepository.alreadyExists(cliente.getCpf())).thenReturn(cliente.isAtivo());
-        Mockito.when(clienteRepository.isTheSame(cliente.getCpf())).thenReturn(cliente.getId());
-
+        return cliente;
     }
 
-@Test
+    protected static List<Cliente> listaClientes(){
+        List<Cliente> clientes  = new ArrayList<>();
+        clientes.add(criarCliente());
+        return clientes;
+    }
+
+    protected static ClienteDTO criaClienteDto( Cliente cliente){
+        return modelMapper.map(cliente, ClienteDTO.class);
+    }
+
+    @BeforeEach
+    void injectDado(){
+        Mockito.when(clienteRepository.save(criarCliente())).thenReturn(criarCliente());
+        Mockito.when(clienteRepository.findById(criarCliente().getId())).thenReturn(Optional.of(criarCliente()));
+        Mockito.when(clienteRepository.findAll()).thenReturn(listaClientes());
+        Mockito.when(clienteRepository.isTheSame(criarCliente().getCpf())).thenReturn(1l);
+        Mockito.when(clienteRepository.doesExist(criarCliente().getId())).thenReturn(criarCliente().isAtivo());
+        Mockito.when(clienteRepository.alreadyExists(criarCliente().getCpf())).thenReturn(false);
+    }
+
+    @Test
     public void TesteFindByID(){
-        var cliente = clienteController.findById(1l);
-        Assert.assertEquals(1l,cliente.getBody().getId(),0);
+        var cliente = clienteController.findById(1L);
+        Assert.assertEquals(1L,cliente.getBody().getId(),0);
     }
 
    @Test
@@ -71,19 +76,14 @@ public class ClienteTeste {
 
     @Test
    public void TesteCadastrarCliente(){
-        ClienteDTO clienteDTO = new ClienteDTO("Eduardo", "45 99815-2683", "109.989.963-75");
+        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.cadastrar(clienteDTO);
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
     @Test
     public void TesteAtualizar(){
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setId(1L);
-        clienteDTO.setCpf("000.111.222-98");
-        clienteDTO.setTelCelular("45 99985-5522");
-        clienteDTO.setNome("Eduardo Souza");
-
+        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.editar(1L, clienteDTO);
         Assert.assertEquals(200, cliente.getStatusCodeValue());
 
