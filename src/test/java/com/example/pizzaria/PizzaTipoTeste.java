@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;

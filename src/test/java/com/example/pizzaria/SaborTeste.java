@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
@@ -56,7 +56,7 @@ public class SaborTeste {
         return modelMapper.map(sabor, SaborDTO.class);
     }
     @BeforeEach
-    void injectDados() {
+   public void injectDados() {
         Mockito.when(saborRepository.findById(criaSabor().getId())).thenReturn(Optional.of(criaSabor()));
         Mockito.when(saborRepository.findByNome(criaSaborDTO(criaSabor()).getNome())).thenReturn(criaSabor());
         Mockito.when(saborRepository.findAll()).thenReturn(listaSabores());
@@ -64,26 +64,26 @@ public class SaborTeste {
     }
 
     @Test
-    void Teste1_FindByID() {
+    public void Teste1_FindByID() {
         var sabor = saborController.findById(1L);
         Assertions.assertEquals(1, sabor.getBody().getId(), 0);
     }
 
     @Test
-    void teste2_FindAll() {
+    public void teste2_FindAll() {
         var sabores = saborController.findAll();
         Assertions.assertEquals(1, sabores.getBody().size(), 0);
     }
 
     @Test
-    void teste3_Cadastrar() {
+    public void teste3_Cadastrar() {
         SaborDTO saborDTO = criaSaborDTO(criaSabor());
         var sabor = saborController.cadastrar(saborDTO);
         Assert.assertEquals("Sabor cadastrado com sucesso", sabor.getBody());
     }
 
     @Test
-    void teste4_Atualizar() {
+    public void teste4_Atualizar() {
         SaborDTO saborDTO = criaSaborDTO(criaSabor());
         var sabor = saborController.editar(1l, saborDTO);
         Assert.assertEquals(200, sabor.getStatusCodeValue());
