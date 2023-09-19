@@ -23,6 +23,8 @@ public class PedidoTeste {
     PedidoController controller;
 
     SaborTeste saborTeste;
+
+
     @BeforeEach
     void injectData() {
         ProdutoDiverso produtoDiverso = new ProdutoDiverso();
