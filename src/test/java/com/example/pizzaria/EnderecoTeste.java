@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,12 +26,12 @@ public class EnderecoTeste {
     @Autowired
     EnderecoController enderecoController;
 
-    @BeforeEach
-    void injectDados(){
-        Endereco endereco = new Endereco();
-        Cliente cliente = new Cliente("eduardo", "45 99815-6655", "111.888.999-78");
-        ClienteDTO clienteDTO = new ClienteDTO("eduardo", "45 99815-6655", "111.888.999-78");
+    @Autowired
+    ModelMapper modelMapper;
 
+    protected Endereco criaEndereco()
+    {
+        Endereco endereco = new Endereco();
         endereco.setId(1l);
         endereco.setCep("85858-330");
         endereco.setNuEndereco(1445);
@@ -38,29 +39,32 @@ public class EnderecoTeste {
         endereco.setBairro("Morumbi");
         endereco.setTelResidencia("45 99999-8855");
         endereco.setComplemento("casa");
-        endereco.setCliente(cliente);
+        //endereco.setCliente(cliente);
+
+        return endereco;
+    }
+
+    protected List<Endereco> listaEndereco()
+    {
         List<Endereco> enderecos = new ArrayList<>();
-        enderecos.add(endereco);
+        enderecos.add(criaEndereco());
+
+        return enderecos;
+    }
+
+    protected EnderecoDTO criaEnderecoDTO(Endereco endereco)
+    {
+        return modelMapper.map(endereco, EnderecoDTO.class);
+    }
 
 
+    @BeforeEach
+    void injectDados(){
 
-        EnderecoDTO enderecoDTO = new EnderecoDTO();
-        enderecoDTO.setId(endereco.getId());
-        enderecoDTO.setCep(endereco.getCep());
-        enderecoDTO.setNuEndereco(endereco.getNuEndereco());
-        enderecoDTO.setRua(endereco.getRua());
-        enderecoDTO.setBairro(endereco.getBairro());
-        enderecoDTO.setTelResidencia(endereco.getTelResidencia());
-        enderecoDTO.setComplemento(endereco.getComplemento());
-        enderecoDTO.setCliente(clienteDTO);
-
-        List<EnderecoDTO> enderecoDTOS = new ArrayList<>();
-        enderecoDTOS.add(enderecoDTO);
-
-        Mockito.when(enderecoRepository.findById(endereco.getId())).thenReturn(Optional.of(endereco));
-        Mockito.when(enderecoRepository.findAll()).thenReturn(enderecos);
-        Mockito.when(enderecoRepository.doesExist(endereco.getId())).thenReturn(true);
-        Mockito.when(enderecoRepository.save(endereco)).thenReturn(endereco);
+        Mockito.when(enderecoRepository.findById(criaEndereco().getId())).thenReturn(Optional.of(criaEndereco()));
+        Mockito.when(enderecoRepository.findAll()).thenReturn(listaEndereco());
+        Mockito.when(enderecoRepository.doesExist(criaEndereco().getId())).thenReturn(true);
+        Mockito.when(enderecoRepository.save(criaEndereco())).thenReturn(criaEndereco());
     }
 
     @Test
@@ -78,25 +82,14 @@ public class EnderecoTeste {
 
     @Test
     void TesteCadastrarEndereco(){
-        EnderecoDTO enderecoDTO = new EnderecoDTO("45 3525-7078", "Jose carlos Paca", 1445, "Morumbi", "85858-963", "Casa", new ClienteDTO("Eduardo", "45 99815-2683", "109.989.963-75") );
-        var endereco = enderecoController.cadastrar(enderecoDTO);
+        var endereco = enderecoController.cadastrar(criaEnderecoDTO(criaEndereco()));
         Assert.assertEquals("Endereço cadastrado com sucesso", endereco.getBody());
     }
 
     @Test
     void TesteAtualizar(){
 
-        EnderecoDTO enderecoDTO = new EnderecoDTO();
-        enderecoDTO.setId(1L);
-        enderecoDTO.setCep("85965-895");
-        enderecoDTO.setNuEndereco(5);
-        enderecoDTO.setRua("eng. araripe");
-        enderecoDTO.setBairro("vila a");
-        enderecoDTO.setTelResidencia("34 5566-7897");
-        enderecoDTO.setComplemento("predio");
-        enderecoDTO.setCliente(new ClienteDTO("Eduardo", "45 99815-2683", "109.989.963-75"));
-
-        var endereco = enderecoController.editar(1l, enderecoDTO);
+        var endereco = enderecoController.editar(1l, criaEnderecoDTO(criaEndereco()));
         Assert.assertEquals(200, endereco.getStatusCodeValue());
     }
 
