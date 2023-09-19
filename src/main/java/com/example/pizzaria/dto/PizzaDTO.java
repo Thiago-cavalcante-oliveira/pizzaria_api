@@ -1,9 +1,9 @@
 package com.example.pizzaria.dto;
 
-import com.example.pizzaria.dto.*;
 
-import com.example.pizzaria.dto.PizzaTipoDTO;
-import com.example.pizzaria.dto.SaborDTO;
+
+
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

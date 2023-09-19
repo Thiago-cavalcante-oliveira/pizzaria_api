@@ -6,10 +6,9 @@ import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.repository.ClienteRepository;
 import com.example.pizzaria.service.ClienteService;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,27 +57,27 @@ public class ClienteTeste {
 
     }
 
-    @org.junit.jupiter.api.Test
-    void TesteFindByID(){
+@Test
+    public void TesteFindByID(){
         var cliente = clienteController.findById(1l);
         Assert.assertEquals(1l,cliente.getBody().getId(),0);
     }
 
-    @Test
-    void TesteFindByAll(){
+   @Test
+    public void TesteFindByAll(){
         var clientes = clienteController.findAll();
         Assert.assertEquals(1, clientes.getBody().size());
     }
 
     @Test
-    void TesteCadastrarCliente(){
+   public void TesteCadastrarCliente(){
         ClienteDTO clienteDTO = new ClienteDTO("Eduardo", "45 99815-2683", "109.989.963-75");
         var cliente = clienteController.cadastrar(clienteDTO);
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
     @Test
-    void TesteAtualizar(){
+    public void TesteAtualizar(){
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setId(1L);
         clienteDTO.setCpf("000.111.222-98");
@@ -92,7 +91,7 @@ public class ClienteTeste {
 
 
     @Test
-    void TesteDelete(){
+   public void TesteDelete(){
         var cliente = clienteController.deletar(1l);
         Assert.assertEquals("Cliente desativado",cliente.getBody());
 

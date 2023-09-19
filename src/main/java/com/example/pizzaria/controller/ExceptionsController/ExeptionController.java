@@ -17,10 +17,7 @@ public class ExeptionController {
         List<FieldError> fieldErrorList = exception.getBindingResult().getFieldErrors();
 
         List<ErrorHandler> errorHandleList = new ArrayList<>();
-        fieldErrorList.forEach(error -> {
-            errorHandleList.add(new ErrorHandler(error.getField(), error.getDefaultMessage()));
-
-        });
+        fieldErrorList.forEach(error -> errorHandleList.add(new ErrorHandler(error.getField(), error.getDefaultMessage())));
 
         return errorHandleList;
     }
