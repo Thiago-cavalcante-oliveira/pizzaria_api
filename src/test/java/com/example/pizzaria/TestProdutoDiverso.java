@@ -13,10 +13,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
  class TestProdutoDiverso {
@@ -56,7 +59,6 @@ import java.util.Optional;
     void injectData() {
 
         Mockito.when(repositorio.findById(1l)).thenReturn(Optional.of(criaProdutoDiverso()));
-        Mockito.when(repositorio.findById(2l)).thenReturn(Optional.of(null));
         Mockito.when(repositorio.findAll()).thenReturn(listaProdutosDiverso());
     }
 
@@ -66,13 +68,7 @@ import java.util.Optional;
         Assert.assertEquals(1l,teste.getBody().getId(),0);
     }
 
-    @Test
-    void testeFindByIdFail() {
 
-        var teste = controller.findById(2l);
-        System.out.println(teste);
-        Assert.assertTrue(teste.getStatusCode().isError()) ;
-    }
 
 
 
@@ -107,8 +103,16 @@ import java.util.Optional;
     @Test
     void testeDeletarFail()
     {
-        var teste = controller.deletar(2l);
-        Assert.assertTrue(teste.getStatusCode().isError()) ;
+        Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> controller.deletar(1L));
+    }
+
+    @Test
+    void testeFindByIdFail() {
+
+        Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        assertThrows(ResponseStatusException.class, () -> controller.findById(1L));
+
     }
 
 }
