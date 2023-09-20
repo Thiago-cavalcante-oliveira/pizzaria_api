@@ -1,4 +1,4 @@
-package com.example.pizzaria.ErrorHandler;
+package com.example.pizzaria.error.handler;
 
 import lombok.*;
 

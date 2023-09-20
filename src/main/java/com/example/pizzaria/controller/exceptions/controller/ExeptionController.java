@@ -1,6 +1,6 @@
-package com.example.pizzaria.controller.ExceptionsController;
+package com.example.pizzaria.controller.exceptions.controller;
 
-import com.example.pizzaria.ErrorHandler.ErrorHandler;
+import com.example.pizzaria.error.handler.ErrorHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
