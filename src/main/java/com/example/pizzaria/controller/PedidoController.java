@@ -14,6 +14,10 @@ import java.util.List;
 @RequestMapping(value = "api/pedido")
 public class PedidoController {
 
+    static final String SUCESSO = "Operacao realizada com sucesso";
+    static final String DELETED = "Item deletado com sucesso";
+    static final String DISABLED = "Item inativado com sucesso";
+
     @Autowired
     private PedidoService pedidoService;
 
@@ -47,7 +51,7 @@ public class PedidoController {
         try{
             this.pedidoService.cadastrar(pedidoDTO);
 
-            return ResponseEntity.ok("Pedido cadastrado com sucesso");
+            return ResponseEntity.ok(SUCESSO);
         }
         catch (Exception e)
         {
@@ -62,7 +66,7 @@ public class PedidoController {
     {
         try {
             this.pedidoService.editar(pedidoDTO, id);
-            return ResponseEntity.ok("Pedido alterado com sucesso");
+            return ResponseEntity.ok(SUCESSO);
         }
         catch (Exception e)
         {
@@ -75,7 +79,7 @@ public class PedidoController {
     {
         try {
             this.pedidoService.deletar(id);
-            return ResponseEntity.ok("Pedido desativado com sucesso");
+            return ResponseEntity.ok(DISABLED);
         }
         catch (Exception e)
         {

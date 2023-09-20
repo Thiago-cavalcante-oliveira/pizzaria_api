@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.example.pizzaria.dto.AbstractEntityDTO;
+
 
 @Data
 @NotNull(message = "O campo nome é obrigatório")
@@ -15,14 +15,16 @@ import com.example.pizzaria.dto.AbstractEntityDTO;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PizzaTipoDTO extends AbstractEntityDTO {
+    static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 250 caracteres.";
+    static final String MESSAGEVALUE = "O valor não pode ser negativo";
 
-    @Size(min = 3, max = 250, message = "O nome deve ter entre 3 e 250 caracteres")
+    @Size(min = 3, max = 250, message = MESSAGESIZE)
     private String nome;
 
-    @Size(min = 3, max = 250, message = "O tamanho deve ter entre 3 e 250 caracteres")
+    @Size(min = 3, max = 250, message = MESSAGESIZE)
     private String tamanho;
 
-    @Min(value = 0, message = "O valor não pode ser negativo")
+    @Min(value = 0, message = MESSAGEVALUE)
     private double valor;
 
 

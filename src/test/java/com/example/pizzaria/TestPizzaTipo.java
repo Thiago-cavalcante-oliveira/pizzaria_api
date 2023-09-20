@@ -21,12 +21,11 @@ import com.example.pizzaria.dto.PizzaTipoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PizzaTipoTeste {
+ class TestPizzaTipo {
     @MockBean
     PizzaTipoRepository pizzaTipoRepository;
     @Autowired
@@ -64,23 +63,23 @@ public class PizzaTipoTeste {
         Mockito.when(pizzaTipoRepository.findAll()).thenReturn(listaPizzaTipos());
     }
     @Test
-    public void teste1_findById() {
+     void teste1_findById() {
         var pizzatipo = this.pizzaTipoController.buscar(1L);
         Assertions.assertEquals("Grande", pizzatipo.getBody().getTamanho());
     }
     @Test
-    public void teste2_findAll() {
+     void teste2_findAll() {
         var pizzatipos = pizzaTipoController.findAll();
         Assertions.assertEquals(1, pizzatipos.getBody().size(), 0);
     }
     @Test
-    public void teste3_cadastrar() {
+     void teste3_cadastrar() {
         PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         var pizzatipo = pizzaTipoController.cadastrar(pizzaTipoDTO);
         Assert.assertEquals("Tipo de pizza cadastrado com sucesso", pizzatipo.getBody());
     }
     @Test
-    public void teste4_editar() {
+     void teste4_editar() {
         PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         var pizzatipo = pizzaTipoController.editar(1L, pizzaTipoDTO);
         Assert.assertEquals("Tipo de pizza editado com sucesso", pizzatipo.getBody());

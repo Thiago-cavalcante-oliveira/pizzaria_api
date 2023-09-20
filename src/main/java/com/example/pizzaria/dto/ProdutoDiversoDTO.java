@@ -1,6 +1,6 @@
 package com.example.pizzaria.dto;
 
-import jakarta.persistence.Column;
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,14 +16,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProdutoDiversoDTO extends AbstractEntityDTO{
 
+    static final String MESSAGESIZE = "Valor invalido, deve ter entre 3 e 250 caracteres";
+    static final String MESSAGEQTD = "O valor não pode ser negativo";
 
-
-    @Size(min = 3, max = 150, message = "O nome deve ter entre 3 e 150 caracteres")
+    @Size(min = 3, max = 150, message = MESSAGESIZE)
     private String nome;
-    @Size(min = 3, max = 250, message = "O tipo deve ter entre 3 e 250 caracteres")
+    @Size(min = 3, max = 250, message = MESSAGESIZE)
     private String tipo;
-    @Min(value = 0, message = "O valor não pode ser negativo")
+    @Min(value = 0, message = MESSAGEQTD)
     private int quantidade;
-    @Min(value = 0, message = "O valor não pode ser negativo")
+    @Min(value = 0, message = MESSAGEQTD)
     private double preco;
 }

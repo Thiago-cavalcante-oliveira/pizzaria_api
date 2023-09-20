@@ -1,9 +1,5 @@
 package com.example.pizzaria.dto;
 
-import com.example.pizzaria.dto.*;
-
-import com.example.pizzaria.dto.PizzaTipoDTO;
-import com.example.pizzaria.dto.SaborDTO;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,12 +15,12 @@ import java.util.List;
 @NotBlank(message = "O campo não pode ser vazio")
 @NotNull(message = "O campo não pode ser nulo")
 public class PizzaDTO extends AbstractEntityDTO {
+    static final String MESSAGEVALUE = "O valor não pode ser negativo";
+
     private PizzaTipoDTO tipoDTO;
     private List<SaborDTO> saborDTO;
-    @Min(value = 0, message = "O valor não pode ser negativo")
+    @Min(value = 0, message = MESSAGEVALUE)
     private Double valorPizza;
 
-    public PizzaDTO(PizzaTipoDTO pizzaTipo, SaborDTO sabor) {
-        super();
-    }
+
 }

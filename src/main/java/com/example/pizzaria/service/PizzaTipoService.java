@@ -1,15 +1,11 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.PizzaTipoDTO;
-import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.entity.PizzaTipo;
-import com.example.pizzaria.entity.ProdutoDiverso;
 import com.example.pizzaria.repository.PizzaTipoRepository;
-import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,44 +18,40 @@ public class PizzaTipoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String success = "Tipo de pizza cadastrado com sucesso",
-            fail = "Tipo de pizza não cadastrado",
-            edited = "Tipo de pizza editado com sucesso",
-            deleted = "Tipo de pizza deletado com sucesso",
-            disabled = "Tipo de pizza desativado com sucesso",
-            duplicated = "Tipo de pizza já cadastrado";
+    static final String SUCCESS = "Tipo de pizza cadastrado com sucesso";
+    static final String FAIL = "Tipo de pizza não cadastrado";
+    static final String EDITED = "Tipo de pizza editado com sucesso";
+    static final String DELETED = "Tipo de pizza deletado com sucesso";
+    static final String DISABLED = "Tipo de pizza desativado com sucesso";
+    static final String DUPLICATED = "Tipo de pizza já cadastrado";
 
 
     public String cadastrar(PizzaTipoDTO pizzaTipoDTO) {
         if (pizzaTipoRepository.existsByNome(pizzaTipoDTO.getNome())) {
-            throw new RuntimeException(duplicated);
+            throw new IllegalArgumentException(DUPLICATED);
         }
         this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
-        return success;
+        return SUCCESS;
     }
 
     public String editar(PizzaTipoDTO pizzaTipoDTO, Long id) {
         if (pizzaTipoDTO.getId() != id) {
-            throw new RuntimeException(fail);
+            throw new IllegalArgumentException(FAIL);
         } else if (pizzaTipoRepository.findByNome(pizzaTipoDTO.getNome()).getId() != id) {
-            throw new RuntimeException(duplicated);
+            throw new IllegalArgumentException(DUPLICATED);
         }
         this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
-        return edited;
+        return EDITED;
     }
 
     public PizzaTipoDTO findById(Long id) {
-        PizzaTipo pizzaTipo = this.pizzaTipoRepository.findById(id).orElse(null);
-        return pizzaTipo == null
-                ? null
-                : modelMapper.map(pizzaTipo, PizzaTipoDTO.class);
+        return modelMapper.map(this.pizzaTipoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL)), PizzaTipoDTO.class);
     }
 
     public List<PizzaTipoDTO> findAll() {
         List<PizzaTipo> pizzaTipos = this.pizzaTipoRepository.findAll();
         List<PizzaTipoDTO> pizzaTipoDTO = new ArrayList<>();
         for (PizzaTipo i : pizzaTipos) {
-
             pizzaTipoDTO.add(modelMapper.map(i, PizzaTipoDTO.class));
         }
         return pizzaTipoDTO;
@@ -67,15 +59,15 @@ public class PizzaTipoService {
 
     public String deletar(Long id) {
         if (!pizzaTipoRepository.existsById(id)) {
-            throw new RuntimeException(duplicated);
+            throw new IllegalArgumentException(DUPLICATED);
         } else if (pizzaTipoRepository.pizzaTipoExistTb_pizza(id)) {
-            PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElse(null);
+            PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             salvarEmBanco.setAtivo(false);
             this.pizzaTipoRepository.save(salvarEmBanco);
-            return disabled;
+            return DISABLED;
         } else {
             this.pizzaTipoRepository.deleteById(id);
-            return deleted;
+            return DELETED;
         }
     }
 

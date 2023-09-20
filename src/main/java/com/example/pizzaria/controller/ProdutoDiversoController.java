@@ -19,6 +19,8 @@ public class ProdutoDiversoController {
     private ProdutoDiversoService produtoDiversoService;
     @Autowired
     private ProdutoDiversoRepositorio produtoDiversoRepositorio;
+    static final String SUCCESS = "Operacao realizada com sucesso";
+    static final String DELETED = "Item deletado com sucesso";
 
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
@@ -26,7 +28,7 @@ public class ProdutoDiversoController {
         try {
             this.produtoDiversoService.cadastrar(produtoDiversoDTO);
 
-            return ResponseEntity.ok("Cadastrado com sucesso!");
+            return ResponseEntity.ok(SUCCESS);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -34,12 +36,12 @@ public class ProdutoDiversoController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(@RequestParam("id") final Long id, @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
+    public ResponseEntity<String> editar( @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
 
         try {
-            this.produtoDiversoService.editar(produtoDiversoDTO, id);
+            this.produtoDiversoService.editar(produtoDiversoDTO);
 
-            return ResponseEntity.ok("Editado com sucesso!");
+            return ResponseEntity.ok(SUCCESS);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -67,7 +69,7 @@ public class ProdutoDiversoController {
     public ResponseEntity<String> deletar(@RequestParam("id") final Long id) {
         try {
             this.produtoDiversoRepositorio.deleteById(id);
-            return ResponseEntity.ok("Deletado com sucesso!");
+            return ResponseEntity.ok(DELETED);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

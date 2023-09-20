@@ -16,6 +16,9 @@ public class FuncionarioController {
 
     @Autowired
     private FuncionarioService funcionarioService;
+    static final String SUCESSO = "Operacao realizada com sucesso";
+    static final String DELETED = "Item deletado com sucesso";
+    static final String DISABLED = "Item inativado com sucesso";
     @GetMapping("all")
     public ResponseEntity<List<FuncionarioDTO>> findAll()
     {
@@ -46,7 +49,7 @@ public class FuncionarioController {
         try{
             this.funcionarioService.cadastrar(funcionarioDTO);
 
-            return ResponseEntity.ok("Funcionario cadastrado com sucesso");
+            return ResponseEntity.ok(SUCESSO);
         }
         catch (Exception e)
         {
@@ -55,14 +58,14 @@ public class FuncionarioController {
     }
 
     @PutMapping
-    ResponseEntity<String> editar(
+    public ResponseEntity<String> editar(
             @RequestParam("id") final Long id,
             @RequestBody final FuncionarioDTO funcionarioDTO)
     {
         try {
             this.funcionarioService.editar(funcionarioDTO, id);
 
-            return ResponseEntity.ok("Funcionario alterado com sucesso");
+            return ResponseEntity.ok(SUCESSO);
         }
         catch (Exception e)
         {
@@ -70,14 +73,15 @@ public class FuncionarioController {
         }
     }
 
-    @DeleteMapping ResponseEntity<String> deletar(@RequestParam("id") final Long id)
+    @DeleteMapping
+    public ResponseEntity<String> deletar(@RequestParam("id") final Long id)
     {
         try {
             if(this.funcionarioService.deletar(id)){
-                return ResponseEntity.ok("Funcionario desativado");
+                return ResponseEntity.ok(DISABLED);
             }
             else{
-                return ResponseEntity.ok("Funcionario deletado");
+                return ResponseEntity.ok(DELETED);
             }
         }
         catch (Exception e)

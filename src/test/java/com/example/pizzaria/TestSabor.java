@@ -1,27 +1,38 @@
 package com.example.pizzaria;
 
-import com.example.pizzaria.config.ModelMapperConfig;
+
 import com.example.pizzaria.controller.SaborController;
 import com.example.pizzaria.dto.SaborDTO;
 import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.SaborRepository;
 import com.example.pizzaria.service.SaborService;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
+
+import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @SpringBootTest
-public class SaborTeste {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+ class TestSabor {
 
     @MockBean
     SaborRepository saborRepository;
@@ -36,7 +47,7 @@ public class SaborTeste {
     protected static Sabor criaSabor() {
         Sabor sabor = new Sabor();
         sabor.setId(1L);
-        sabor.setSabor("Calabresa");
+        sabor.setNomeSabor("Calabresa");
         sabor.setValor(10.00);
         sabor.setIngredientes("Calabresa, queijo, molho de tomate");
         return sabor;
@@ -51,12 +62,14 @@ public class SaborTeste {
     protected static SaborDTO criaSaborDTO(Sabor sabor) {
         return modelMapper.map(sabor, SaborDTO.class);
     }
+
     @BeforeEach
     void injectDados() {
         Mockito.when(saborRepository.findById(criaSabor().getId())).thenReturn(Optional.of(criaSabor()));
         Mockito.when(saborRepository.findByNome(criaSaborDTO(criaSabor()).getNome())).thenReturn(criaSabor());
         Mockito.when(saborRepository.findAll()).thenReturn(listaSabores());
         Mockito.when(saborRepository.save(criaSabor())).thenReturn(criaSabor());
+
     }
 
     @Test
@@ -84,4 +97,32 @@ public class SaborTeste {
         var sabor = saborController.editar(1l, saborDTO);
         Assert.assertEquals(200, sabor.getStatusCodeValue());
     }
-}
+
+    @Test
+    void teste5_findById_fail() {
+        Mockito.when(saborRepository.findById(5L)).thenReturn(Optional.empty());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            saborController.findById(5L);
+        });
+
+
+    }
+
+    @Test
+    void teste6_findAll_fail() {
+        Mockito.when(saborRepository.findAll()).thenReturn(new ArrayList<Sabor>());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            saborController.findAll();
+        });
+    }
+
+    @Test
+    void teste7_cadastrar_fail() {
+        Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
+    Assert.assertTrue( exception.getMessage().contains("Sabor já cadastrado"));
+    }
+    }
+
+
+

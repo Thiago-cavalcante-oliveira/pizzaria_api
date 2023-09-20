@@ -16,15 +16,12 @@ public class Pizza extends AbstractEntity{
     @JoinColumn(name="co_pizza_tipo")
     @OneToOne
     private PizzaTipo tipo;
+
     @JoinColumn(name="co_sabor")
     @OneToMany
     private List<Sabor> sabor;
 
-
-
     @Column(name = "vl_pizza")
     private Double valorPizza;
-    public Pizza(PizzaTipo pizzaTipo, Sabor sabor) {
-        super();
-    }
+
 }
