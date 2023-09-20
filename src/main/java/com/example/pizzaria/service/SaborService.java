@@ -30,7 +30,6 @@ public class SaborService {
         if (this.saborRepository.existsByNome(saborDTO.getNome())) {
             throw new IllegalArgumentException(DUPLICATED);
         }
-
         this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
         return SUCCESS;
     }
