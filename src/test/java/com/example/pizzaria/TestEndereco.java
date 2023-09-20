@@ -6,6 +6,7 @@ import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.EnderecoRepository;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -35,14 +36,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     protected static Endereco criaEndereco()
     {
         Endereco endereco = new Endereco();
-        endereco.setId(1l);
+        endereco.setId(1L);
         endereco.setCep("85858-330");
         endereco.setNuEndereco(1445);
         endereco.setRua("Jose epinafio teles Costa");
         endereco.setBairro("Morumbi");
         endereco.setTelResidencia("45 99999-8855");
         endereco.setComplemento("casa");
-        endereco.setCliente(testCliente.criarCliente());
+        endereco.setCliente(TestCliente.criarCliente());
 
         return endereco;
     }
@@ -63,7 +64,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @BeforeEach
     void injectDados(){
-
         Mockito.when(enderecoRepository.findById(criaEndereco().getId())).thenReturn(Optional.of(criaEndereco()));
         Mockito.when(enderecoRepository.findAll()).thenReturn(listaEndereco());
         Mockito.when(enderecoRepository.doesExist(criaEndereco().getId())).thenReturn(true);
@@ -79,7 +79,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void Teste2_FindByAll(){
         var endereco = enderecoController.findAll();
-        Assert.assertEquals(1, endereco.getBody().size());
+        Assertions.assertEquals(1, endereco.getBody().size(), 0);
 
     }
 
@@ -113,7 +113,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @Test
     void teste7_findAll_fail() {
-        Mockito.when(enderecoRepository.findAll()).thenReturn(new ArrayList<Endereco>());
+        Mockito.when(enderecoRepository.findAll()).thenReturn(new ArrayList<>());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             enderecoController.findAll();
         });

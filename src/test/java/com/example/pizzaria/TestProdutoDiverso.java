@@ -56,7 +56,7 @@ import java.util.Optional;
     void injectData() {
 
         Mockito.when(repositorio.findById(1l)).thenReturn(Optional.of(criaProdutoDiverso()));
-        Mockito.when(repositorio.findById(2l)).thenReturn(Optional.of(null));
+//        Mockito.when(repositorio.findById(2l)).thenReturn(Optional.of(null));
         Mockito.when(repositorio.findAll()).thenReturn(listaProdutosDiverso());
     }
 
