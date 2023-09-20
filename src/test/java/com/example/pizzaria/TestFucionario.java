@@ -7,8 +7,10 @@ import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import com.example.pizzaria.service.FuncionarioService;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
  class TestFucionario {
     @MockBean
     FuncionarioRepository funcionarioRepository;
