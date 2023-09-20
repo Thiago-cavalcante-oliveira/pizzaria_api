@@ -56,7 +56,7 @@ public class Pedido extends AbstractEntity{
             inverseJoinColumns = @JoinColumn(name = "id_pizza_fk")
     )
     @Getter @Setter
-    private Set<Pizza> pizzas = new HashSet<Pizza>();
+    private Set<Pizza> pizzas = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -64,7 +64,7 @@ public class Pedido extends AbstractEntity{
             joinColumns = @JoinColumn(name = "id_pedido_fk"),
             inverseJoinColumns = @JoinColumn(name = "id_produto_fk")
     )
-    private Set<ProdutoDiverso> produtos = new HashSet<ProdutoDiverso>();
+    private Set<ProdutoDiverso> produtos = new HashSet<>();
 
 
 }

@@ -28,25 +28,13 @@ public class PizzaService {
     static final String DELETED = "Pizza deletada com sucesso";
 
 
-    public PizzaDTO convertToDTO(Pizza pizza) {
-        PizzaDTO pizzaDTO = new PizzaDTO();
-        List<SaborDTO> sabores = new ArrayList<>();
-        for (Sabor i : pizza.getSabor()
-        ) {
-            sabores.add(modelMapper.map(i, SaborDTO.class));
-        }
-        pizzaDTO.setSaborDTO(sabores);
-        pizzaDTO.setTipoDTO(modelMapper.map(pizza.getTipo(), PizzaTipoDTO.class));
-        return pizzaDTO;
-    }
+
 
 
     public PizzaDTO findById(Long id) {
         PizzaDTO pizzaDTO = new PizzaDTO();
-        pizzaDTO = modelMapper.map(this.pizzaRepository.findById(id).orElse(null), PizzaDTO.class);
-        if (pizzaDTO == null) {
-            throw new RuntimeException(FAIL);
-        }
+        pizzaDTO = modelMapper.map(this.pizzaRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL)), PizzaDTO.class);
+
         return pizzaDTO;
     }
 

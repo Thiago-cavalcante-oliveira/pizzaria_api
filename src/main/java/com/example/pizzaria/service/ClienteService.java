@@ -20,10 +20,10 @@ public class ClienteService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String NOTFOUND = "Registro não encontrado";
-    static String CPFNOTFOUND = "CPF não encontrado";
-    static String CPFDUPLICATED = "CPF já cadastrado";
-    static String SUCESS = "Operação realizada com sucesso";
+     static final String NOTFOUND = "Registro não encontrado";
+    static final String CPFNOTFOUND = "CPF não encontrado";
+    static final String CPFDUPLICATED = "CPF já cadastrado";
+    static final String SUCESS = "Operação realizada com sucesso";
 
 
     public List<ClienteDTO> findAll()    {

@@ -58,15 +58,13 @@ public class SaborService {
 
     }}
     public SaborDTO findById(Long id) {
-        Sabor sabor = this.saborRepository.findById(id).orElse(null);
-        return sabor == null
-                ? null
-                : modelMapper.map(sabor, SaborDTO.class);
+        Sabor sabor = this.saborRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
+                return modelMapper.map(sabor, SaborDTO.class);
     }
     public String deletar(Long id){
         if(saborRepository.saborExistTb_pizza(id)){
-            Optional<Sabor> sabor = this.saborRepository.findById(id);
-            sabor.get().setAtivo(false);
+            Sabor sabor = this.saborRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
+            sabor.setAtivo(false);
             throw new RuntimeException(DISABLED);
         }
         else{

@@ -40,7 +40,7 @@ import java.util.Optional;
     protected static Sabor criaSabor() {
         Sabor sabor = new Sabor();
         sabor.setId(1L);
-        sabor.setSabor("Calabresa");
+        sabor.setNome_sabor("Calabresa");
         sabor.setValor(10.00);
         sabor.setIngredientes("Calabresa, queijo, molho de tomate");
         return sabor;

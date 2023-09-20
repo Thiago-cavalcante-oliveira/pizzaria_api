@@ -22,7 +22,5 @@ public class PizzaDTO extends AbstractEntityDTO {
     @Min(value = 0, message = MESSAGEVALUE)
     private Double valorPizza;
 
-    public PizzaDTO(PizzaTipoDTO pizzaTipo, SaborDTO sabor) {
-        super();
-    }
+
 }

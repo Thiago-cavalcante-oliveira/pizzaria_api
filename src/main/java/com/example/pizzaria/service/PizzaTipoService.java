@@ -45,10 +45,8 @@ public class PizzaTipoService {
     }
 
     public PizzaTipoDTO findById(Long id) {
-        PizzaTipo pizzaTipo = this.pizzaTipoRepository.findById(id).orElse(null);
-        return pizzaTipo == null
-                ? null
-                : modelMapper.map(pizzaTipo, PizzaTipoDTO.class);
+        PizzaTipo pizzaTipo = this.pizzaTipoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
+                return modelMapper.map(pizzaTipo, PizzaTipoDTO.class);
     }
 
     public List<PizzaTipoDTO> findAll() {
@@ -65,7 +63,7 @@ public class PizzaTipoService {
         if (!pizzaTipoRepository.existsById(id)) {
             throw new RuntimeException(DUPLICATED);
         } else if (pizzaTipoRepository.pizzaTipoExistTb_pizza(id)) {
-            PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElse(null);
+            PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
             salvarEmBanco.setAtivo(false);
             this.pizzaTipoRepository.save(salvarEmBanco);
             return DISABLED;

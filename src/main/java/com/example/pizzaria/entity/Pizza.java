@@ -23,7 +23,5 @@ public class Pizza extends AbstractEntity{
 
     @Column(name = "vl_pizza")
     private Double valorPizza;
-    public Pizza(PizzaTipo pizzaTipo, Sabor sabor) {
-        super();
-    }
+
 }
