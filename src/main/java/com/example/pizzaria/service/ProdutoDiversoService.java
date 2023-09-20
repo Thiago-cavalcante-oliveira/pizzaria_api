@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class ProdutoDiversoService {
 
+    static final String FAIL ="Produto não cadastrado";
     @Autowired
     private ProdutoDiversoRepositorio produtoDiversoRepositorio;
 
@@ -28,10 +29,8 @@ public class ProdutoDiversoService {
                this.produtoDiversoRepositorio.save(modelMapper.map(produtoDiversoDTO, ProdutoDiverso.class));
     }
     public ProdutoDiversoDTO findById(Long id) {
-        ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElse(null);
-        return produtoDiverso == null
-                ? null
-                : modelMapper.map(produtoDiverso, ProdutoDiversoDTO.class);
+        ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
+        return modelMapper.map(produtoDiverso, ProdutoDiversoDTO.class);
     }
    public List<ProdutoDiversoDTO> findAll() {
 List<ProdutoDiverso> produtoDiversos = this.produtoDiversoRepositorio.findAll();
@@ -43,7 +42,7 @@ List<ProdutoDiversoDTO> produtoDiversosDTO = new ArrayList<>();
     }
 
     public void deletar(Long id){
-        ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElse(null);
+        ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
         produtoDiverso.setAtivo(false);
         this.produtoDiversoRepositorio.save(produtoDiverso);
     }

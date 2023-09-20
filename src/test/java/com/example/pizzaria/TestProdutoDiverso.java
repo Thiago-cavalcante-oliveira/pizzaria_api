@@ -56,6 +56,7 @@ import java.util.Optional;
     void injectData() {
 
         Mockito.when(repositorio.findById(1l)).thenReturn(Optional.of(criaProdutoDiverso()));
+        Mockito.when(repositorio.findById(2l)).thenReturn(Optional.of(null));
         Mockito.when(repositorio.findAll()).thenReturn(listaProdutosDiverso());
     }
 
@@ -64,6 +65,16 @@ import java.util.Optional;
         var teste = controller.findById(1l);
         Assert.assertEquals(1l,teste.getBody().getId(),0);
     }
+
+    @Test
+    void testeFindByIdFail() {
+
+        var teste = controller.findById(2l);
+        System.out.println(teste);
+        Assert.assertTrue(teste.getStatusCode().isError()) ;
+    }
+
+
 
     @Test
     void testeFindAll()
@@ -92,4 +103,12 @@ import java.util.Optional;
         var teste = controller.deletar(1l);
         Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
+
+    @Test
+    void testeDeletarFail()
+    {
+        var teste = controller.deletar(2l);
+        Assert.assertTrue(teste.getStatusCode().isError()) ;
+    }
+
 }
