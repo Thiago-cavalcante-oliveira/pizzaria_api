@@ -22,10 +22,10 @@ public class PizzaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String success = "Pizza cadastrada com sucesso";
-    static final String fail = "Pizza não cadastrada";
-    static final String edited = "Pizza editada com sucesso";
-    static final String delete = "Pizza deletada com sucesso";
+    static final String SUCCESS = "Pizza cadastrada com sucesso";
+    static final String FAIL = "Pizza não cadastrada";
+    static final String EDITED = "Pizza editada com sucesso";
+    static final String DELETED = "Pizza deletada com sucesso";
 
 
     public PizzaDTO convertToDTO(Pizza pizza) {
@@ -45,7 +45,7 @@ public class PizzaService {
         PizzaDTO pizzaDTO = new PizzaDTO();
         pizzaDTO = modelMapper.map(this.pizzaRepository.findById(id).orElse(null), PizzaDTO.class);
         if (pizzaDTO == null) {
-            throw new RuntimeException(fail);
+            throw new RuntimeException(FAIL);
         }
         return pizzaDTO;
     }
@@ -53,7 +53,7 @@ public class PizzaService {
     public List<PizzaDTO> findAll() {
         List<Pizza> pizzas = this.pizzaRepository.findAll();
         if (pizzas.isEmpty()) {
-            throw new RuntimeException(fail);
+            throw new RuntimeException(FAIL);
         } else {
             List<PizzaDTO> pizzasDTO = new ArrayList<>();
             for (Pizza i : pizzas
@@ -67,27 +67,27 @@ public class PizzaService {
     public String cadastrar(PizzaDTO pizza) {
         Pizza salvarEmBanco = modelMapper.map(pizza, Pizza.class);
         this.pizzaRepository.save(salvarEmBanco);
-        return success;
+        return SUCCESS;
     }
 
     public String editar(PizzaDTO pizza, Long id) {
         if (!Objects.equals(pizza.getId(), id)) {
             throw new RuntimeException("Os IDs não coincidem");
         } else if (!pizzaRepository.existsById(id)) {
-            throw new RuntimeException(fail);
+            throw new RuntimeException(FAIL);
         } else {
 
             this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
-            return edited;
+            return EDITED;
         }
     }
 
     public String deletar(Long id) {
         if (!pizzaRepository.existsById(id)) {
-            throw new RuntimeException(fail);
+            throw new RuntimeException(FAIL);
         } else {
             this.pizzaRepository.deleteById(id);
-            return delete;
+            return DELETED;
         }
 
 
