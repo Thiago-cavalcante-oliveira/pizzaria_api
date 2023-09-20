@@ -6,6 +6,7 @@ import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.List;
 public class ProdutoDiversoService {
 
     static final String FAIL ="Produto não cadastrado";
+
+    static final String TIPODUPLICATED = "Tipo já cadastrado";
+
     @Autowired
     private ProdutoDiversoRepositorio produtoDiversoRepositorio;
 
@@ -22,11 +26,19 @@ public class ProdutoDiversoService {
 
 
     public void cadastrar(ProdutoDiversoDTO produtoDiversoDTO) {
+        Assert.isTrue(!(this.produtoDiversoRepositorio.alreadyExists(produtoDiversoDTO.getTipo())), TIPODUPLICATED);
         this.produtoDiversoRepositorio.save(modelMapper.map(produtoDiversoDTO, ProdutoDiverso.class));
     }
 
-    public void editar(ProdutoDiversoDTO produtoDiversoDTO) {
-               this.produtoDiversoRepositorio.save(modelMapper.map(produtoDiversoDTO, ProdutoDiverso.class));
+    public void editar(ProdutoDiversoDTO produtoDiversoDTO, Long id) {
+
+        ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
+        if(this.produtoDiversoRepositorio.alreadyExists(produtoDiversoDTO.getTipo()))
+        {
+            Assert.isTrue( this.produtoDiversoRepositorio.isTheSame(produtoDiversoDTO.getTipo()).equals(id) , TIPODUPLICATED);
+        }
+        modelMapper.map(produtoDiversoDTO,produtoDiverso);
+        this.produtoDiversoRepositorio.save(produtoDiverso);
     }
     public ProdutoDiversoDTO findById(Long id) {
         ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
