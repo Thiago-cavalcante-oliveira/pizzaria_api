@@ -68,7 +68,7 @@ public class ProdutoDiversoController {
     @DeleteMapping
     public ResponseEntity<String> deletar(@RequestParam("id") final Long id) {
         try {
-            this.produtoDiversoRepositorio.deleteById(id);
+            this.produtoDiversoService.deletar(id);
             return ResponseEntity.ok(DELETED);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
