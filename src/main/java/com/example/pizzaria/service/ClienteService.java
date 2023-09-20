@@ -35,7 +35,6 @@ public class ClienteService {
         if(clientes.isEmpty()){
             throw new IllegalArgumentException(FAILLIST);
         }else{
-            List<ClienteDTO> clienteDTO = new ArrayList<>();
             for (Cliente i : clientes
             ) {
                 clientesDTO.add(modelMapper.map(i, ClienteDTO.class));
