@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
- class SaborTeste {
+ class TestSabor {
 
     @MockBean
     SaborRepository saborRepository;
@@ -40,7 +40,7 @@ import java.util.Optional;
     protected static Sabor criaSabor() {
         Sabor sabor = new Sabor();
         sabor.setId(1L);
-        sabor.setNome_sabor("Calabresa");
+        sabor.setNomeSabor("Calabresa");
         sabor.setValor(10.00);
         sabor.setIngredientes("Calabresa, queijo, molho de tomate");
         return sabor;

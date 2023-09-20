@@ -16,7 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.*;
 
 @SpringBootTest
-public class PedidoTeste {
+ class TestPedido {
 
     @MockBean
     PedidoRepository repositorio;
@@ -24,29 +24,29 @@ public class PedidoTeste {
     PedidoController controller;
 
     static ModelMapper modelMapper = new ModelMapper();
-    static ClienteTeste clienteTeste;
-    static FucionarioTeste fucionarioTeste;
-    static PizzaTeste pizzaTeste;
-    static ProdutoDiversoTeste produtoDiversoTeste;
-    static EnderecoTeste enderecoTeste;
+    static TestCliente testCliente;
+    static TestFucionario testFucionario;
+    static TestPizza testPizza;
+    static TestProdutoDiverso testProdutoDiverso;
+    static TestEndereco testEndereco;
 
     protected static Pedido criaPedido()
     {
         Set<Pizza> pizzas = new HashSet<>();
-        pizzas.add(pizzaTeste.criaPizza());
+        pizzas.add(TestPizza.criaPizza());
         Set<ProdutoDiverso> produtos = new HashSet<>();
-        produtos.add(produtoDiversoTeste.criaProdutoDiverso());
+        produtos.add(TestProdutoDiverso.criaProdutoDiverso());
 
         Date data = new Date();
         Pedido pedido = new Pedido();
         pedido.setId(1l);
         pedido.setAtivo(true);
-        pedido.setCliente(clienteTeste.criarCliente());
-        pedido.setAtendente(fucionarioTeste.criaFuncionario());
-        pedido.setEndereco(enderecoTeste.criaEndereco());
-        pedido.setEntregador(fucionarioTeste.criaFuncionario());
+        pedido.setCliente(TestCliente.criarCliente());
+        pedido.setAtendente(TestFucionario.criaFuncionario());
+        pedido.setEndereco(TestEndereco.criaEndereco());
+        pedido.setEntregador(TestFucionario.criaFuncionario());
         pedido.setSolicitaEntrega(true);
-        pedido.setPedido("pedido");
+        pedido.setSituacaoPedido("pedido");
         pedido.setValorTotal(50);
         pedido.setFormaPagamento("dinheiro");
         pedido.setEntrega(false);
@@ -97,21 +97,21 @@ public class PedidoTeste {
     void testeCadastrar()
     {
         var teste = controller.cadastrar(criaPedidoDTO(criaPedido()));
-        Assert.assertTrue(teste.getBody().contains("cadastrado"));
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
 
     @Test
     void testeEditar()
     {
         var teste = controller.editar(1l, criaPedidoDTO(criaPedido()));
-        Assert.assertTrue(teste.getBody().contains("alterado"));
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
 
     @Test
     void testeDeletar()
     {
         var teste = controller.deletar(1l);
-        Assert.assertTrue(teste.getBody().contains("desativado"));
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
 
 }

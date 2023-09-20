@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-public class FucionarioTeste {
+ class TestFucionario {
     @MockBean
     FuncionarioRepository funcionarioRepository;
 

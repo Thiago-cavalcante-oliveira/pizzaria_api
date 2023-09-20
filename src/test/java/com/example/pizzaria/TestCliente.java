@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ClienteTeste {
+ class TestCliente {
     @MockBean
     ClienteRepository clienteRepository;
     @Autowired

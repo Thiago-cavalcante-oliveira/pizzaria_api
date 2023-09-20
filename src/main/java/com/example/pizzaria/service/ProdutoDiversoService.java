@@ -24,7 +24,7 @@ public class ProdutoDiversoService {
         this.produtoDiversoRepositorio.save(modelMapper.map(produtoDiversoDTO, ProdutoDiverso.class));
     }
 
-    public void editar(ProdutoDiversoDTO produtoDiversoDTO, Long id) {
+    public void editar(ProdutoDiversoDTO produtoDiversoDTO) {
                this.produtoDiversoRepositorio.save(modelMapper.map(produtoDiversoDTO, ProdutoDiverso.class));
     }
     public ProdutoDiversoDTO findById(Long id) {

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-public class EnderecoTeste {
+ class TestEndereco {
     @MockBean
     EnderecoRepository enderecoRepository;
     @Autowired
@@ -26,7 +26,7 @@ public class EnderecoTeste {
 
     static ModelMapper modelMapper = new ModelMapper();
 
-    static ClienteTeste clienteTeste;
+    static TestCliente testCliente;
 
     protected static Endereco criaEndereco()
     {
@@ -38,7 +38,7 @@ public class EnderecoTeste {
         endereco.setBairro("Morumbi");
         endereco.setTelResidencia("45 99999-8855");
         endereco.setComplemento("casa");
-        endereco.setCliente(clienteTeste.criarCliente());
+        endereco.setCliente(testCliente.criarCliente());
 
         return endereco;
     }
@@ -82,7 +82,7 @@ public class EnderecoTeste {
     @Test
     void TesteCadastrarEndereco(){
         var endereco = enderecoController.cadastrar(criaEnderecoDTO(criaEndereco()));
-        Assert.assertEquals("Endereço cadastrado com sucesso", endereco.getBody());
+        Assert.assertEquals("Operacao realizada com sucesso", endereco.getBody());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class EnderecoTeste {
     @Test
     void TesteDeletar(){
         var endereco = enderecoController.deletar(1l);
-        Assert.assertEquals("Endereço desativado",endereco.getBody());
+        Assert.assertEquals("Item deletado com sucesso",endereco.getBody());
     }
 
 

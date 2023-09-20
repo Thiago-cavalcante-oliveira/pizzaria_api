@@ -9,6 +9,7 @@ import com.example.pizzaria.repository.PizzaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +33,13 @@ public class PizzaService {
 
 
     public PizzaDTO findById(Long id) {
-        PizzaDTO pizzaDTO = new PizzaDTO();
-        pizzaDTO = modelMapper.map(this.pizzaRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL)), PizzaDTO.class);
-
-        return pizzaDTO;
+        return  modelMapper.map(this.pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL)), PizzaDTO.class);
     }
 
     public List<PizzaDTO> findAll() {
         List<Pizza> pizzas = this.pizzaRepository.findAll();
         if (pizzas.isEmpty()) {
-            throw new RuntimeException(FAIL);
+            throw new IllegalArgumentException(FAIL);
         } else {
             List<PizzaDTO> pizzasDTO = new ArrayList<>();
             for (Pizza i : pizzas
@@ -53,16 +51,15 @@ public class PizzaService {
     }
 
     public String cadastrar(PizzaDTO pizza) {
-        Pizza salvarEmBanco = modelMapper.map(pizza, Pizza.class);
-        this.pizzaRepository.save(salvarEmBanco);
+        this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
         return SUCCESS;
     }
 
     public String editar(PizzaDTO pizza, Long id) {
         if (!Objects.equals(pizza.getId(), id)) {
-            throw new RuntimeException("Os IDs não coincidem");
+            throw new IllegalArgumentException("Os IDs não coincidem");
         } else if (!pizzaRepository.existsById(id)) {
-            throw new RuntimeException(FAIL);
+            throw new IllegalArgumentException(FAIL);
         } else {
 
             this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
@@ -72,7 +69,7 @@ public class PizzaService {
 
     public String deletar(Long id) {
         if (!pizzaRepository.existsById(id)) {
-            throw new RuntimeException(FAIL);
+            throw new IllegalArgumentException(FAIL);
         } else {
             this.pizzaRepository.deleteById(id);
             return DELETED;

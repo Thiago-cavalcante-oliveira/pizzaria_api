@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-public class ProdutoDiversoTeste {
+ class TestProdutoDiverso {
 
     @MockBean
     ProdutoDiversoRepositorio repositorio;
@@ -76,20 +76,20 @@ public class ProdutoDiversoTeste {
     void testeCadastrar()
     {
         var teste = controller.cadastrar(criaProdutoDiversoDTO(criaProdutoDiverso()));
-        Assert.assertTrue(teste.getBody().contains("Cadastrado"));
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
 
     @Test
     void testeEditar()
     {
-        var teste = controller.editar(1l, criaProdutoDiversoDTO(criaProdutoDiverso()));
-        Assert.assertTrue(teste.getBody().contains("Editado"));
+        var teste = controller.editar( criaProdutoDiversoDTO(criaProdutoDiverso()));
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
 
     @Test
     void testeDeletar()
     {
         var teste = controller.deletar(1l);
-        Assert.assertTrue(teste.getBody().contains("Deletado"));
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
 }

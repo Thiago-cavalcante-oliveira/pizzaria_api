@@ -28,7 +28,7 @@ public class SaborService {
 
     public String cadastrar(SaborDTO saborDTO) {
         if (this.saborRepository.existsByNome(saborDTO.getNome())) {
-            throw new RuntimeException(DUPLICATED);
+            throw new IllegalArgumentException(DUPLICATED);
         }
 
         this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
@@ -37,9 +37,9 @@ public class SaborService {
     public String editar(SaborDTO saborDTO, Long id) {
         Long idFront = id;
         if (saborDTO.getId() != idFront) {
-            throw new RuntimeException("Os IDs não coincidem");
+            throw new IllegalArgumentException("Os IDs não coincidem");
         } else if (saborRepository.findByNome(saborDTO.getNome()).getId() != idFront) {
-            throw new RuntimeException(DUPLICATED);
+            throw new IllegalArgumentException(DUPLICATED);
         }
         this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
         return EDITED;
@@ -47,7 +47,7 @@ public class SaborService {
     public List<SaborDTO> findAll() {
         List<Sabor> sabores = this.saborRepository.findAll();
         if(sabores.isEmpty()){
-            throw new RuntimeException(FAIL);
+            throw new IllegalArgumentException(FAIL);
         }else{
         List<SaborDTO> saboresDTO = new ArrayList<>();
         for (Sabor i : sabores
@@ -58,14 +58,13 @@ public class SaborService {
 
     }}
     public SaborDTO findById(Long id) {
-        Sabor sabor = this.saborRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
-                return modelMapper.map(sabor, SaborDTO.class);
+                        return modelMapper.map(this.saborRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL)), SaborDTO.class);
     }
     public String deletar(Long id){
         if(saborRepository.saborExistTb_pizza(id)){
-            Sabor sabor = this.saborRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
+            Sabor sabor = this.saborRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             sabor.setAtivo(false);
-            throw new RuntimeException(DISABLED);
+            throw new IllegalArgumentException(DISABLED);
         }
         else{
             this.saborRepository.deleteById(id);

@@ -25,7 +25,7 @@ import java.util.List;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PizzaTeste {
+ class TestPizza {
     @MockBean
     PizzaRepository pizzaRepository;
     @Autowired
@@ -37,14 +37,14 @@ public class PizzaTeste {
 
    static ModelMapper modelMapper = new ModelMapper();
 
-     SaborTeste saboresTeste = new SaborTeste();
-     PizzaTipoTeste pizzaTipoTeste = new PizzaTipoTeste();
+     TestSabor saboresTeste = new TestSabor();
+     TestPizzaTipo testPizzaTipo = new TestPizzaTipo();
 
     protected static Pizza criaPizza() {
         Pizza pizza = new Pizza();
         pizza.setId(1L);
-        pizza.setSabor(SaborTeste.listaSabores());
-        pizza.setTipo(PizzaTipoTeste.criaPizzaTipo());
+        pizza.setSabor(TestSabor.listaSabores());
+        pizza.setTipo(TestPizzaTipo.criaPizzaTipo());
         return pizza;
     }
      protected static PizzaDTO criaPizzaDTO(Pizza pizza) {
@@ -67,7 +67,7 @@ public class PizzaTeste {
         Mockito.when(pizzaRepository.checaID(criaPizza().getId())).thenReturn(criaPizza());
     }
     @Test
-    public void Teste1_FindByID() {
+     void Teste1_FindByID() {
         var pizza = pizzaController.findById(1L);
         Assertions.assertEquals(1, pizza.getBody().getId(), 0);
     }

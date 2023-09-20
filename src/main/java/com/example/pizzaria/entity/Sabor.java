@@ -14,9 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Sabor extends AbstractEntity {
     @Column(name = "nm_sabor")
-    private String nome_sabor;
+    private String nomeSabor;
     @Column(name = "ds_ingredientes")
     private String ingredientes;
     @Column(name = "vl_sabor")
+
     private double valor;
 }

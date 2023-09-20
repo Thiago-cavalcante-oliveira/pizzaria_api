@@ -36,10 +36,10 @@ public class ProdutoDiversoController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(@RequestParam("id") final Long id, @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
+    public ResponseEntity<String> editar( @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
 
         try {
-            this.produtoDiversoService.editar(produtoDiversoDTO, id);
+            this.produtoDiversoService.editar(produtoDiversoDTO);
 
             return ResponseEntity.ok(SUCCESS);
         } catch (Exception e) {

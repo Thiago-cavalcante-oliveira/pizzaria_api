@@ -34,7 +34,7 @@ public class Pedido extends AbstractEntity{
     private boolean solicitaEntrega;
 
     @Column(name = "st_pedido")
-    private String pedido;
+    private String situacaoPedido;
 
     @Column(name = "nu_valor_total")
     private double valorTotal;

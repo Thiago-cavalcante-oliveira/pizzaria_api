@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
- class PizzaTipoTeste {
+ class TestPizzaTipo {
     @MockBean
     PizzaTipoRepository pizzaTipoRepository;
     @Autowired

@@ -28,7 +28,7 @@ public class PizzaTipoService {
 
     public String cadastrar(PizzaTipoDTO pizzaTipoDTO) {
         if (pizzaTipoRepository.existsByNome(pizzaTipoDTO.getNome())) {
-            throw new RuntimeException(DUPLICATED);
+            throw new IllegalArgumentException(DUPLICATED);
         }
         this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
         return SUCCESS;
@@ -36,24 +36,22 @@ public class PizzaTipoService {
 
     public String editar(PizzaTipoDTO pizzaTipoDTO, Long id) {
         if (pizzaTipoDTO.getId() != id) {
-            throw new RuntimeException(FAIL);
+            throw new IllegalArgumentException(FAIL);
         } else if (pizzaTipoRepository.findByNome(pizzaTipoDTO.getNome()).getId() != id) {
-            throw new RuntimeException(DUPLICATED);
+            throw new IllegalArgumentException(DUPLICATED);
         }
         this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
         return EDITED;
     }
 
     public PizzaTipoDTO findById(Long id) {
-        PizzaTipo pizzaTipo = this.pizzaTipoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
-                return modelMapper.map(pizzaTipo, PizzaTipoDTO.class);
+        return modelMapper.map(this.pizzaTipoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL)), PizzaTipoDTO.class);
     }
 
     public List<PizzaTipoDTO> findAll() {
         List<PizzaTipo> pizzaTipos = this.pizzaTipoRepository.findAll();
         List<PizzaTipoDTO> pizzaTipoDTO = new ArrayList<>();
         for (PizzaTipo i : pizzaTipos) {
-
             pizzaTipoDTO.add(modelMapper.map(i, PizzaTipoDTO.class));
         }
         return pizzaTipoDTO;
@@ -61,9 +59,9 @@ public class PizzaTipoService {
 
     public String deletar(Long id) {
         if (!pizzaTipoRepository.existsById(id)) {
-            throw new RuntimeException(DUPLICATED);
+            throw new IllegalArgumentException(DUPLICATED);
         } else if (pizzaTipoRepository.pizzaTipoExistTb_pizza(id)) {
-            PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
+            PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             salvarEmBanco.setAtivo(false);
             this.pizzaTipoRepository.save(salvarEmBanco);
             return DISABLED;
