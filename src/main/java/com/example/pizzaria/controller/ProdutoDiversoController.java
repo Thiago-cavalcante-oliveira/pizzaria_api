@@ -1,7 +1,6 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.ProdutoDiversoDTO;
-import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import com.example.pizzaria.service.ProdutoDiversoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +16,6 @@ public class ProdutoDiversoController {
 
     @Autowired
     private ProdutoDiversoService produtoDiversoService;
-    @Autowired
-    private ProdutoDiversoRepositorio produtoDiversoRepositorio;
     static final String SUCCESS = "Operacao realizada com sucesso";
     static final String DELETED = "Item deletado com sucesso";
 
@@ -36,10 +33,10 @@ public class ProdutoDiversoController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar( @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
+    public ResponseEntity<String> editar(@RequestParam("id") final Long id, @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
 
         try {
-            this.produtoDiversoService.editar(produtoDiversoDTO);
+            this.produtoDiversoService.editar(produtoDiversoDTO, id);
 
             return ResponseEntity.ok(SUCCESS);
         } catch (Exception e) {
