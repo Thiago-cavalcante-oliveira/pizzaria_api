@@ -15,11 +15,11 @@ import java.util.List;
 @NotBlank(message = "O campo não pode ser vazio")
 @NotNull(message = "O campo não pode ser nulo")
 public class PizzaDTO extends AbstractEntityDTO {
-    static final String messageValue = "O valor não pode ser negativo";
+    static final String MESSAGEVALUE = "O valor não pode ser negativo";
 
     private PizzaTipoDTO tipoDTO;
     private List<SaborDTO> saborDTO;
-    @Min(value = 0, message = messageValue)
+    @Min(value = 0, message = MESSAGEVALUE)
     private Double valorPizza;
 
     public PizzaDTO(PizzaTipoDTO pizzaTipo, SaborDTO sabor) {

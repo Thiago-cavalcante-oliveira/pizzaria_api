@@ -21,9 +21,7 @@ import java.util.Set;
 @NotBlank(message = "O item não pode ser vazio")
 
 public class PedidoDTO extends AbstractEntityDTO {
-    static final String messageSize = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
-
-
+    static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
 
     private ClienteDTO cliente;
 
@@ -35,12 +33,12 @@ public class PedidoDTO extends AbstractEntityDTO {
 
     private boolean solicitaEntrega;
 
-    @Size(min = 3, max = 200, message = messageSize)
+    @Size(min = 3, max = 200, message = MESSAGESIZE)
     private String pedido;
 
     private double valorTotal;
 
-    @Size(min = 3, max = 200, message = messageSize)
+    @Size(min = 3, max = 200, message = MESSAGESIZE)
     private String formaPagamento;
 
     private boolean entrega;

@@ -11,9 +11,9 @@ import org.hibernate.validator.constraints.br.CPF;
 @NotNull(message = "Nome não pode ser nulo")
 @NotBlank(message = "Nome não pode ser vazio")
 public class FuncionarioDTO extends AbstractEntityDTO {
-    static final String messageCPF = "CPF Ivalido. Informe um CPF valido.";
+    static final String MESSAGECPF = "CPF Ivalido. Informe um CPF valido.";
     private String nome;
-    @CPF(message = messageCPF)
+    @CPF(message = MESSAGECPF)
     private String cpf;
     private String funcao;
 }

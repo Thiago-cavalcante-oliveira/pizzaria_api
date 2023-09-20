@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PizzaTipoDTO extends AbstractEntityDTO {
-    static final String messageSize = "Erro: e preciso ter no minimo 3 e no maximo 250 caracteres.";
-    static final String messageValue = "O valor não pode ser negativo";
+    static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 250 caracteres.";
+    static final String MESSAGEVALUE = "O valor não pode ser negativo";
 
-    @Size(min = 3, max = 250, message = messageSize)
+    @Size(min = 3, max = 250, message = MESSAGESIZE)
     private String nome;
 
-    @Size(min = 3, max = 250, message = messageSize)
+    @Size(min = 3, max = 250, message = MESSAGESIZE)
     private String tamanho;
 
-    @Min(value = 0, message = messageValue)
+    @Min(value = 0, message = MESSAGEVALUE)
     private double valor;
 
 

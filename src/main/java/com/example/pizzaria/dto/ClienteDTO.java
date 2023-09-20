@@ -12,17 +12,17 @@ import org.hibernate.validator.constraints.br.CPF;
 @NotBlank(message = "Erro: o item não pode ser vazio")
 @Data
 public class ClienteDTO extends AbstractEntityDTO{
-    static final String messageSize = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
-    static final String messageCPF = "CPF Ivalido. Informe um CPF valido.";
+    static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
+    static final String MESSAGECPF = "CPF Ivalido. Informe um CPF valido.";
 
-    @Size(min = 3, max = 200, message = messageSize)
+    @Size(min = 3, max = 200, message = MESSAGESIZE)
     private String nome;
 
 
-    @Size(min = 3, max = 200, message = messageSize)
+    @Size(min = 3, max = 200, message = MESSAGESIZE)
     private String telCelular ;
 
 
-    @CPF(message = messageCPF)
+    @CPF(message = MESSAGECPF)
     private String cpf;
 }
