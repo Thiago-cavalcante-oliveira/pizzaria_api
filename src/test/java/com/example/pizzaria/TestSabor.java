@@ -40,10 +40,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     SaborService saborService;
     @Autowired
     SaborController saborController;
-
     static
     ModelMapper modelMapper = new ModelMapper();
-
     protected static Sabor criaSabor() {
         Sabor sabor = new Sabor();
         sabor.setId(1L);
@@ -52,43 +50,60 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         sabor.setIngredientes("Calabresa, queijo, molho de tomate");
         return sabor;
     }
-
     protected static List<Sabor> listaSabores() {
         List<Sabor> sabores = new ArrayList<>();
         sabores.add(criaSabor());
         return sabores;
     }
-
     protected static SaborDTO criaSaborDTO(Sabor sabor) {
         return modelMapper.map(sabor, SaborDTO.class);
     }
-
     @BeforeEach
     void injectDados() {
         Mockito.when(saborRepository.findById(criaSabor().getId())).thenReturn(Optional.of(criaSabor()));
         Mockito.when(saborRepository.findByNome(criaSaborDTO(criaSabor()).getNome())).thenReturn(criaSabor());
         Mockito.when(saborRepository.findAll()).thenReturn(listaSabores());
         Mockito.when(saborRepository.save(criaSabor())).thenReturn(criaSabor());
-
     }
-
     @Test
-    void Teste1_FindByID() {
+    void Teste1FindByIDSuccess() {
         var sabor = saborController.findById(1L);
         Assertions.assertEquals(1, sabor.getBody().getId(), 0);
     }
-
     @Test
-    void teste2_FindAll() {
+    void teste2FindByIdFail() {
+        Mockito.when(saborRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> saborController.findById(1L));
+    }
+    @Test
+    void teste3FindAllSuccess() {
         var sabores = saborController.findAll();
         Assertions.assertEquals(1, sabores.getBody().size(), 0);
     }
+    @Test
+    void teste4FindAllFailMessage() {
+        Mockito.when(saborRepository.findAll()).thenReturn(new ArrayList<>());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> saborController.findAll());
+        Assertions.assertTrue(exception.getMessage().contains("Sabor não cadastrado"));
+    }
+    @Test
+    void teste5FindAllFailException(){
+        Mockito.when(saborRepository.findAll()).thenReturn(new ArrayList<>());
+ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> saborController.findAll());
+        Assertions.assertThrows(ResponseStatusException.class, () -> saborController.findAll());
+    }
 
     @Test
-    void teste3_Cadastrar() {
+    void teste6CadastrarSuccess() {
         SaborDTO saborDTO = criaSaborDTO(criaSabor());
         var sabor = saborController.cadastrar(saborDTO);
         Assert.assertEquals("Sabor cadastrado com sucesso", sabor.getBody());
+    }
+    @Test
+    void teste7_cadastrar_fail() {
+        Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
+        Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
     }
 
     @Test
@@ -98,30 +113,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assert.assertEquals(200, sabor.getStatusCodeValue());
     }
 
-    @Test
-    void teste5_findById_fail() {
-        Mockito.when(saborRepository.findById(5L)).thenReturn(Optional.empty());
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            saborController.findById(5L);
-        });
 
 
-    }
 
-    @Test
-    void teste6_findAll_fail() {
-        Mockito.when(saborRepository.findAll()).thenReturn(new ArrayList<Sabor>());
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            saborController.findAll();
-        });
-    }
 
-    @Test
-    void teste7_cadastrar_fail() {
-        Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
-    Assert.assertTrue( exception.getMessage().contains("Sabor já cadastrado"));
-    }
+
     }
 
 
