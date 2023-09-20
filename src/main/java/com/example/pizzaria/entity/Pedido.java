@@ -67,6 +67,7 @@ public class Pedido extends AbstractEntity{
             joinColumns = @JoinColumn(name = "id_pedido_fk"),
             inverseJoinColumns = @JoinColumn(name = "id_pizza_fk")
     )
+    @Getter @Setter
     private Set<Pizza> pizzas = new HashSet<Pizza>();
 
     @ManyToMany
