@@ -32,10 +32,9 @@ public class EnderecoService {
         if(enderecos.isEmpty()){
             throw new IllegalArgumentException(FAILLIST);
         }else{
-            List<EnderecoDTO> enderecoDTOS = new ArrayList<>();
             for (Endereco i : enderecos
             ) {
-                enderecoDTOS.add(modelMapper.map(i, EnderecoDTO.class));
+                enderecosDTO.add(modelMapper.map(i, EnderecoDTO.class));
             }
             return enderecosDTO;
         }
