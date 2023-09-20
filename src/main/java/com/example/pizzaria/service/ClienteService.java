@@ -20,12 +20,11 @@ public class ClienteService {
     @Autowired
     private ModelMapper modelMapper;
 
-
-
     static String NOTFOUND = "Registro não encontrado";
     static String CPFNOTFOUND = "CPF não encontrado";
     static String CPFDUPLICATED = "CPF já cadastrado";
     static String SUCESS = "Operação realizada com sucesso";
+
 
     public List<ClienteDTO> findAll()    {
         List<Cliente> clientes = this.clienteRepository.findAll();
@@ -35,7 +34,6 @@ public class ClienteService {
             clientesDTO.add(modelMapper.map(i, ClienteDTO.class));
         }
         return clientesDTO;
-
     }
 
     public ClienteDTO findById(Long id)

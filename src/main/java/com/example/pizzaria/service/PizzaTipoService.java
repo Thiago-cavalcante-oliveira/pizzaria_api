@@ -1,15 +1,11 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.PizzaTipoDTO;
-import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.entity.PizzaTipo;
-import com.example.pizzaria.entity.ProdutoDiverso;
 import com.example.pizzaria.repository.PizzaTipoRepository;
-import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +18,12 @@ public class PizzaTipoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String success = "Tipo de pizza cadastrado com sucesso",
-            fail = "Tipo de pizza não cadastrado",
-            edited = "Tipo de pizza editado com sucesso",
-            deleted = "Tipo de pizza deletado com sucesso",
-            disabled = "Tipo de pizza desativado com sucesso",
-            duplicated = "Tipo de pizza já cadastrado";
+    static final String success = "Tipo de pizza cadastrado com sucesso";
+    static final String fail = "Tipo de pizza não cadastrado";
+    static final String edited = "Tipo de pizza editado com sucesso";
+    static final String deleted = "Tipo de pizza deletado com sucesso";
+    static final String disabled = "Tipo de pizza desativado com sucesso";
+    static final String duplicated = "Tipo de pizza já cadastrado";
 
 
     public String cadastrar(PizzaTipoDTO pizzaTipoDTO) {

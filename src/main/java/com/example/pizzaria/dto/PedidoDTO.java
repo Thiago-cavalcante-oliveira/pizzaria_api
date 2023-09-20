@@ -10,41 +10,37 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-import java.math.BigDecimal;
+
 import java.util.Date;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NotNull(message = "O item não pode ser nulo")
+@NotBlank(message = "O item não pode ser vazio")
+
 public class PedidoDTO extends AbstractEntityDTO {
+    static final String messageSize = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
 
 
-    @NotNull(message = "Cliente não pode ser nulo")
+
     private ClienteDTO cliente;
 
-    @NotNull(message = "Atendente não pode ser nulo")
     private FuncionarioDTO atendente;
 
-    @NotNull(message = "Endereco não pode ser nulo")
     private EnderecoDTO endereco;
 
-    @NotNull(message = "Entregador não pode ser nulo")
     private FuncionarioDTO entregador;
 
-    @NotNull(message = "Solicitação de entrega não pode ser nula")
     private boolean solicitaEntrega;
 
-    @NotNull(message = "Pedido não pode ser nulo")
-    @NotBlank(message = "Pedido não pode ser vazio")
-    @Size(min = 3, max = 200, message = "Pedido precisa ter um minimo de 3 e maximo de 200 caracteres")
+    @Size(min = 3, max = 200, message = messageSize)
     private String pedido;
 
     private double valorTotal;
 
-    @NotNull(message = "Forma de pagamento não pode ser nulo")
-    @NotBlank(message = "Forma de pagamento não pode ser vazio")
-    @Size(min = 3, max = 200, message = "Forma de pagamento precisa ter um minimo de 3 e maximo de 200 caracteres")
+    @Size(min = 3, max = 200, message = messageSize)
     private String formaPagamento;
 
     private boolean entrega;

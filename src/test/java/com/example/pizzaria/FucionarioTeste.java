@@ -1,13 +1,10 @@
 package com.example.pizzaria;
 
 import com.example.pizzaria.controller.FuncionarioController;
-import com.example.pizzaria.dto.ClienteDTO;
-import com.example.pizzaria.dto.EnderecoDTO;
 import com.example.pizzaria.dto.FuncionarioDTO;
 import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import com.example.pizzaria.service.FuncionarioService;
-import com.jayway.jsonpath.JsonPath;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +35,7 @@ public class FucionarioTeste {
 
     protected static Funcionario criaFuncionario(){
         Funcionario funcionario = new Funcionario();
-        funcionario.setId(1l);
+        funcionario.setId(1L);
         funcionario.setNome("Eduardo");
         funcionario.setCpf("109.999.888-78");
         funcionario.setFuncao("Gerente");
@@ -60,7 +56,7 @@ public class FucionarioTeste {
 
         Mockito.when(funcionarioRepository.findById(criaFuncionario().getId())).thenReturn(Optional.of(criaFuncionario()));
         Mockito.when(funcionarioRepository.findAll()).thenReturn(listaFuncionario());
-        Mockito.when(funcionarioRepository.isTheSame(criaFuncionario().getCpf())).thenReturn(1l);
+        Mockito.when(funcionarioRepository.isTheSame(criaFuncionario().getCpf())).thenReturn(1L);
         Mockito.when(funcionarioRepository.doesExist(criaFuncionario().getId())).thenReturn(criaFuncionario().isAtivo());
         Mockito.when(funcionarioRepository.alreadyExists(criaFuncionario().getCpf())).thenReturn(false);
     }
@@ -68,7 +64,7 @@ public class FucionarioTeste {
     @Test
     void TesteFindById(){
         var funcionario = funcionarioController.findById(1l);
-        Assert.assertEquals(1l, funcionario.getBody().getId(), 0);
+        Assert.assertEquals(1L, funcionario.getBody().getId(), 0);
     }
 
     @Test
@@ -81,13 +77,13 @@ public class FucionarioTeste {
     void TesteCadastrarFuncionario(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.cadastrar(funcionarioDTO);
-        Assert.assertEquals("Funcionario cadastrado com sucesso", funcionario.getBody());
+        Assert.assertEquals("Operacao realizada com sucesso", funcionario.getBody());
     }
 
     @Test
     void TesteAtualizar(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
-        var funcionario = funcionarioController.editar(1l, funcionarioDTO);
+        var funcionario = funcionarioController.editar(1L, funcionarioDTO);
         Assert.assertEquals(200, funcionario.getStatusCodeValue());
     }
 
@@ -95,7 +91,7 @@ public class FucionarioTeste {
     @Test
     void TesteDeletar(){
         var funcionario = funcionarioController.deletar(1l);
-        Assert.assertEquals("Funcionario desativado",funcionario.getBody());
+        Assert.assertEquals("Item inativado com sucesso",funcionario.getBody());
     }
 
 }

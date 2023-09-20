@@ -1,11 +1,9 @@
 package com.example.pizzaria.service;
 
-import com.example.pizzaria.config.ModelMapperConfig;
 import com.example.pizzaria.dto.PizzaDTO;
 import com.example.pizzaria.dto.PizzaTipoDTO;
 import com.example.pizzaria.dto.SaborDTO;
 import com.example.pizzaria.entity.Pizza;
-import com.example.pizzaria.entity.PizzaTipo;
 import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.PizzaRepository;
 import org.modelmapper.ModelMapper;
@@ -25,10 +23,9 @@ public class PizzaService {
     private ModelMapper modelMapper;
 
     static String success = "Pizza cadastrada com sucesso";
-    static String      fail = "Pizza não cadastrada";
-    static String     edited = "Pizza editada com sucesso";
-    static String       delete = "Pizza deletada com sucesso";
-
+    static final String fail = "Pizza não cadastrada";
+    static final String edited = "Pizza editada com sucesso";
+    static final String delete = "Pizza deletada com sucesso";
 
 
     public PizzaDTO convertToDTO(Pizza pizza) {
