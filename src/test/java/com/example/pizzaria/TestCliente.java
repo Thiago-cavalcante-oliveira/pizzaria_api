@@ -67,26 +67,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-     void Teste1_FindByID(){
+     void Teste1FindByID(){
         var cliente = clienteController.findById(1L);
         Assert.assertEquals(1L,cliente.getBody().getId(),0);
     }
 
    @Test
-     void Teste2_FindByAll(){
+     void Teste2FindByAll(){
         var clientes = clienteController.findAll();
         Assert.assertEquals(1, clientes.getBody().size());
     }
 
     @Test
-    void Teste3_CadastrarCliente(){
+    void Teste3CadastrarCliente(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.cadastrar(clienteDTO);
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
     @Test
-     void Teste4_Atualizar(){
+     void Teste4Atualizar(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.editar(1L, clienteDTO);
         Assert.assertEquals(200, cliente.getStatusCodeValue());
@@ -95,7 +95,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
     @Test
-    void Teste5_Delete(){
+    void Teste5Delete(){
         var cliente = clienteController.deletar(1l);
         Assert.assertEquals("Cliente desativado",cliente.getBody());
 
@@ -103,7 +103,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
     @Test
-    void teste6_findById_fail() {
+    void teste6findById_fail() {
         Mockito.when(clienteRepository.findById(5L)).thenReturn(Optional.empty());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             clienteController.findById(5L);
@@ -113,7 +113,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste7_findAll_fail() {
+    void teste7findAll_fail() {
         Mockito.when(clienteRepository.findAll()).thenReturn(new ArrayList<Cliente>());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             clienteController.findAll();
@@ -121,7 +121,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste8_cadastrar_fail() {
+    void teste8cadastrar_fail() {
         Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(criaClienteDto(criarCliente())));
         Assert.assertTrue( exception.getMessage().contains("CPF não encontrado"));

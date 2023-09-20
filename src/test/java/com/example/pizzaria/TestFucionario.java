@@ -69,26 +69,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void Teste1_FindById(){
+    void Teste1FindById(){
         var funcionario = funcionarioController.findById(1l);
         Assert.assertEquals(1L, funcionario.getBody().getId(), 0);
     }
 
     @Test
-    void Teste2_FindByAll(){
+    void Teste2FindByAll(){
         var funcionario = funcionarioController.findAll();
         Assert.assertEquals(1, funcionario.getBody().size());
     }
 
     @Test
-    void Teste3_CadastrarFuncionario(){
+    void Teste3CadastrarFuncionario(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.cadastrar(funcionarioDTO);
         Assert.assertEquals("Operacao realizada com sucesso", funcionario.getBody());
     }
 
     @Test
-    void Teste4_Atualizar(){
+    void Teste4Atualizar(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.editar(1L, funcionarioDTO);
         Assert.assertEquals(200, funcionario.getStatusCodeValue());
@@ -96,13 +96,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
     @Test
-    void Teste5_Deletar(){
+    void Teste5Deletar(){
         var funcionario = funcionarioController.deletar(1l);
         Assert.assertEquals("Item inativado com sucesso",funcionario.getBody());
     }
 
     @Test
-    void teste6_findById_fail() {
+    void teste6findById_fail() {
         Mockito.when(funcionarioRepository.findById(5L)).thenReturn(Optional.empty());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             funcionarioController.findById(5L);
@@ -110,17 +110,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste7_findAll_fail() {
+    void teste7findAll_fail() {
         Mockito.when(funcionarioRepository.findAll()).thenReturn(new ArrayList<Funcionario>());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             funcionarioController.findAll();
         });
     }
-    /*
-    @Test
-    void teste8_cadastrar_fail() {
-        Mockito.when(funcionarioRepository.alreadyExists(criaFuncionario().getCpf())).thenReturn(true);
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> funcionarioController.cadastrar(criaFuncionarioDto(criaFuncionario())));
-        Assert.assertTrue( exception.getMessage().contains("Falha ao cadastrar funcionario"));
-    }*/
+
 }
