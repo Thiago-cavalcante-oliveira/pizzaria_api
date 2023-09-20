@@ -19,7 +19,8 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
     @Autowired
     private ModelMapper modelMapper;
-    static final String fail = "Registro nao encontrado.";
+    static final String FAIL = "Registro nao encontrado.";
+
     public List<PedidoDTO> findAll(){
         List<Pedido> pedidos = this.pedidoRepository.findAll();
         List<PedidoDTO> pedidosDTO = new ArrayList<>();
@@ -32,7 +33,7 @@ public class PedidoService {
 
     public PedidoDTO findById(Long id)
     {
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
+        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         return modelMapper.map(pedido, PedidoDTO.class);
     }
 
@@ -43,14 +44,14 @@ public class PedidoService {
 
     public void editar(PedidoDTO pedidoDTO, Long id)
     {
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
+        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         modelMapper.map(pedidoDTO, pedido);
         this.pedidoRepository.save(pedido);
     }
 
     public void deletar(Long id)
     {
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
+        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         pedido.setAtivo(false);
         this.pedidoRepository.save(pedido);
     }
