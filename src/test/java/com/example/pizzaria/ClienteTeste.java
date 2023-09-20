@@ -57,7 +57,7 @@ public class ClienteTeste {
         Mockito.when(clienteRepository.save(criarCliente())).thenReturn(criarCliente());
         Mockito.when(clienteRepository.findById(criarCliente().getId())).thenReturn(Optional.of(criarCliente()));
         Mockito.when(clienteRepository.findAll()).thenReturn(listaClientes());
-        Mockito.when(clienteRepository.isTheSame(criarCliente().getCpf())).thenReturn(1l);
+        Mockito.when(clienteRepository.isTheSame(criarCliente().getCpf())).thenReturn(1L);
         Mockito.when(clienteRepository.doesExist(criarCliente().getId())).thenReturn(criarCliente().isAtivo());
         Mockito.when(clienteRepository.alreadyExists(criarCliente().getCpf())).thenReturn(false);
     }

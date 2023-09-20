@@ -20,8 +20,8 @@ public class FuncionarioService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static final String fail = "Registro não encontrado";
-    static final String duplicated = "CPF já cadastrado";
+    static final String FAIL = "Registro não encontrado";
+    static final String DUPLICATED = "CPF já cadastrado";
 
     public List<FuncionarioDTO> findAll(){
         List<Funcionario> funcionarios = this.funcionarioRepository.findAll();
@@ -36,23 +36,23 @@ public class FuncionarioService {
 
     public FuncionarioDTO findById(Long id)
     {
-        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
+        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
 
         return modelMapper.map(funcionario, FuncionarioDTO.class);
     }
 
     public void cadastrar(FuncionarioDTO funcionarioDTO)
     {
-        Assert.isTrue(!(this.funcionarioRepository.alreadyExists(funcionarioDTO.getCpf())), duplicated);
+        Assert.isTrue(!(this.funcionarioRepository.alreadyExists(funcionarioDTO.getCpf())), DUPLICATED);
         this.funcionarioRepository.save(modelMapper.map(funcionarioDTO, Funcionario.class));
     }
 
     public void editar(FuncionarioDTO funcionarioDTO, Long id)
     {
-        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
+        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         if(this.funcionarioRepository.alreadyExists(funcionarioDTO.getCpf()))
         {
-            Assert.isTrue( this.funcionarioRepository.isTheSame(funcionarioDTO.getCpf()).equals(id) ,duplicated);
+            Assert.isTrue( this.funcionarioRepository.isTheSame(funcionarioDTO.getCpf()).equals(id) , DUPLICATED);
         }
         modelMapper.map(funcionarioDTO,funcionario);
         this.funcionarioRepository.save(funcionario);
@@ -60,7 +60,7 @@ public class FuncionarioService {
 
     public boolean deletar(Long id)
     {
-        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(fail));
+        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         funcionario.setAtivo(false);
         this.funcionarioRepository.save(funcionario);
         return true;

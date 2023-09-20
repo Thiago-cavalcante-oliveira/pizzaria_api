@@ -19,7 +19,7 @@ public class EnderecoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static final String fail = "Registro não encontrado";
+    static final String FAIL = "Registro não encontrado";
 
     public List<EnderecoDTO> findAll() {
         List<Endereco> enderecos = this.enderecoRepository.findAll();
@@ -33,7 +33,7 @@ public class EnderecoService {
     }
 
     public EnderecoDTO findById(Long id) {
-        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(fail));
+        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
 
         return modelMapper.map(endereco, EnderecoDTO.class);
     }
@@ -43,14 +43,14 @@ public class EnderecoService {
     }
 
     public void editar(EnderecoDTO enderecoDTO, Long id) {
-        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(fail));
+        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
 
         modelMapper.map(enderecoDTO, endereco);
         this.enderecoRepository.save(endereco);
     }
 
     public boolean deletar(Long id) {
-        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(fail));
+        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
         endereco.setAtivo(false);
         this.enderecoRepository.save(endereco);
         return true;

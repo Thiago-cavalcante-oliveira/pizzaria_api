@@ -18,30 +18,30 @@ public class PizzaTipoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static final String success = "Tipo de pizza cadastrado com sucesso";
-    static final String fail = "Tipo de pizza não cadastrado";
-    static final String edited = "Tipo de pizza editado com sucesso";
-    static final String deleted = "Tipo de pizza deletado com sucesso";
-    static final String disabled = "Tipo de pizza desativado com sucesso";
-    static final String duplicated = "Tipo de pizza já cadastrado";
+    static final String SUCCESS = "Tipo de pizza cadastrado com sucesso";
+    static final String FAIL = "Tipo de pizza não cadastrado";
+    static final String EDITED = "Tipo de pizza editado com sucesso";
+    static final String DELETED = "Tipo de pizza deletado com sucesso";
+    static final String DISABLED = "Tipo de pizza desativado com sucesso";
+    static final String DUPLICATED = "Tipo de pizza já cadastrado";
 
 
     public String cadastrar(PizzaTipoDTO pizzaTipoDTO) {
         if (pizzaTipoRepository.existsByNome(pizzaTipoDTO.getNome())) {
-            throw new RuntimeException(duplicated);
+            throw new RuntimeException(DUPLICATED);
         }
         this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
-        return success;
+        return SUCCESS;
     }
 
     public String editar(PizzaTipoDTO pizzaTipoDTO, Long id) {
         if (pizzaTipoDTO.getId() != id) {
-            throw new RuntimeException(fail);
+            throw new RuntimeException(FAIL);
         } else if (pizzaTipoRepository.findByNome(pizzaTipoDTO.getNome()).getId() != id) {
-            throw new RuntimeException(duplicated);
+            throw new RuntimeException(DUPLICATED);
         }
         this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
-        return edited;
+        return EDITED;
     }
 
     public PizzaTipoDTO findById(Long id) {
@@ -63,15 +63,15 @@ public class PizzaTipoService {
 
     public String deletar(Long id) {
         if (!pizzaTipoRepository.existsById(id)) {
-            throw new RuntimeException(duplicated);
+            throw new RuntimeException(DUPLICATED);
         } else if (pizzaTipoRepository.pizzaTipoExistTb_pizza(id)) {
             PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElse(null);
             salvarEmBanco.setAtivo(false);
             this.pizzaTipoRepository.save(salvarEmBanco);
-            return disabled;
+            return DISABLED;
         } else {
             this.pizzaTipoRepository.deleteById(id);
-            return deleted;
+            return DELETED;
         }
     }
 
