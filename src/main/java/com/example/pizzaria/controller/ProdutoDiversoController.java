@@ -56,7 +56,6 @@ public class ProdutoDiversoController {
 
     @GetMapping
     public ResponseEntity<ProdutoDiversoDTO> findById(@RequestParam("id") final Long id) {
-
         try {
             return ResponseEntity.ok(this.produtoDiversoService.findById(id));
         } catch (Exception e) {
