@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SaborDTO extends AbstractEntityDTO {
 
-    final String messageSize = "Valor invalido, deve ter entre 3 e 250 caracteres";
-    final String messageValue = "O valor não pode ser negativo";
+    static final String messageSize = "Valor invalido, deve ter entre 3 e 250 caracteres";
+    static final String messageValue = "O valor não pode ser negativo";
 
     @Size(min = 3, max = 150, message = messageSize)
     private String nome;

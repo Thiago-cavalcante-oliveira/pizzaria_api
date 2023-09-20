@@ -15,7 +15,7 @@ import java.util.List;
 @NotBlank(message = "O campo não pode ser vazio")
 @NotNull(message = "O campo não pode ser nulo")
 public class PizzaDTO extends AbstractEntityDTO {
-    final String messageValue = "O valor não pode ser negativo";
+    static final String messageValue = "O valor não pode ser negativo";
 
     private PizzaTipoDTO tipoDTO;
     private List<SaborDTO> saborDTO;

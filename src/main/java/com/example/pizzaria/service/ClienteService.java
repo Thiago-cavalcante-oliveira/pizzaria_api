@@ -22,10 +22,10 @@ public class ClienteService {
 
 
 
-    static String notFound = "Registro não encontrado";
-    static String  cpfNotFound = "CPF não encontrado";
-    static String      cpfDuplicated = "CPF já cadastrado";
-    static String       sucess = "Operação realizada com sucesso";
+    static final String notFound = "Registro não encontrado";
+    static final String  cpfNotFound = "CPF não encontrado";
+    static final String      cpfDuplicated = "CPF já cadastrado";
+    static final String       sucess = "Operação realizada com sucesso";
 
     public List<ClienteDTO> findAll()    {
         List<Cliente> clientes = this.clienteRepository.findAll();

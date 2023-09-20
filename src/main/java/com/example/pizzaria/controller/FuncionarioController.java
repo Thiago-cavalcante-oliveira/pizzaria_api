@@ -16,9 +16,9 @@ public class FuncionarioController {
 
     @Autowired
     private FuncionarioService funcionarioService;
-    final String success = "Operacao realizada com sucesso";
-    final String deleted = "Item deletado com sucesso";
-    final String disabled = "Item inativado com sucesso";
+    static final String success = "Operacao realizada com sucesso";
+    static final String deleted = "Item deletado com sucesso";
+    static final String disabled = "Item inativado com sucesso";
     @GetMapping("all")
     public ResponseEntity<List<FuncionarioDTO>> findAll()
     {

@@ -63,26 +63,26 @@ public class ClienteTeste {
     }
 
     @Test
-    public void TesteFindByID(){
+     void TesteFindByID(){
         var cliente = clienteController.findById(1L);
         Assert.assertEquals(1L,cliente.getBody().getId(),0);
     }
 
    @Test
-    public void TesteFindByAll(){
+     void TesteFindByAll(){
         var clientes = clienteController.findAll();
         Assert.assertEquals(1, clientes.getBody().size());
     }
 
     @Test
-   public void TesteCadastrarCliente(){
+    void TesteCadastrarCliente(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.cadastrar(clienteDTO);
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
     @Test
-    public void TesteAtualizar(){
+     void TesteAtualizar(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.editar(1L, clienteDTO);
         Assert.assertEquals(200, cliente.getStatusCodeValue());
@@ -91,7 +91,7 @@ public class ClienteTeste {
 
 
     @Test
-   public void TesteDelete(){
+    void TesteDelete(){
         var cliente = clienteController.deletar(1l);
         Assert.assertEquals("Cliente desativado",cliente.getBody());
 

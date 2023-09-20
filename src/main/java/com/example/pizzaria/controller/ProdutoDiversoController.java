@@ -19,8 +19,8 @@ public class ProdutoDiversoController {
     private ProdutoDiversoService produtoDiversoService;
     @Autowired
     private ProdutoDiversoRepositorio produtoDiversoRepositorio;
-    final String success = "Operacao realizada com sucesso";
-    final String deleted = "Item deletado com sucesso";
+    static final String success = "Operacao realizada com sucesso";
+    static final String deleted = "Item deletado com sucesso";
 
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {

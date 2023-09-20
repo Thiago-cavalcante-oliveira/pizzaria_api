@@ -20,8 +20,8 @@ public class FuncionarioService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String fail = "Registro não encontrado";
-    static String duplicated = "CPF já cadastrado";
+    static final String fail = "Registro não encontrado";
+    static final String duplicated = "CPF já cadastrado";
 
     public List<FuncionarioDTO> findAll(){
         List<Funcionario> funcionarios = this.funcionarioRepository.findAll();

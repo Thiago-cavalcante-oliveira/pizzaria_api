@@ -18,12 +18,12 @@ public class PizzaTipoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String success = "Tipo de pizza cadastrado com sucesso";
-    static String fail = "Tipo de pizza não cadastrado";
-    static String edited = "Tipo de pizza editado com sucesso";
-    static String deleted = "Tipo de pizza deletado com sucesso";
-    static String disabled = "Tipo de pizza desativado com sucesso";
-    static String duplicated = "Tipo de pizza já cadastrado";
+    static final String success = "Tipo de pizza cadastrado com sucesso";
+    static final String fail = "Tipo de pizza não cadastrado";
+    static final String edited = "Tipo de pizza editado com sucesso";
+    static final String deleted = "Tipo de pizza deletado com sucesso";
+    static final String disabled = "Tipo de pizza desativado com sucesso";
+    static final String duplicated = "Tipo de pizza já cadastrado";
 
 
     public String cadastrar(PizzaTipoDTO pizzaTipoDTO) {

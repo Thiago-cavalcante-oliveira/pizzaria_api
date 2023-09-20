@@ -23,9 +23,9 @@ public class PizzaService {
     private ModelMapper modelMapper;
 
     static String success = "Pizza cadastrada com sucesso";
-    static String fail = "Pizza não cadastrada";
-    static String edited = "Pizza editada com sucesso";
-    static String delete = "Pizza deletada com sucesso";
+    static final String fail = "Pizza não cadastrada";
+    static final String edited = "Pizza editada com sucesso";
+    static final String delete = "Pizza deletada com sucesso";
 
 
     public PizzaDTO convertToDTO(Pizza pizza) {

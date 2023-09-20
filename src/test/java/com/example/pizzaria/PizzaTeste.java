@@ -72,18 +72,18 @@ public class PizzaTeste {
         Assertions.assertEquals(1, pizza.getBody().getId(), 0);
     }
     @Test
-    public void teste2_FindAll() {
+     void teste2_FindAll() {
         var pizzas = pizzaController.findAll();
         Assert.assertEquals(1, pizzas.getBody().size(), 0);
     }
     @Test
-    public void teste3_Cadastrar() {
+     void teste3_Cadastrar() {
         PizzaDTO pizzaDTO= criaPizzaDTO(criaPizza());
         var pizza = pizzaController.cadastrar(pizzaDTO);
         Assert.assertEquals("Pizza cadastrada com sucesso", pizza.getBody());
     }
     @Test
-    public void teste4_Editar() {
+     void teste4_Editar() {
         PizzaDTO pizzaDTO= criaPizzaDTO(criaPizza());
         var pizza = pizzaController.editar(1L, pizzaDTO);
         Assert.assertEquals("Pizza editada com sucesso", pizza.getBody());

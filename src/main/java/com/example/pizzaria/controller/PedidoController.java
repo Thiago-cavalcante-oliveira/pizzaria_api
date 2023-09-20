@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping(value = "api/pedido")
 public class PedidoController {
 
-    final String success = "Operacao realizada com sucesso";
-    final String deleted = "Item deletado com sucesso";
-    final String disabled = "Item inativado com sucesso";
+    static final String success = "Operacao realizada com sucesso";
+    static final String deleted = "Item deletado com sucesso";
+    static final String disabled = "Item inativado com sucesso";
 
     @Autowired
     private PedidoService pedidoService;

@@ -19,7 +19,7 @@ public class EnderecoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    static String fail = "Registro não encontrado";
+    static final String fail = "Registro não encontrado";
 
     public List<EnderecoDTO> findAll() {
         List<Endereco> enderecos = this.enderecoRepository.findAll();

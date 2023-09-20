@@ -19,7 +19,7 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
     @Autowired
     private ModelMapper modelMapper;
-    static String fail = "Registro nao encontrado.";
+    static final String fail = "Registro nao encontrado.";
     public List<PedidoDTO> findAll(){
         List<Pedido> pedidos = this.pedidoRepository.findAll();
         List<PedidoDTO> pedidosDTO = new ArrayList<>();
