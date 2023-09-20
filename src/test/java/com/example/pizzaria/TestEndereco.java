@@ -75,25 +75,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void Teste1_FindById(){
+    void Teste1FindById(){
         var endereco = enderecoController.findById(1l);
         Assert.assertEquals(1l, endereco.getBody().getId(), 0);
     }
 
     @Test
-    void Teste2_FindByAll(){
+    void Teste2FindByAll(){
         var endereco = enderecoController.findAll();
         Assert.assertEquals(1, endereco.getBody().size());
     }
 
     @Test
-    void Teste3_CadastrarEndereco(){
+    void Teste3CadastrarEndereco(){
         var endereco = enderecoController.cadastrar(criaEnderecoDTO(criaEndereco()));
         Assert.assertEquals("Operacao realizada com sucesso", endereco.getBody());
     }
 
     @Test
-    void Teste4_Atualizar(){
+    void Teste4Atualizar(){
 
         var endereco = enderecoController.editar(1l, criaEnderecoDTO(criaEndereco()));
         Assert.assertEquals(200, endereco.getStatusCodeValue());
@@ -101,13 +101,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
     @Test
-    void Teste5_Deletar(){
+    void Teste5Deletar(){
         var endereco = enderecoController.deletar(1l);
         Assert.assertEquals("Item deletado com sucesso",endereco.getBody());
     }
 
     @Test
-    void teste6_findById_fail() {
+    void teste6findById_fail() {
         Mockito.when(enderecoRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             enderecoController.findById(5L);
@@ -115,7 +115,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste7_findAll_fail() {
+    void teste7findAll_fail() {
         Mockito.when(enderecoRepository.findAll()).thenReturn(new ArrayList<Endereco>());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             enderecoController.findAll();

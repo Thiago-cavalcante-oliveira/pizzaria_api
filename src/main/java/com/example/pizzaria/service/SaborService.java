@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,9 +36,9 @@ public class SaborService {
     }
     public String editar(SaborDTO saborDTO, Long id) {
         Long idFront = id;
-        if (saborDTO.getId() != idFront) {
+        if (!Objects.equals(saborDTO.getId(), idFront)) {
             throw new IllegalArgumentException("Os IDs não coincidem");
-        } else if (saborRepository.findByNome(saborDTO.getNome()).getId() != idFront) {
+        } else if (!Objects.equals(saborRepository.findByNome(saborDTO.getNome()).getId(), idFront)) {
             throw new IllegalArgumentException(DUPLICATED);
         }
         this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
