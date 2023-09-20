@@ -5,10 +5,12 @@ import com.example.pizzaria.dto.EnderecoDTO;
 import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.EnderecoRepository;
+import com.example.pizzaria.service.EnderecoService;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,14 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
  class TestEndereco {
     @MockBean
     EnderecoRepository enderecoRepository;
     @Autowired
     EnderecoController enderecoController;
+    @Autowired
+    EnderecoService enderecoService;
 
     static ModelMapper modelMapper = new ModelMapper();
 
@@ -36,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     protected static Endereco criaEndereco()
     {
         Endereco endereco = new Endereco();
-        endereco.setId(1L);
+        endereco.setId(1l);
         endereco.setCep("85858-330");
         endereco.setNuEndereco(1445);
         endereco.setRua("Jose epinafio teles Costa");
@@ -44,7 +49,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         endereco.setTelResidencia("45 99999-8855");
         endereco.setComplemento("casa");
         endereco.setCliente(TestCliente.criarCliente());
-
         return endereco;
     }
 
@@ -52,7 +56,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     {
         List<Endereco> enderecos = new ArrayList<>();
         enderecos.add(criaEndereco());
-
         return enderecos;
     }
 
@@ -64,6 +67,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @BeforeEach
     void injectDados(){
+
         Mockito.when(enderecoRepository.findById(criaEndereco().getId())).thenReturn(Optional.of(criaEndereco()));
         Mockito.when(enderecoRepository.findAll()).thenReturn(listaEndereco());
         Mockito.when(enderecoRepository.doesExist(criaEndereco().getId())).thenReturn(true);
@@ -79,8 +83,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void Teste2_FindByAll(){
         var endereco = enderecoController.findAll();
-        Assertions.assertEquals(1, endereco.getBody().size(), 0);
-
+        Assert.assertEquals(1, endereco.getBody().size());
     }
 
     @Test
@@ -105,7 +108,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @Test
     void teste6_findById_fail() {
-        Mockito.when(enderecoRepository.findById(5L)).thenReturn(Optional.empty());
+        Mockito.when(enderecoRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             enderecoController.findById(5L);
         });
@@ -113,7 +116,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @Test
     void teste7_findAll_fail() {
-        Mockito.when(enderecoRepository.findAll()).thenReturn(new ArrayList<>());
+        Mockito.when(enderecoRepository.findAll()).thenReturn(new ArrayList<Endereco>());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             enderecoController.findAll();
         });
