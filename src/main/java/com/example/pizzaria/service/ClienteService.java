@@ -1,7 +1,9 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.ClienteDTO;
+import com.example.pizzaria.dto.EnderecoDTO;
 import com.example.pizzaria.entity.Cliente;
+import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +26,22 @@ public class ClienteService {
     static final String CPFNOTFOUND = "CPF não encontrado";
     static final String CPFDUPLICATED = "CPF já cadastrado";
     static final String SUCESS = "Operação realizada com sucesso";
+    static final String FAILLIST = "Lista não encontrada";
 
 
     public List<ClienteDTO> findAll()    {
         List<Cliente> clientes = this.clienteRepository.findAll();
         List<ClienteDTO> clientesDTO = new ArrayList<>();
-        for(Cliente i : clientes)
-        {
-            clientesDTO.add(modelMapper.map(i, ClienteDTO.class));
+        if(clientes.isEmpty()){
+            throw new IllegalArgumentException(FAILLIST);
+        }else{
+            List<ClienteDTO> clienteDTO = new ArrayList<>();
+            for (Cliente i : clientes
+            ) {
+                clientesDTO.add(modelMapper.map(i, ClienteDTO.class));
+            }
+            return clientesDTO;
         }
-        return clientesDTO;
     }
 
     public ClienteDTO findById(Long id)

@@ -1,7 +1,9 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.EnderecoDTO;
+import com.example.pizzaria.dto.SaborDTO;
 import com.example.pizzaria.entity.Endereco;
+import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.EnderecoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +22,23 @@ public class EnderecoService {
     private ModelMapper modelMapper;
 
     static final String FAIL = "Registro não encontrado";
+    static final String FAILLIST = "Lista não encontrada";
+
 
     public List<EnderecoDTO> findAll() {
         List<Endereco> enderecos = this.enderecoRepository.findAll();
         List<EnderecoDTO> enderecosDTO = new ArrayList<>();
 
-        for (Endereco i : enderecos) {
-            enderecosDTO.add(modelMapper.map(i, EnderecoDTO.class));
+        if(enderecos.isEmpty()){
+            throw new IllegalArgumentException(FAILLIST);
+        }else{
+            List<EnderecoDTO> enderecoDTOS = new ArrayList<>();
+            for (Endereco i : enderecos
+            ) {
+                enderecoDTOS.add(modelMapper.map(i, EnderecoDTO.class));
+            }
+            return enderecosDTO;
         }
-
-        return enderecosDTO;
     }
 
     public EnderecoDTO findById(Long id) {
@@ -39,6 +48,7 @@ public class EnderecoService {
     }
 
     public void cadastrar(EnderecoDTO enderecoDTO) {
+
         this.enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
     }
 

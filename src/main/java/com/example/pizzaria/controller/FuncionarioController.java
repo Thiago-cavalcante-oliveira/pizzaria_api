@@ -19,6 +19,9 @@ public class FuncionarioController {
     static final String SUCESSO = "Operacao realizada com sucesso";
     static final String DELETED = "Item deletado com sucesso";
     static final String DISABLED = "Item inativado com sucesso";
+
+    static final String FAIL = "Falha ao cadastrar funcionario";
+
     @GetMapping("all")
     public ResponseEntity<List<FuncionarioDTO>> findAll()
     {
@@ -53,7 +56,7 @@ public class FuncionarioController {
         }
         catch (Exception e)
         {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new IllegalArgumentException(FAIL);
         }
     }
 

@@ -20,6 +20,7 @@ public class EnderecoController {
     static final String SUCESSO = "Operacao realizada com sucesso";
     static final String DELETED = "Item deletado com sucesso";
     static final String DISABLED = "Item inativado com sucesso";
+    static final String FAIL = "Falha ao cadastrar endereco";
 
     @GetMapping("all")
     public ResponseEntity<List<EnderecoDTO>> findAll()
@@ -53,7 +54,7 @@ public class EnderecoController {
         }
         catch (Exception e)
         {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new IllegalArgumentException(FAIL);
         }
     }
 

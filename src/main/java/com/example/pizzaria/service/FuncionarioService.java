@@ -1,6 +1,7 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.FuncionarioDTO;
+import com.example.pizzaria.dto.SaborDTO;
 import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import org.modelmapper.ModelMapper;
@@ -22,16 +23,23 @@ public class FuncionarioService {
 
     static final String FAIL = "Registro não encontrado";
     static final String DUPLICATED = "CPF já cadastrado";
+    static final String FAILLIST = "Lista não encontrada";
+
 
     public List<FuncionarioDTO> findAll(){
+
         List<Funcionario> funcionarios = this.funcionarioRepository.findAll();
         List<FuncionarioDTO> funcionariosDTO = new ArrayList<>();
 
-        for(Funcionario i : funcionarios)
+        if(funcionarios.isEmpty()){
+            throw new IllegalArgumentException(FAILLIST);
+        } else{
+            for(Funcionario i : funcionarios)
         {
             funcionariosDTO.add(modelMapper.map(i, FuncionarioDTO.class));
         }
-        return funcionariosDTO;
+            return funcionariosDTO;
+        }
     }
 
     public FuncionarioDTO findById(Long id)

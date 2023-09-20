@@ -3,6 +3,7 @@ package com.example.pizzaria;
 import com.example.pizzaria.controller.ClienteController;
 import com.example.pizzaria.dto.ClienteDTO;
 import com.example.pizzaria.entity.Cliente;
+import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.ClienteRepository;
 import com.example.pizzaria.service.ClienteService;
 import org.junit.Assert;
@@ -15,10 +16,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -63,26 +67,26 @@ import java.util.Optional;
     }
 
     @Test
-     void TesteFindByID(){
+     void Teste1_FindByID(){
         var cliente = clienteController.findById(1L);
         Assert.assertEquals(1L,cliente.getBody().getId(),0);
     }
 
    @Test
-     void TesteFindByAll(){
+     void Teste2_FindByAll(){
         var clientes = clienteController.findAll();
         Assert.assertEquals(1, clientes.getBody().size());
     }
 
     @Test
-    void TesteCadastrarCliente(){
+    void Teste3_CadastrarCliente(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.cadastrar(clienteDTO);
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
     @Test
-     void TesteAtualizar(){
+     void Teste4_Atualizar(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.editar(1L, clienteDTO);
         Assert.assertEquals(200, cliente.getStatusCodeValue());
@@ -91,10 +95,38 @@ import java.util.Optional;
 
 
     @Test
-    void TesteDelete(){
+    void Teste5_Delete(){
         var cliente = clienteController.deletar(1l);
         Assert.assertEquals("Cliente desativado",cliente.getBody());
 
     }
+
+
+    @Test
+    void teste6_findById_fail() {
+        Mockito.when(clienteRepository.findById(5L)).thenReturn(Optional.empty());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            clienteController.findById(5L);
+        });
+
+
+    }
+
+    @Test
+    void teste7_findAll_fail() {
+        Mockito.when(clienteRepository.findAll()).thenReturn(new ArrayList<Cliente>());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            clienteController.findAll();
+        });
+    }
+
+    @Test
+    void teste8_cadastrar_fail() {
+        Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(criaClienteDto(criarCliente())));
+        Assert.assertTrue( exception.getMessage().contains("CPF não encontrado"));
+    }
+
+
 
 }

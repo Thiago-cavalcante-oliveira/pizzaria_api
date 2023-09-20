@@ -3,6 +3,7 @@ package com.example.pizzaria;
 import com.example.pizzaria.controller.EnderecoController;
 import com.example.pizzaria.dto.EnderecoDTO;
 import com.example.pizzaria.entity.Endereco;
+import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.EnderecoRepository;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,10 +13,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
  class TestEndereco {
@@ -67,26 +71,26 @@ import java.util.Optional;
     }
 
     @Test
-    void TesteFindById(){
+    void Teste1_FindById(){
         var endereco = enderecoController.findById(1l);
         Assert.assertEquals(1l, endereco.getBody().getId(), 0);
     }
 
     @Test
-    void TesteFindByAll(){
+    void Teste2_FindByAll(){
         var endereco = enderecoController.findAll();
         Assert.assertEquals(1, endereco.getBody().size());
 
     }
 
     @Test
-    void TesteCadastrarEndereco(){
+    void Teste3_CadastrarEndereco(){
         var endereco = enderecoController.cadastrar(criaEnderecoDTO(criaEndereco()));
         Assert.assertEquals("Operacao realizada com sucesso", endereco.getBody());
     }
 
     @Test
-    void TesteAtualizar(){
+    void Teste4_Atualizar(){
 
         var endereco = enderecoController.editar(1l, criaEnderecoDTO(criaEndereco()));
         Assert.assertEquals(200, endereco.getStatusCodeValue());
@@ -94,9 +98,25 @@ import java.util.Optional;
 
 
     @Test
-    void TesteDeletar(){
+    void Teste5_Deletar(){
         var endereco = enderecoController.deletar(1l);
         Assert.assertEquals("Item deletado com sucesso",endereco.getBody());
+    }
+
+    @Test
+    void teste6_findById_fail() {
+        Mockito.when(enderecoRepository.findById(5L)).thenReturn(Optional.empty());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            enderecoController.findById(5L);
+        });
+    }
+
+    @Test
+    void teste7_findAll_fail() {
+        Mockito.when(enderecoRepository.findAll()).thenReturn(new ArrayList<Endereco>());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            enderecoController.findAll();
+        });
     }
 
 

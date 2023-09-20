@@ -2,6 +2,7 @@ package com.example.pizzaria;
 
 import com.example.pizzaria.controller.FuncionarioController;
 import com.example.pizzaria.dto.FuncionarioDTO;
+import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import com.example.pizzaria.service.FuncionarioService;
@@ -13,10 +14,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
  class TestFucionario {
@@ -62,26 +66,26 @@ import java.util.Optional;
     }
 
     @Test
-    void TesteFindById(){
+    void Teste1_FindById(){
         var funcionario = funcionarioController.findById(1l);
         Assert.assertEquals(1L, funcionario.getBody().getId(), 0);
     }
 
     @Test
-    void TesteFindByAll(){
+    void Teste2_FindByAll(){
         var funcionario = funcionarioController.findAll();
         Assert.assertEquals(1, funcionario.getBody().size());
     }
 
     @Test
-    void TesteCadastrarFuncionario(){
+    void Teste3_CadastrarFuncionario(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.cadastrar(funcionarioDTO);
         Assert.assertEquals("Operacao realizada com sucesso", funcionario.getBody());
     }
 
     @Test
-    void TesteAtualizar(){
+    void Teste4_Atualizar(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.editar(1L, funcionarioDTO);
         Assert.assertEquals(200, funcionario.getStatusCodeValue());
@@ -89,9 +93,31 @@ import java.util.Optional;
 
 
     @Test
-    void TesteDeletar(){
+    void Teste5_Deletar(){
         var funcionario = funcionarioController.deletar(1l);
         Assert.assertEquals("Item inativado com sucesso",funcionario.getBody());
     }
 
+    @Test
+    void teste6_findById_fail() {
+        Mockito.when(funcionarioRepository.findById(5L)).thenReturn(Optional.empty());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            funcionarioController.findById(5L);
+        });
+    }
+
+    @Test
+    void teste7_findAll_fail() {
+        Mockito.when(funcionarioRepository.findAll()).thenReturn(new ArrayList<Funcionario>());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            funcionarioController.findAll();
+        });
+    }
+    /*
+    @Test
+    void teste8_cadastrar_fail() {
+        Mockito.when(funcionarioRepository.alreadyExists(criaFuncionario().getCpf())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> funcionarioController.cadastrar(criaFuncionarioDto(criaFuncionario())));
+        Assert.assertTrue( exception.getMessage().contains("Falha ao cadastrar funcionario"));
+    }*/
 }
