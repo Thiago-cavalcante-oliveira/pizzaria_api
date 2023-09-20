@@ -22,10 +22,10 @@ public class ClienteService {
 
 
 
-    static String notFound = "Registro não encontrado";
-    static String  cpfNotFound = "CPF não encontrado";
-    static String      cpfDuplicated = "CPF já cadastrado";
-    static String       sucess = "Operação realizada com sucesso";
+    static String NOTFOUND = "Registro não encontrado";
+    static String CPFNOTFOUND = "CPF não encontrado";
+    static String CPFDUPLICATED = "CPF já cadastrado";
+    static String SUCESS = "Operação realizada com sucesso";
 
     public List<ClienteDTO> findAll()    {
         List<Cliente> clientes = this.clienteRepository.findAll();
@@ -40,32 +40,32 @@ public class ClienteService {
 
     public ClienteDTO findById(Long id)
     {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(notFound));
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(NOTFOUND));
         return modelMapper.map(cliente, ClienteDTO.class);
     }
 
     public void cadastrar(ClienteDTO clienteDTO)
     {
-        Assert.isTrue(!(this.clienteRepository.alreadyExists(clienteDTO.getCpf())), cpfNotFound);
+        Assert.isTrue(!(this.clienteRepository.alreadyExists(clienteDTO.getCpf())), CPFNOTFOUND);
         this.clienteRepository.save(modelMapper.map(clienteDTO, Cliente.class));
     }
 
     public String editar(ClienteDTO clienteDTO, Long id)
     {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(notFound));
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(NOTFOUND));
         if(this.clienteRepository.alreadyExists(clienteDTO.getCpf()))
         {
-           return  cpfDuplicated;
+           return CPFDUPLICATED;
         }
         modelMapper.map(clienteDTO,cliente);
         this.clienteRepository.save(cliente);
-        return sucess;
+        return SUCESS;
 
     }
 
     public boolean deletar(Long id)
     {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(notFound));
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(NOTFOUND));
         cliente.setAtivo(false);
         this.clienteRepository.save(cliente);
         return true;
