@@ -99,8 +99,7 @@ class TestSabor {
     @Test
     void teste5FindAllFailException() {
         Mockito.when(saborRepository.findAll()).thenReturn(new ArrayList<>());
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> saborController.findAll());
-        Assertions.assertThrows(ResponseStatusException.class, () -> saborController.findAll());
+        assertThrows(ResponseStatusException.class, () -> saborController.findAll());
     }
 
     @Test

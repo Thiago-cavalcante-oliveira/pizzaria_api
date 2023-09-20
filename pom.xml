@@ -128,14 +128,6 @@
 								</rule>
 							</rules>
 
-								<excludes>
-									<exclude>${project.basedir}/../config</exclude>
-									<exclude>${project.basedir}/../entity</exclude>
-									<exclude>${project.basedir}/../dto</exclude>
-									<exclude>${project.basedir}/../error.handler</exclude>
-									<exclude>${project.basedir}/../error.handler</exclude>
-
-								</excludes>
 
 						</configuration>
 					</execution>
