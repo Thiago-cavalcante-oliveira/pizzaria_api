@@ -2,6 +2,7 @@ package com.example.pizzaria;
 
 import com.example.pizzaria.dto.PizzaDTO;
 import com.example.pizzaria.controller.PizzaController;
+import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.entity.Pizza;
 import com.example.pizzaria.repository.PizzaRepository;
 import com.example.pizzaria.service.PizzaService;
@@ -17,10 +18,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @SpringBootTest
@@ -67,25 +69,73 @@ import java.util.List;
         Mockito.when(pizzaRepository.checaID(criaPizza().getId())).thenReturn(criaPizza());
     }
     @Test
-     void Teste1_FindByID() {
+     void Teste1FindByIDController() {
         var pizza = pizzaController.findById(1L);
         Assertions.assertEquals(1, pizza.getBody().getId(), 0);
     }
     @Test
-     void teste2_FindAll() {
+    void Teste2FindByIDService() {
+        var pizza = pizzaService.findById(1L);
+        Assertions.assertEquals(1, pizza.getId(), 0);
+    }
+
+    @Test
+     void teste3FindAllController() {
         var pizzas = pizzaController.findAll();
         Assert.assertEquals(1, pizzas.getBody().size(), 0);
     }
     @Test
-     void teste3_Cadastrar() {
+    void teste4FindAllService() {
+        var pizzas = pizzaService.findAll();
+        Assert.assertEquals(1, pizzas.size(), 0);
+    }
+    @Test
+     void teste5CadastrarController() {
         PizzaDTO pizzaDTO= criaPizzaDTO(criaPizza());
         var pizza = pizzaController.cadastrar(pizzaDTO);
         Assert.assertEquals("Pizza cadastrada com sucesso", pizza.getBody());
     }
+
     @Test
-     void teste4_Editar() {
+    void teste6CadastrarService() {
+        PizzaDTO pizzaDTO= criaPizzaDTO(criaPizza());
+        var pizza = pizzaService.cadastrar(pizzaDTO);
+        Assert.assertEquals("Pizza cadastrada com sucesso", pizza);
+    }
+
+
+    @Test
+     void teste7EditarController() {
         PizzaDTO pizzaDTO= criaPizzaDTO(criaPizza());
         var pizza = pizzaController.editar(1L, pizzaDTO);
         Assert.assertEquals("Pizza editada com sucesso", pizza.getBody());
     }
+
+    @Test
+    void teste8EditarService() {
+        PizzaDTO pizzaDTO= criaPizzaDTO(criaPizza());
+        var pizza = pizzaService.editar(pizzaDTO, 1L);
+        Assert.assertEquals("Pizza editada com sucesso", pizza);
+    }
+
+    @Test
+    void Teste9DeletarController(){
+        var pizza  = pizzaController.deletar(1l);
+        Assert.assertEquals("Pizza deletada com sucesso",pizza.getBody());
+    }
+
+    @Test
+    void Teste10DeletarService(){
+        var pizza  = pizzaService.deletar(1l);
+        Assert.assertEquals("Pizza deletada com sucesso",pizza);
+    }
+
+    @Test
+    void teste11findById_fail() {
+        Mockito.when(pizzaRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        Assert.assertThrows(ResponseStatusException.class, () -> {
+            pizzaController.findById(5L);
+        });
+    }
+
 }

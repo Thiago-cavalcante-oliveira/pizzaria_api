@@ -67,43 +67,70 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-     void Teste1FindByID(){
+     void Teste1FindByIDController(){
         var cliente = clienteController.findById(1L);
         Assert.assertEquals(1L,cliente.getBody().getId(),0);
     }
 
+    @Test
+    void Teste2FindByIDService(){
+        var cliente = clienteService.findById(1L);
+        Assert.assertEquals(1L, cliente.getId(),0);
+    }
+
    @Test
-     void Teste2FindByAll(){
+     void Teste3FindByAllController(){
         var clientes = clienteController.findAll();
         Assert.assertEquals(1, clientes.getBody().size());
     }
 
     @Test
-    void Teste3CadastrarCliente(){
+    void Teste4FindByAllService(){
+        var clientes = clienteService.findAll();
+        Assert.assertEquals(1, clientes.size());
+    }
+
+    @Test
+    void Teste5CadastrarClienteController(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.cadastrar(clienteDTO);
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
+
+
     @Test
-     void Teste4Atualizar(){
+     void Teste6AtualizarController(){
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         var cliente = clienteController.editar(1L, clienteDTO);
         Assert.assertEquals(200, cliente.getStatusCodeValue());
 
     }
 
+    @Test
+    void Teste7AtualizarService(){
+        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
+        var cliente = clienteController.editar(1L, clienteDTO);
+        Assert.assertEquals(200, cliente.getStatusCodeValue());
+
+    }
 
     @Test
-    void Teste5Delete(){
+    void Teste8DeleteController(){
         var cliente = clienteController.deletar(1l);
         Assert.assertEquals("Cliente desativado",cliente.getBody());
 
     }
 
+    @Test
+    void Teste9DeleteService(){
+        var cliente = clienteService.deletar(1l);
+        Assert.assertEquals("Cliente desativado",cliente);
+
+    }
 
     @Test
-    void teste6findById_fail() {
+    void teste10findById_fail() {
         Mockito.when(clienteRepository.findById(5L)).thenReturn(Optional.empty());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             clienteController.findById(5L);
@@ -113,7 +140,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste7findAll_fail() {
+    void teste11findAll_fail() {
         Mockito.when(clienteRepository.findAll()).thenReturn(new ArrayList<Cliente>());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             clienteController.findAll();
@@ -121,7 +148,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste8cadastrar_fail() {
+    void teste12cadastrar_fail() {
         Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(criaClienteDto(criarCliente())));
         Assert.assertTrue( exception.getMessage().contains("CPF não encontrado"));
