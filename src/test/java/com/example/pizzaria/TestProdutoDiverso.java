@@ -6,6 +6,7 @@ import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.entity.ProdutoDiverso;
 import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -60,6 +61,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
         Mockito.when(repositorio.findById(1l)).thenReturn(Optional.of(criaProdutoDiverso()));
         Mockito.when(repositorio.findAll()).thenReturn(listaProdutosDiverso());
+        Mockito.when(repositorio.isTheSame(criaProdutoDiverso().getTipo())).thenReturn(1L);
+        Mockito.when(repositorio.alreadyExists(criaProdutoDiverso().getTipo())).thenReturn(false);
     }
 
     @Test
@@ -89,7 +92,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void testeEditar()
     {
-        var teste = controller.editar( criaProdutoDiversoDTO(criaProdutoDiverso()));
+        var teste = controller.editar( 1l, criaProdutoDiversoDTO(criaProdutoDiverso()) );
         Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
 
@@ -113,6 +116,37 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.empty());
         assertThrows(ResponseStatusException.class, () -> controller.findById(1L));
 
+    }
+
+    @Test
+    void testeCadastrarFail() {
+        Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> controller.cadastrar(criaProdutoDiversoDTO(criaProdutoDiverso())));
+        Assertions.assertTrue(exception.getMessage().contains("Tipo já cadastrado"));
+    }
+
+    @Test
+    void testeAtualizarFailIdDiferentes() {
+        Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () ->  controller.editar(1l, criaProdutoDiversoDTO(criaProdutoDiverso())));
+        Assertions.assertTrue(exception.getMessage().contains("Tipo já cadastrado"));
+    }
+
+    @Test
+    void testeAtualizarFailDuplicated() {
+        ProdutoDiversoDTO produtoDiversoDTO = new ProdutoDiversoDTO();
+        produtoDiversoDTO.setTipo("Refrigerante 2l");
+        produtoDiversoDTO.setPreco(10);
+        produtoDiversoDTO.setQuantidade(3);
+        produtoDiversoDTO.setNome("coca-cola");
+        produtoDiversoDTO.setAtivo(true);
+        produtoDiversoDTO.setId(5L);
+        Mockito.when(repositorio.isTheSame(Mockito.anyString())).thenReturn(1l);
+        ResponseStatusException exceptio = assertThrows(ResponseStatusException.class,
+                () -> controller.editar(5l, produtoDiversoDTO));
+        Assertions.assertFalse(exceptio.getMessage().contains("Tipo já cadastrado"));
     }
 
 }
