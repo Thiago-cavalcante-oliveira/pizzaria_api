@@ -26,10 +26,9 @@ public class ProdutoDiversoTeste {
     @Autowired
     ProdutoDiversoController controller;
 
-    @Autowired
-    ModelMapper modelMapper;
+    static ModelMapper modelMapper = new ModelMapper();
 
-    protected ProdutoDiverso criaProdutoDiverso(){
+    protected static ProdutoDiverso criaProdutoDiverso(){
         ProdutoDiverso produtoDiverso = new ProdutoDiverso();
         produtoDiverso.setId(1l);
         produtoDiverso.setNome("coca-cola");
@@ -40,7 +39,7 @@ public class ProdutoDiversoTeste {
         return produtoDiverso;
     }
 
-    protected List<ProdutoDiverso> listaProdutosDiverso()
+    protected static List<ProdutoDiverso> listaProdutosDiverso()
     {
         List<ProdutoDiverso> produtosDiversos = new ArrayList<>();
         produtosDiversos.add(criaProdutoDiverso());
@@ -48,7 +47,7 @@ public class ProdutoDiversoTeste {
         return  produtosDiversos;
     }
 
-    protected ProdutoDiversoDTO criaProdutoDiversoDTO(ProdutoDiverso produtoDiverso){
+    protected static ProdutoDiversoDTO criaProdutoDiversoDTO(ProdutoDiverso produtoDiverso){
         return modelMapper.map(produtoDiverso, ProdutoDiversoDTO.class);
     }
 

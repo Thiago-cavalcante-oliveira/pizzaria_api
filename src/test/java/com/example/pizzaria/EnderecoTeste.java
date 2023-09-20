@@ -24,12 +24,11 @@ public class EnderecoTeste {
     @Autowired
     EnderecoController enderecoController;
 
-    @Autowired
-    ModelMapper modelMapper;
+    static ModelMapper modelMapper = new ModelMapper();
 
-    ClienteTeste clienteTeste;
+    static ClienteTeste clienteTeste;
 
-    protected Endereco criaEndereco()
+    protected static Endereco criaEndereco()
     {
         Endereco endereco = new Endereco();
         endereco.setId(1l);
@@ -44,7 +43,7 @@ public class EnderecoTeste {
         return endereco;
     }
 
-    protected List<Endereco> listaEndereco()
+    protected static List<Endereco> listaEndereco()
     {
         List<Endereco> enderecos = new ArrayList<>();
         enderecos.add(criaEndereco());
@@ -52,7 +51,7 @@ public class EnderecoTeste {
         return enderecos;
     }
 
-    protected EnderecoDTO criaEnderecoDTO(Endereco endereco)
+    protected static EnderecoDTO criaEnderecoDTO(Endereco endereco)
     {
         return modelMapper.map(endereco, EnderecoDTO.class);
     }
