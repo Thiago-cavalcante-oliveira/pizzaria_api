@@ -261,11 +261,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         pedido.setId(TestPedido.criaPedido().getId());
 
         Pedido pedido1 = new Pedido();
-        pedido1.setId(10L);
+        pedido1.setId(1L);
         Set<Pizza> pizzas = new HashSet<>();
         pizzas.add(TestPizza.criaPizza());
         pedido1.setPizzas(pizzas);
         pedido1.setEntrega(false);
+        Set<ProdutoDiverso>produto = new HashSet<>();
+        produto.add(TestProdutoDiverso.criaProdutoDiverso());
+        pedido1.setProdutos(produto);
+        pedido1.setEndereco(TestEndereco.criaEndereco());
+        pedido1.setCliente(TestCliente.criarCliente());
+
+
+        Assertions.assertEquals(pedido.getCliente(), pedido1.getCliente());
+        Assertions.assertEquals(pedido.getPizzas(), pedido1.getPizzas());
+        Assertions.assertEquals(pedido.getProdutos(), pedido1.getProdutos());
+        Assertions.assertEquals(pedido.getEndereco(), pedido1.getEndereco());
+        Assertions.assertEquals(pedido.getId(), pedido1.getId());
 
     }
 }
