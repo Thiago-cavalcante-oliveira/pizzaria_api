@@ -30,7 +30,7 @@ public class ClienteDTO extends AbstractEntityDTO{
     public void setNome(String nome) {
         if (nome == null) {
             throw new IllegalArgumentException("Nome não pode ser nulo");
-        } else if (nome == "") {
+        } else if (nome.equals("")) {
             throw new IllegalArgumentException("Nome não pode ser Branco");
         }
         this.nome = nome;
@@ -39,7 +39,7 @@ public class ClienteDTO extends AbstractEntityDTO{
     public void setTelCelular(String telCelular) {
         if (telCelular == null) {
             throw new IllegalArgumentException("Telefone celular não pode ser nulo");
-        } else if (telCelular == "") {
+        } else if (telCelular.equals("")) {
             throw new IllegalArgumentException("Telefone celular não pode ser Branco");
         }
         this.telCelular = telCelular;
