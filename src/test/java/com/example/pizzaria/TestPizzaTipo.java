@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,11 +95,19 @@ class TestPizzaTipo {
         assertThrows(ResponseStatusException.class, () -> pizzaTipoController.findAll());
     }
     @Test
-    void teste3_cadastrar() {
+    void teste3CadastrarSuccess() {
         PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         var pizzatipo = pizzaTipoController.cadastrar(pizzaTipoDTO);
         Assert.assertEquals("Tipo de pizza cadastrado com sucesso", pizzatipo.getBody());
     }
+
+//    @Test
+//    void teste7CadastrarFail() {
+//        Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+//        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+//                () -> pizzaTipoController.cadastrar(criaPizzaTipoDTO(criaPizzaTipo())));
+//        Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
+//    }
 
     @Test
     void teste4_editar() {
