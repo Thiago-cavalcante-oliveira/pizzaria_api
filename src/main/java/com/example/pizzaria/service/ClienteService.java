@@ -67,12 +67,15 @@ public class ClienteService {
 
     }
 
-    public boolean deletar(Long id)
-    {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(NOTFOUND));
-        cliente.setAtivo(false);
-        this.clienteRepository.save(cliente);
-        return true;
+    public boolean deletar(Long id) {
+        Cliente cliente = this.clienteRepository.findById(id).orElse(null);
+        if (cliente != null) {
+            cliente.setAtivo(false);
+            this.clienteRepository.save(cliente);
+            return true; // Cliente encontrado e desativado com sucesso
+        } else {
+            return false; // Cliente não encontrado
+        }
     }
 
 }

@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -97,7 +97,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
-
+    @Test
+    void Teste13DeleteService(){
+        Mockito.when(clienteController.deletar(Mockito.anyLong()));
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.deletar(criaClienteDto(criarCliente()).getId()));
+        Assert.assertEquals("400 BAD_REQUEST \"Registro não encontrado\"", exception.getMessage());
+    }
 
     @Test
      void Teste6AtualizarController(){
@@ -140,7 +145,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste11findAll_fail() {
+    void teste11findAllFail() {
         Mockito.when(clienteRepository.findAll()).thenReturn(new ArrayList<Cliente>());
         Assert.assertThrows(ResponseStatusException.class, () -> {
             clienteController.findAll();
@@ -148,7 +153,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    void teste12cadastrar_fail() {
+    void teste12cadastrarFail() {
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(clienteDTO));
@@ -252,6 +257,47 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void teste21SetTelCelularComValorEmBranco() {
         ClienteDTO clienteDTO = new ClienteDTO();
         assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(""));
+    }
+    @Test
+    void teste22HashDto() {
+
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setNome("Eduardo");
+        clienteDTO.setTelCelular("45 99815-2683");
+        clienteDTO.setCpf("109.999.888-78");
+        clienteDTO.setId(1L);
+
+        ClienteDTO clienteDTO2 = new ClienteDTO();
+        clienteDTO2.setNome("Yasmin");
+        clienteDTO2.setTelCelular("45 99635-2683");
+        clienteDTO2.setCpf("109.909.868-78");
+        clienteDTO2.setId(2L);
+
+
+        assertNotEquals(clienteDTO, clienteDTO2);
+
+        assertNotEquals(clienteDTO.hashCode(), clienteDTO2.hashCode());
+    }
+
+    @Test
+    void teste23HashEntity() {
+
+        Cliente cliente = new Cliente();
+        cliente.setNome("Eduardo");
+        cliente.setTelCelular("45 99815-2683");
+        cliente.setCpf("109.999.888-78");
+        cliente.setId(1L);
+
+        Cliente cliente1 = new Cliente();
+        cliente1.setNome("Yasmin");
+        cliente1.setTelCelular("45 99635-2683");
+        cliente1.setCpf("109.909.868-78");
+        cliente1.setId(2L);
+
+
+        assertNotEquals(cliente, cliente1);
+
+        assertNotEquals(cliente1.hashCode(), cliente.hashCode());
     }
 
 }
