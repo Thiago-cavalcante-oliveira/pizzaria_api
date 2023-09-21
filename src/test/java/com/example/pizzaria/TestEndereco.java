@@ -260,4 +260,45 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         assertNotEquals(endereco.hashCode(), endereco1.hashCode());
     }
 
+    @Test
+    void teste22EqualsEntity() {
+
+        Endereco endereco = new Endereco("45 99999-8855","Jose epinafio teles Costa", 1445,"Morumbi", "85858-330","casa",testCliente.criarCliente());
+        endereco.setId(2l);
+        Endereco endereco1 = new Endereco();
+        endereco1.setId(2l);
+        endereco1.setCep("85858-330");
+        endereco1.setNuEndereco(1445);
+        endereco1.setRua("Jose epinafio teles Costa");
+        endereco1.setBairro("Morumbi");
+        endereco1.setTelResidencia("45 99999-8855");
+        endereco1.setComplemento("casa");
+        endereco1.setCliente(testCliente.criarCliente());
+
+
+        assertEquals(endereco, endereco1);
+
+        assertEquals(endereco.hashCode(), endereco1.hashCode());
+    }
+
+    @Test
+    void teste23EqualsDTO() {
+
+        EnderecoDTO endereco = new EnderecoDTO("45 99999-8855","Jose epinafio teles Costa", 1445,"Morumbi", "85858-330","casa",testCliente.criaClienteDto(TestCliente.criarCliente()));
+        endereco.setId(2l);
+        EnderecoDTO endereco1 = new EnderecoDTO();
+        endereco1.setId(2l);
+        endereco1.setCep("85858-330");
+        endereco1.setNuEndereco(1445);
+        endereco1.setRua("Jose epinafio teles Costa");
+        endereco1.setBairro("Morumbi");
+        endereco1.setTelResidencia("45 99999-8855");
+        endereco1.setComplemento("casa");
+        endereco1.setCliente(testCliente.criaClienteDto(TestCliente.criarCliente()));
+
+
+        assertEquals(endereco, endereco1);
+
+        assertEquals(endereco.hashCode(), endereco1.hashCode());
+    }
 }
