@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -105,7 +106,7 @@ class TestPizzaTipo {
         Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> pizzaTipoController.cadastrar(pizzaTipoDTO));
-        Assertions.assertFalse(exception.getMessage().contains("Sabor já cadastrado"));
+        assertFalse(exception.getMessage().contains("Sabor já cadastrado"));
     }
 
     @Test
@@ -125,7 +126,7 @@ class TestPizzaTipo {
         Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> pizzaTipoController.cadastrar(pizzaTipoDTO));
-        Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
+        assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
     }
     @Test
     void teste9editarSuccess() {
@@ -140,7 +141,7 @@ class TestPizzaTipo {
         Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> pizzaTipoController.editar(5L, pizzaTipoDTO));
-        Assertions.assertFalse(exception.getMessage().contains("coincidem"));
+        assertFalse(exception.getMessage().contains("coincidem"));
     }
     @Test
     void teste10AtualizarFailDuplicated(){
@@ -152,7 +153,7 @@ class TestPizzaTipo {
         Mockito.when(pizzaTipoRepository.findByNome(Mockito.anyString())).thenReturn(criaPizzaTipo());
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> pizzaTipoController.editar(1L, pizzaTipoDTO));
-        Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
+        assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
     }
     @Test
     void teste11EditarFailCatch(){
@@ -188,4 +189,25 @@ class TestPizzaTipo {
         Assertions.assertTrue(pizzaTipoController.deletar(1L).getBody().contains("Tipo de pizza desativado com sucesso"));
     }
 
+
+    @Test
+    public void testEquals() {
+        // Criar duas instâncias de Sabor com campos iguais
+        PizzaTipo sabor1 = new PizzaTipo("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+        PizzaTipo sabor2 = new PizzaTipo("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+
+        // Verificar se as instâncias são iguais
+        Assertions.assertTrue(sabor1.equals(sabor2));
+        Assertions.assertTrue(sabor2.equals(sabor1));
+
+        // Criar duas instâncias de Sabor com campos diferentes
+        PizzaTipo sabor3 = new PizzaTipo("Pizza Calabresa", "Ingredientes da Calabresa", 13.99);
+        PizzaTipo sabor4 = new PizzaTipo("Pizza Pepperoni", "Ingredientes do Pepperoni", 11.99);
+
+        // Verificar se as instâncias não são iguais
+        assertFalse(sabor1.equals(sabor3));
+        assertFalse(sabor1.equals(sabor4));
+        assertFalse(sabor3.equals(sabor4));
+    }
 }
+

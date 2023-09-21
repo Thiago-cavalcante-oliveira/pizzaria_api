@@ -97,4 +97,24 @@ class TestSaborDTO {
         assertEquals("Ingredientes da Margherita", sabor.getIngredientes());
         assertEquals(12.99, sabor.getValor(), 0.001); // Use uma margem de erro pequena para valores double
     }
+
+    @Test
+    public void testEquals() {
+        // Criar duas instâncias de Sabor com campos iguais
+        SaborDTO sabor1 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+        SaborDTO sabor2 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+
+        // Verificar se as instâncias são iguais
+        assertTrue(sabor1.equals(sabor2));
+        assertTrue(sabor2.equals(sabor1));
+
+        // Criar duas instâncias de Sabor com campos diferentes
+        Sabor sabor3 = new Sabor("Pizza Calabresa", "Ingredientes da Calabresa", 13.99);
+        Sabor sabor4 = new Sabor("Pizza Pepperoni", "Ingredientes do Pepperoni", 11.99);
+
+        // Verificar se as instâncias não são iguais
+        assertFalse(sabor1.equals(sabor3));
+        assertFalse(sabor1.equals(sabor4));
+        assertFalse(sabor3.equals(sabor4));
+    }
 }
