@@ -69,7 +69,7 @@ class TestSaborDTO {
     }
 
     @Test
-    public void testEqualsAndHashCodeExcludesSuperclassField() {
+    void testEqualsAndHashCodeExcludesSuperclassField() {
         // Criar duas instâncias de SaborDTO com o mesmo valor para um campo herdado (se houver)
         SaborDTO sabor1 = new SaborDTO();
         sabor1.setId(1L); // Suponhamos que a classe pai (superclasse) tenha um campo "id"
