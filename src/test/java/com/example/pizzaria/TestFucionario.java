@@ -210,6 +210,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         assertEquals("Gerente", funcionario.getFuncao());
     }
 
+    @Test
+    void teste20GetSetNomeDTO() {
+        FuncionarioDTO funcionario = new FuncionarioDTO();
+        funcionario.setNome("Eduardo");
+        assertEquals("Eduardo", funcionario.getNome());
+    }
+
+    @Test
+    void teste21GetSetCpfDTO() {
+        FuncionarioDTO funcionario = new FuncionarioDTO();
+        funcionario.setCpf("123.456.789-00");
+        assertEquals("123.456.789-00", funcionario.getCpf());
+    }
+
+    @Test
+    void teste22GetSetFuncaoDTO() {
+        FuncionarioDTO funcionario = new FuncionarioDTO();
+        funcionario.setFuncao("Gerente");
+        assertEquals("Gerente", funcionario.getFuncao());
+    }
+
 
 
 }

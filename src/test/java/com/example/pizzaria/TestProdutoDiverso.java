@@ -238,5 +238,35 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
 
+    @Test
+    void testeGetterSetterEntity()
+    {
+        ProdutoDiverso produtoDiverso = new ProdutoDiverso();
+        produtoDiverso.setNome("coca-cola");
+        produtoDiverso.setTipo("Refrigerente 2l");
+        produtoDiverso.setPreco(7.00);
+        produtoDiverso.setQuantidade(2);
+
+        Assertions.assertEquals("coca-cola", produtoDiverso.getNome());
+        Assertions.assertEquals("Refrigerente 2l", produtoDiverso.getTipo());
+        Assertions.assertEquals(7.00, produtoDiverso.getPreco());
+        Assertions.assertEquals(2, produtoDiverso.getQuantidade());
+    }
+
+    @Test
+    void testeGetterSetterDTO()
+    {
+        ProdutoDiversoDTO produtoDiverso = new ProdutoDiversoDTO();
+        produtoDiverso.setNome("coca-cola");
+        produtoDiverso.setTipo("Refrigerente 2l");
+        produtoDiverso.setPreco(7.00);
+        produtoDiverso.setQuantidade(2);
+
+        Assertions.assertEquals("coca-cola", produtoDiverso.getNome());
+        Assertions.assertEquals("Refrigerente 2l", produtoDiverso.getTipo());
+        Assertions.assertEquals(7.00, produtoDiverso.getPreco());
+        Assertions.assertEquals(2, produtoDiverso.getQuantidade());
+    }
+
 
 }

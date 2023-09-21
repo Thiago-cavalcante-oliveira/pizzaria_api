@@ -208,23 +208,23 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
     @Test
     void teste14GetSetNome() {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setNome("Eduardo");
-        assertEquals("Eduardo", clienteDTO.getNome());
+        Cliente cliente = new Cliente();
+        cliente.setNome("Eduardo");
+        assertEquals("Eduardo", cliente.getNome());
     }
 
     @Test
     void teste15GetSetTelCelular() {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setTelCelular("45 99985-5563");
-        assertEquals("45 99985-5563", clienteDTO.getTelCelular());
+        Cliente cliente = new Cliente();
+        cliente.setTelCelular("45 99985-5563");
+        assertEquals("45 99985-5563", cliente.getTelCelular());
     }
 
     @Test
     void teste16GetSetCpf() {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setCpf("109.999.789-98");
-        assertEquals("109.999.789-98", clienteDTO.getCpf());
+        Cliente cliente = new Cliente();
+        cliente.setCpf("109.999.789-98");
+        assertEquals("109.999.789-98", cliente.getCpf());
     }
 
     @Test
@@ -292,4 +292,24 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         assertNotEquals(cliente1.hashCode(), cliente.hashCode());
     }
 
+    @Test
+    void teste24GetSetNomeDTO() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setNome("Eduardo");
+        assertEquals("Eduardo", clienteDTO.getNome());
+    }
+
+    @Test
+    void teste25GetSetTelCelularDTO() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setTelCelular("45 99985-5563");
+        assertEquals("45 99985-5563", clienteDTO.getTelCelular());
+    }
+
+    @Test
+    void teste26GetSetCpfDTO() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setCpf("109.999.789-98");
+        assertEquals("109.999.789-98", clienteDTO.getCpf());
+    }
 }
