@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProdutoDiversoService {
@@ -33,6 +34,9 @@ public class ProdutoDiversoService {
     public void editar(ProdutoDiversoDTO produtoDiversoDTO, Long id) {
 
         ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
+        if (!(produtoDiverso.getId().equals(id))) {
+            throw new IllegalArgumentException("Os IDs não coincidem");
+        }
         if(this.produtoDiversoRepositorio.alreadyExists(produtoDiversoDTO.getTipo()))
         {
             Assert.isTrue( this.produtoDiversoRepositorio.isTheSame(produtoDiversoDTO.getTipo()).equals(id) , TIPODUPLICATED);
