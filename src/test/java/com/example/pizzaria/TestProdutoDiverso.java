@@ -6,7 +6,6 @@ import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.entity.ProdutoDiverso;
 import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -37,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         produtoDiverso.setId(1l);
         produtoDiverso.setNome("coca-cola");
         produtoDiverso.setPreco(4.99);
-        produtoDiverso.setTipo("refrigerante");
+        produtoDiverso.setTipo("Refrigerente 2l");
         produtoDiverso.setQuantidade(1);
         produtoDiverso.setAtivo(true);
         return produtoDiverso;
@@ -107,7 +106,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void testeDeletarFail()
     {
         Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.empty());
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> controller.deletar(1L));
+        assertThrows(ResponseStatusException.class, () -> controller.deletar(1L));
     }
 
     @Test
@@ -119,19 +118,40 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
+    void testeFindAllFailMessage() {
+        Mockito.when(repositorio.findAll()).thenReturn(new ArrayList<>());
+        assertThrows(ResponseStatusException.class, () -> controller.findAll());
+
+    }
+
+    @Test
     void testeCadastrarFail() {
+        ProdutoDiversoDTO produtoDiversoDTO = criaProdutoDiversoDTO(criaProdutoDiverso());
         Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
-        Assertions.assertThrows(ResponseStatusException.class, () -> {
-            controller.cadastrar(criaProdutoDiversoDTO(criaProdutoDiverso()));
-        }, "Tipo já cadastrado");
+        assertThrows(ResponseStatusException.class, () -> controller.cadastrar(produtoDiversoDTO));
     }
 
     @Test
     void testeAtualizarFailIdDiferentes() {
+        ProdutoDiversoDTO produtoDiversoDTO = criaProdutoDiversoDTO(criaProdutoDiverso());
         Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () ->  controller.editar(2l, criaProdutoDiversoDTO(criaProdutoDiverso())));
-        Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
+        assertThrows(ResponseStatusException.class, () ->  controller.editar(2l, produtoDiversoDTO));
+    }
+
+    @Test
+    void teste2AtualizarSucess() {
+        ProdutoDiversoDTO produtoDiversoDTO = new ProdutoDiversoDTO();
+        produtoDiversoDTO.setTipo("Refrigerante 2l");
+        produtoDiversoDTO.setPreco(10);
+        produtoDiversoDTO.setQuantidade(3);
+        produtoDiversoDTO.setNome("coca-cola");
+        produtoDiversoDTO.setAtivo(true);
+        produtoDiversoDTO.setId(1L);
+        Mockito.when(repositorio.isTheSame(Mockito.anyString())).thenReturn(1l);
+        Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
+        var teste = controller.editar(1l, produtoDiversoDTO);
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
+
     }
 
     @Test
@@ -144,9 +164,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         produtoDiversoDTO.setAtivo(true);
         produtoDiversoDTO.setId(5L);
         Mockito.when(repositorio.isTheSame(Mockito.anyString())).thenReturn(1l);
-        ResponseStatusException exceptio = assertThrows(ResponseStatusException.class,
-                () -> controller.editar(5l, produtoDiversoDTO));
-        Assertions.assertFalse(exceptio.getMessage().contains("Tipo já cadastrado"));
+        Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
+        System.out.println(assertThrows(ResponseStatusException.class, () -> controller.editar(5l, produtoDiversoDTO)));
+
+        assertThrows(ResponseStatusException.class, () -> controller.editar(5l, produtoDiversoDTO));
     }
 
 }

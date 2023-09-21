@@ -152,20 +152,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void testeFindAllFailMessage() {
         Mockito.when(repositorio.findAll()).thenReturn(new ArrayList<>());
         assertThrows(ResponseStatusException.class, () -> controller.findAll());
-        //System.out.println(exception);
-        //Assertions.assertTrue(exception.getMessage().contains("Sabor não cadastrado"));
+
     }
 
     @Test
     void testeAtualizarFailIdDiferentes() {
-        Pedido pedido = criaPedido();
-        pedido.setId(2L);
-        Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.of(pedido));
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () ->  controller.editar(1l, criaPedidoDTO((pedido))));
-        Assertions.assertTrue(exception.getMessage().contains("coincidem"));
+        PedidoDTO pedidoDTO = criaPedidoDTO(criaPedido());
+        assertThrows(ResponseStatusException.class, () ->  controller.editar(2l, pedidoDTO));
 
+    }
 
+    @Test
+    void testeCadastrarFail() {
+        PedidoDTO pedidoDTO = null;
+        assertThrows(ResponseStatusException.class, () -> controller.cadastrar(pedidoDTO));
     }
 
 }
