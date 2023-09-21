@@ -58,9 +58,11 @@ public class PizzaService {
     public String editar(PizzaDTO pizza, Long id) {
         if (!Objects.equals(pizza.getId(), id)) {
             throw new IllegalArgumentException("Os IDs não coincidem");
-        } else if (!pizzaRepository.existsById(id)) {
+        }
+        else if (!pizzaRepository.existsById(id)) {
             throw new IllegalArgumentException(FAIL);
-        } else {
+        }
+        else {
 
             this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
             return EDITED;

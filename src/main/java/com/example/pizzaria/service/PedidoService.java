@@ -47,10 +47,10 @@ public class PedidoService {
 
     public void editar(PedidoDTO pedidoDTO, Long id)
     {
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
-        if (!(pedido.getId().equals(id))) {
+        if (!(pedidoDTO.getId().equals(id))) {
             throw new IllegalArgumentException("Os IDs não coincidem");
         }
+        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         modelMapper.map(pedidoDTO, pedido);
         this.pedidoRepository.save(pedido);
     }

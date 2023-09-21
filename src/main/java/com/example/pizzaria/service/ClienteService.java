@@ -55,12 +55,11 @@ public class ClienteService {
         this.clienteRepository.save(modelMapper.map(clienteDTO, Cliente.class));
     }
 
-    public String editar(ClienteDTO clienteDTO, Long id)
-    {
+    public String editar(ClienteDTO clienteDTO, Long id)    {
         Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(NOTFOUND));
         if(this.clienteRepository.alreadyExists(clienteDTO.getCpf()))
         {
-           return CPFDUPLICATED;
+            return CPFDUPLICATED;
         }
         modelMapper.map(clienteDTO,cliente);
         this.clienteRepository.save(cliente);

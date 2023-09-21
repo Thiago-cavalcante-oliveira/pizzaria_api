@@ -66,8 +66,7 @@ public class FuncionarioService {
         this.funcionarioRepository.save(funcionario);
     }
 
-    public boolean deletar(Long id)
-    {
+    public boolean deletar(Long id)    {
         Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         funcionario.setAtivo(false);
         this.funcionarioRepository.save(funcionario);

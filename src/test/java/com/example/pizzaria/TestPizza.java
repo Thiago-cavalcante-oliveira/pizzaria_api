@@ -138,4 +138,18 @@ import java.util.Optional;
         });
     }
 
+    @Test
+    void teste12CadastrarFail(){
+        Mockito.when(pizzaRepository.save(Mockito.any())).thenReturn(Optional.empty());
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
+            pizzaController.cadastrar(criaPizzaDTO(criaPizza()));
+        });
+    }
+@Test
+    void teste13DeleteFail(){
+        Mockito.when(pizzaRepository.existsById(Mockito.anyLong())).thenReturn(false);
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
+            pizzaController.deletar(1L);
+        });
+}
 }

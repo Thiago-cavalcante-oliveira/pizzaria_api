@@ -155,6 +155,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
+<<<<<<< HEAD
     void teste13AtualizacaoMalSucedida() {
         Long idInexistente = 100L;
         ClienteDTO clienteDTO = criaClienteDto(criarCliente());
@@ -199,6 +200,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         System.out.println(exception.getMessage());
         Assert.assertTrue(exception.getMessage().contains("Lista não encontrada"));
     }
+=======
+    void teste13CadastrarFail() {
+        Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(criaClienteDto(criarCliente())));
+        Assert.assertTrue( exception.getMessage().contains("CPF"));
+    }
+
+>>>>>>> 7a80e611d9366761cfeb097cd47760c881f5531c
 
 
 }
