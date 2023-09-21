@@ -50,9 +50,9 @@ class TestSabor {
         return sabor;
     }
 
-    protected static List<Sabor> listaSabores() {
+    protected static List<Sabor> listaSabores(Sabor sabor) {
         List<Sabor> sabores = new ArrayList<>();
-        sabores.add(criaSabor());
+        sabores.add(sabor);
         return sabores;
     }
 
@@ -71,7 +71,7 @@ class TestSabor {
 
         Mockito.when(saborRepository.findById(criaSabor().getId())).thenReturn(Optional.of(criaSabor()));
         Mockito.when(saborRepository.findByNome(saborDTO.getNome())).thenReturn(criaSabor());
-        Mockito.when(saborRepository.findAll()).thenReturn(listaSabores());
+        Mockito.when(saborRepository.findAll()).thenReturn(listaSabores(criaSabor()));
         Mockito.when(saborRepository.save(criaSabor())).thenReturn(criaSabor());
     }
 
@@ -169,7 +169,7 @@ class TestSabor {
     void teste12DeletarSuccess() {
         Mockito.when(saborRepository.saborExistTb_pizza(Mockito.anyLong())).thenReturn(false);
         Mockito.when(saborRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(criaSabor()));
-        Assertions.assertFalse(saborController.deletar(1L).getBody().contains("Tipo de pizza deletado com sucesso"));
+        Assertions.assertFalse(saborController.deletar(5L).getBody().contains("Tipo de pizza deletado com sucesso"));
     }
     @Test
     public void testEqualsAndHashCodeExcludesSuperclassField() {

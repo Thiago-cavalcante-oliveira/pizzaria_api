@@ -45,13 +45,12 @@ import java.util.Optional;
     protected static Pizza criaPizza() {
         Pizza pizza = new Pizza();
         pizza.setId(1L);
-        pizza.setSabor(TestSabor.listaSabores());
+        pizza.setSabor(TestSabor.listaSabores(TestSabor.criaSabor()));
         pizza.setTipo(TestPizzaTipo.criaPizzaTipo());
         return pizza;
     }
      protected static PizzaDTO criaPizzaDTO(Pizza pizza) {
-        PizzaDTO pizzaDTO = new PizzaDTO();
-        pizzaDTO = modelMapper.map(pizza, PizzaDTO.class);
+      PizzaDTO  pizzaDTO = modelMapper.map(pizza, PizzaDTO.class);
         return pizzaDTO;
     }
      protected static List<Pizza> pizzas() {

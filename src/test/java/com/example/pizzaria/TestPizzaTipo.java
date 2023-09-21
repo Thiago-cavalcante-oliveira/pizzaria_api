@@ -141,15 +141,15 @@ class TestPizzaTipo {
     }
     @Test
     void teste10AtualizarFailDuplicated(){
-        PizzaTipoDTO pizzaTipoDTO = new PizzaTipoDTO();
+        PizzaTipo pizzaTipoDTO = new PizzaTipo();
         pizzaTipoDTO.setNome("Calabresa");
         pizzaTipoDTO.setTamanho("Grande");
         pizzaTipoDTO.setValor(50.00);
         pizzaTipoDTO.setId(5L);
-        Mockito.when(pizzaTipoRepository.findByNome(Mockito.anyString())).thenReturn(criaPizzaTipo());
+        Mockito.when(pizzaTipoRepository.findByNome(Mockito.anyString())).thenReturn(pizzaTipoDTO);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () -> pizzaTipoController.editar(1L, pizzaTipoDTO));
-        Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
+                () -> pizzaTipoController.editar(1L, criaPizzaTipoDTO(pizzaTipoDTO)));
+        Assertions.assertTrue(exception.getMessage().contains("Tipo já cadastrado"));
     }
     @Test
     void teste11EditarFailCatch(){
