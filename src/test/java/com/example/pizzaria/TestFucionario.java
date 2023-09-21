@@ -3,6 +3,7 @@ package com.example.pizzaria;
 import com.example.pizzaria.controller.FuncionarioController;
 import com.example.pizzaria.dto.ClienteDTO;
 import com.example.pizzaria.dto.FuncionarioDTO;
+import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
@@ -274,6 +275,35 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         assertNotEquals(funcionario, funcionario2);
 
         assertNotEquals(funcionario.hashCode(), funcionario.hashCode());
+    }
+
+    @Test
+    void teste24EqualsDTO()
+    {
+        FuncionarioDTO funcionarioDTO = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
+        FuncionarioDTO funcionarioDTO1 = new FuncionarioDTO();
+        funcionarioDTO1.setId(2L);
+        funcionarioDTO1.setNome("Eduardo");
+        funcionarioDTO1.setCpf("109.999.888-78");
+        funcionarioDTO1.setFuncao("Gerente");
+
+        Assertions.assertEquals(funcionarioDTO.getNome(), funcionarioDTO1.getNome());
+        Assertions.assertEquals(funcionarioDTO.getCpf(), funcionarioDTO1.getCpf());
+        Assertions.assertEquals(funcionarioDTO.getFuncao(), funcionarioDTO1.getFuncao());
+    }
+    @Test
+    void teste24EqualsEntity()
+    {
+        Funcionario funcionarioDTO = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
+        Funcionario funcionarioDTO1 = new Funcionario();
+        funcionarioDTO1.setId(2L);
+        funcionarioDTO1.setNome("Eduardo");
+        funcionarioDTO1.setCpf("109.999.888-78");
+        funcionarioDTO1.setFuncao("Gerente");
+
+        Assertions.assertEquals(funcionarioDTO.getNome(), funcionarioDTO1.getNome());
+        Assertions.assertEquals(funcionarioDTO.getCpf(), funcionarioDTO1.getCpf());
+        Assertions.assertEquals(funcionarioDTO.getFuncao(), funcionarioDTO1.getFuncao());
     }
 
 }
