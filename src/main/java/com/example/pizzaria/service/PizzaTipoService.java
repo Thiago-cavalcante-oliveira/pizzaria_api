@@ -49,10 +49,14 @@ public class PizzaTipoService {
     }
 
     public List<PizzaTipoDTO> findAll() {
+
         List<PizzaTipo> pizzaTipos = this.pizzaTipoRepository.findAll();
         List<PizzaTipoDTO> pizzaTipoDTO = new ArrayList<>();
         for (PizzaTipo i : pizzaTipos) {
             pizzaTipoDTO.add(modelMapper.map(i, PizzaTipoDTO.class));
+        }
+        if(pizzaTipoDTO.isEmpty()){
+            throw new IllegalArgumentException(FAIL);
         }
         return pizzaTipoDTO;
     }
