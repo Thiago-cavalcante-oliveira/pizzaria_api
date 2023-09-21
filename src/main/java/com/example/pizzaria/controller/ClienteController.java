@@ -79,12 +79,10 @@ public class ClienteController {
     public ResponseEntity<String> deletar(@RequestParam("id") final Long id)
     {
         try {
-            if(this.clienteService.deletar(id)){
+            this.clienteService.deletar(id);
                 return ResponseEntity.ok(DISABLE);
-            }
-            else{
-                return ResponseEntity.ok(DELETE);
-            }
+
+
         }
         catch (Exception e)
         {

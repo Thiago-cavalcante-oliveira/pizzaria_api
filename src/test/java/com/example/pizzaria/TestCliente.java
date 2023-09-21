@@ -7,6 +7,7 @@ import com.example.pizzaria.repository.ClienteRepository;
 import com.example.pizzaria.service.ClienteService;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
@@ -97,12 +98,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
     }
 
-    @Test
-    void Teste13DeleteService(){
-        Mockito.when(clienteController.deletar(Mockito.anyLong()));
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.deletar(criaClienteDto(criarCliente()).getId()));
-        Assert.assertEquals("400 BAD_REQUEST \"Registro não encontrado\"", exception.getMessage());
-    }
+
 
     @Test
      void Teste6AtualizarController(){
@@ -127,12 +123,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
     }
 
-    @Test
-    void Teste9DeleteService(){
-        var cliente = clienteService.deletar(1l);
-        Assert.assertEquals(true,cliente);
 
-    }
 
     @Test
     void teste10findById_fail() {
@@ -176,12 +167,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
     @Test
     void teste14ExclusaoMalSucedida() {
-        Long idInexistente = 100L;
+        Mockito.when(clienteRepository.findById(1L)).thenReturn(Optional.empty());
+
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            clienteController.deletar(idInexistente);
+            clienteController.deletar(1L);
         });
         System.out.println(exception.getMessage());
-        Assert.assertTrue(exception.getMessage().contains("Registro não encontrado"));
+        Assertions.assertTrue(exception.getMessage().contains("Registro não encontrado"));
     }
 
     @Test
