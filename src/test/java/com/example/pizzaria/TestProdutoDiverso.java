@@ -207,13 +207,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void testeHashDTO()
     {
-        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l",  2, 7.00);
+        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO( "coca-cola", "Refrigerente 2l",  2, 7.00);
+        produtoDiverso1.setId(1l);
+        produtoDiverso1.setAtivo(true);
         ProdutoDiversoDTO produtoDiverso2 = new ProdutoDiversoDTO();
+        produtoDiverso2.setId(2l);
+        produtoDiverso2.setAtivo(false);
         produtoDiverso2.setNome("guarana");
         produtoDiverso2.setTipo("Refrigerente 600ml");
         produtoDiverso2.setPreco(3.00);
         produtoDiverso2.setQuantidade(5);
 
+        Assertions.assertNotEquals(produtoDiverso1.getId(), produtoDiverso2.getId());
+        Assertions.assertNotEquals(produtoDiverso1.isAtivo(), produtoDiverso2.isAtivo());
         Assertions.assertNotEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
         Assertions.assertNotEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
         Assertions.assertNotEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
@@ -225,12 +231,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void testeEqualsDTO()
     {
         ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l",  2, 7.00);
+        produtoDiverso1.setId(1l);
+        produtoDiverso1.setAtivo(true);
         ProdutoDiversoDTO produtoDiverso2 = new ProdutoDiversoDTO();
+        produtoDiverso2.setId(1l);
+        produtoDiverso2.setAtivo(true);
         produtoDiverso2.setNome("coca-cola");
         produtoDiverso2.setTipo("Refrigerente 2l");
         produtoDiverso2.setPreco(7.00);
         produtoDiverso2.setQuantidade(2);
 
+
+        Assertions.assertEquals(produtoDiverso1.getId(), produtoDiverso2.getId());
+        Assertions.assertEquals(produtoDiverso1.isAtivo(), produtoDiverso2.isAtivo());
         Assertions.assertEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
         Assertions.assertEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
         Assertions.assertEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
@@ -242,11 +255,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void testeGetterSetterEntity()
     {
         ProdutoDiverso produtoDiverso = new ProdutoDiverso();
+
+        produtoDiverso.setId(1l);
+        produtoDiverso.setAtivo(true);
         produtoDiverso.setNome("coca-cola");
         produtoDiverso.setTipo("Refrigerente 2l");
         produtoDiverso.setPreco(7.00);
         produtoDiverso.setQuantidade(2);
 
+        Assertions.assertEquals(1l, produtoDiverso.getId());
+        Assertions.assertEquals(true, produtoDiverso.isAtivo());
         Assertions.assertEquals("coca-cola", produtoDiverso.getNome());
         Assertions.assertEquals("Refrigerente 2l", produtoDiverso.getTipo());
         Assertions.assertEquals(7.00, produtoDiverso.getPreco());
@@ -257,11 +275,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void testeGetterSetterDTO()
     {
         ProdutoDiversoDTO produtoDiverso = new ProdutoDiversoDTO();
+        produtoDiverso.setId(1l);
+        produtoDiverso.setAtivo(true);
         produtoDiverso.setNome("coca-cola");
         produtoDiverso.setTipo("Refrigerente 2l");
         produtoDiverso.setPreco(7.00);
         produtoDiverso.setQuantidade(2);
 
+        Assertions.assertEquals(1l, produtoDiverso.getId());
+        Assertions.assertEquals(true, produtoDiverso.isAtivo());
         Assertions.assertEquals("coca-cola", produtoDiverso.getNome());
         Assertions.assertEquals("Refrigerente 2l", produtoDiverso.getTipo());
         Assertions.assertEquals(7.00, produtoDiverso.getPreco());
