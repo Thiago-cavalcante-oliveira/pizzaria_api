@@ -4,6 +4,7 @@ import com.example.pizzaria.controller.PedidoController;
 import com.example.pizzaria.dto.*;
 import com.example.pizzaria.entity.*;
 import com.example.pizzaria.repository.PedidoRepository;
+import com.example.pizzaria.service.PedidoService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,9 @@ import java.util.*;
     PedidoRepository repositorio;
     @Autowired
     PedidoController controller;
+
+    @Autowired
+    PedidoService service;
 
     static ModelMapper modelMapper = new ModelMapper();
     static TestCliente testCliente;
@@ -85,6 +89,11 @@ import java.util.*;
         var teste = controller.findById(1l);
         Assert.assertEquals(1l,teste.getBody().getId(),0);
     }
+    @Test
+    void testeFindByIdService() {
+        var teste = service.findById(1l);
+        Assert.assertEquals(1l,teste.getId(),0);
+    }
 
     @Test
     void testeFindAll()
@@ -94,12 +103,18 @@ import java.util.*;
     }
 
     @Test
+    void testeFindAllService()
+    {
+        var teste = service.findAll();
+        Assert.assertEquals(1, teste.size(),0);
+    }
+
+    @Test
     void testeCadastrar()
     {
         var teste = controller.cadastrar(criaPedidoDTO(criaPedido()));
         Assert.assertTrue(teste.getBody().contains("sucesso"));
     }
-
     @Test
     void testeEditar()
     {

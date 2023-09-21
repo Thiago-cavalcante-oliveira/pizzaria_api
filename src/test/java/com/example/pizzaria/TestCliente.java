@@ -125,7 +125,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void Teste9DeleteService(){
         var cliente = clienteService.deletar(1l);
-        Assert.assertEquals("Cliente desativado",cliente);
+        Assert.assertEquals(true,cliente);
 
     }
 
