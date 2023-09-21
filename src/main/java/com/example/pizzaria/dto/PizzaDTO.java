@@ -3,16 +3,14 @@ package com.example.pizzaria.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @NotBlank(message = "O campo não pode ser vazio")
 @NotNull(message = "O campo não pode ser nulo")
 @EqualsAndHashCode(callSuper=false)

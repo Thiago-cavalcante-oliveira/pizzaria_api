@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @NoArgsConstructor
 @NotNull(message = "Erro: o item não pode ser nulo")
 @NotBlank(message = "Erro: o item não pode ser vazio")
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper=false)
 public class ClienteDTO extends AbstractEntityDTO{
     static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";

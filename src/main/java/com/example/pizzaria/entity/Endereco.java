@@ -7,7 +7,7 @@ import lombok.*;
 @Table(name = "tb_enderecos", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper=false)
 public class Endereco extends AbstractEntity {
 

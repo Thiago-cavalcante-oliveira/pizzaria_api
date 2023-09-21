@@ -4,7 +4,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter @Setter
 public class ErrorHandler {
         private String campo;
         private String message;

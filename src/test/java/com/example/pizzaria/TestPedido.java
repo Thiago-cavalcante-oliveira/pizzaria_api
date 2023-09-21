@@ -213,4 +213,38 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         assertEquals("Concluído", pedido.getSituacaoPedido());
     }
 
+    @Test
+    void TesteGetterSetter(){
+        Pedido pedido = new Pedido();
+
+        pedido.setAtendente(TestFucionario.criaFuncionario());
+        pedido.setEntregador(TestFucionario.criaFuncionario());
+        pedido.setDataPedido(TestPedido.criaPedido().getDataPedido());
+        pedido.setSituacaoPedido(TestPedido.criaPedido().getSituacaoPedido());
+        pedido.setEndereco(TestPedido.criaPedido().getEndereco());
+        pedido.setPizzas(TestPedido.criaPedido().getPizzas());
+        pedido.setCliente(TestPedido.criaPedido().getCliente());
+        pedido.setFormaPagamento(TestPedido.criaPedido().getFormaPagamento());
+        pedido.setEntrega(TestPedido.criaPedido().isEntrega());
+        pedido.setProdutos(TestPedido.criaPedido().getProdutos());
+        pedido.setValorTotal(criaPedido().getValorTotal());
+        pedido.setId(TestPedido.criaPedido().getId());
+
+        Assertions.assertEquals(TestPedido.criaPedido().getAtendente(), pedido.getAtendente());
+        Assertions.assertEquals(TestPedido.criaPedido().getDataPedido().getDay(), pedido.getDataPedido().getDay());
+        Assertions.assertEquals(TestPedido.criaPedido().getSituacaoPedido(), pedido.getSituacaoPedido());
+        Assertions.assertEquals(TestPedido.criaPedido().getPizzas(), pedido.getPizzas());
+        Assertions.assertEquals(TestPedido.criaPedido().getEndereco(), pedido.getEndereco());
+        Assertions.assertEquals(TestPedido.criaPedido().getProdutos(), pedido.getProdutos());
+        Assertions.assertEquals(TestPedido.criaPedido().getValorTotal(), pedido.getValorTotal());
+        Assertions.assertEquals(TestPedido.criaPedido().getFormaPagamento(), pedido.getFormaPagamento());
+        Assertions.assertEquals(TestPedido.criaPedido().getCliente(), pedido.getCliente());
+        Assertions.assertEquals(TestPedido.criaPedido().getPizzas(), pedido.getPizzas());
+        Assertions.assertEquals(TestPedido.criaPedido().getEndereco(), pedido.getEndereco());
+        Assertions.assertEquals(TestPedido.criaPedido().getEntregador(), pedido.getEntregador());
+
+
+
+    }
+
 }

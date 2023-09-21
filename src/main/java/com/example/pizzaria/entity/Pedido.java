@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "tb_pedidos", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper=false)
 public class Pedido extends AbstractEntity{
 

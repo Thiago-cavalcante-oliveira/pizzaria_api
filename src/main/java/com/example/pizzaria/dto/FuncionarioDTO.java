@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter @Setter
 @NotNull(message = "Nome não pode ser nulo")
 @NotBlank(message = "Nome não pode ser vazio")
 @EqualsAndHashCode(callSuper=false)

@@ -7,7 +7,7 @@ import lombok.*;
 @Table(name = "tb_funcionarios", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper=false)
 public class Funcionario extends AbstractEntity{
 
