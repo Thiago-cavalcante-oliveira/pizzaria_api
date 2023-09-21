@@ -4,6 +4,8 @@ import com.example.pizzaria.dto.PizzaDTO;
 import com.example.pizzaria.controller.PizzaController;
 import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.entity.Pizza;
+import com.example.pizzaria.entity.PizzaTipo;
+import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.PizzaRepository;
 import com.example.pizzaria.service.PizzaService;
 import com.example.pizzaria.service.SaborService;
@@ -23,6 +25,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
@@ -70,12 +74,12 @@ import java.util.Optional;
     @Test
      void Teste1FindByIDController() {
         var pizza = pizzaController.findById(1L);
-        Assertions.assertEquals(1, pizza.getBody().getId(), 0);
+        assertEquals(1, pizza.getBody().getId(), 0);
     }
     @Test
     void Teste2FindByIDService() {
         var pizza = pizzaService.findById(1L);
-        Assertions.assertEquals(1, pizza.getId(), 0);
+        assertEquals(1, pizza.getId(), 0);
     }
 
     @Test
@@ -151,4 +155,46 @@ import java.util.Optional;
             pizzaController.deletar(1L);
         });
 }
+    @Test
+    public void teste14GetSetTipo() {
+
+        Pizza pizza = new Pizza();
+        PizzaTipo tipo = new PizzaTipo();
+        tipo.setNome("Mussarela");
+        pizza.setTipo(tipo);
+        PizzaTipo tipoObtido = pizza.getTipo();
+        assertEquals("Mussarela", tipoObtido.getNome());
+    }
+
+    @Test
+    public void teste15GetSetSabor() {
+        Pizza pizza = new Pizza();
+        List<Sabor> sabores = new ArrayList<>();
+        Sabor sabor1 = new Sabor();
+        sabor1.setNomeSabor("Calabresa");
+        sabores.add(sabor1);
+
+        Sabor sabor2 = new Sabor();
+        sabor2.setNomeSabor("Margarita");
+        sabores.add(sabor2);
+
+        pizza.setSabor(sabores);
+
+        List<Sabor> saboresObtidos = pizza.getSabor();
+
+        assertEquals("Calabresa", saboresObtidos.get(0).getNomeSabor());
+        assertEquals("Margarita", saboresObtidos.get(1).getNomeSabor());
+    }
+
+    @Test
+    public void teste16GetSetValorPizza() {
+
+        Pizza pizza = new Pizza();
+        pizza.setValorPizza(20.0);
+        double valorObtido = pizza.getValorPizza();
+        assertEquals(20.0, valorObtido, 0.001);
+    }
+
+
+
 }
