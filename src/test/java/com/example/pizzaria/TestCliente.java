@@ -2,7 +2,9 @@ package com.example.pizzaria;
 
 import com.example.pizzaria.controller.ClienteController;
 import com.example.pizzaria.dto.ClienteDTO;
+import com.example.pizzaria.dto.FuncionarioDTO;
 import com.example.pizzaria.entity.Cliente;
+import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.ClienteRepository;
 import com.example.pizzaria.service.ClienteService;
 import org.junit.Assert;
@@ -311,5 +313,34 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setCpf("109.999.789-98");
         assertEquals("109.999.789-98", clienteDTO.getCpf());
+    }
+
+    @Test
+    void teste27EqualsEntity()
+    {
+        Cliente cliente = new Cliente("Eduardo", "45 99815-3620", "109.855.666.38");
+        Cliente cliente1 = new Cliente();
+        cliente1.setId(2L);
+        cliente1.setNome("Eduardo");
+        cliente1.setTelCelular("45 99815-3620");
+        cliente1.setCpf("109.855.666.38");
+
+        Assertions.assertEquals(cliente.getNome(), cliente1.getNome());
+        Assertions.assertEquals(cliente.getCpf(), cliente1.getCpf());
+        Assertions.assertEquals(cliente.getTelCelular(), cliente1.getTelCelular());
+    }
+    @Test
+    void teste28EqualsDTO()
+    {
+        ClienteDTO cliente = new ClienteDTO("Eduardo", "45 99815-3620", "109.855.666.38");
+        ClienteDTO cliente1 = new ClienteDTO();
+        cliente1.setId(2L);
+        cliente1.setNome("Eduardo");
+        cliente1.setTelCelular("45 99815-3620");
+        cliente1.setCpf("109.855.666.38");
+
+        Assertions.assertEquals(cliente.getNome(), cliente1.getNome());
+        Assertions.assertEquals(cliente.getCpf(), cliente1.getCpf());
+        Assertions.assertEquals(cliente.getTelCelular(), cliente1.getTelCelular());
     }
 }
