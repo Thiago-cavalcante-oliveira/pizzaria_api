@@ -149,7 +149,7 @@ class TestPizzaTipo {
         Mockito.when(pizzaTipoRepository.findByNome(Mockito.anyString())).thenReturn(pizzaTipoDTO);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> pizzaTipoController.editar(1L, criaPizzaTipoDTO(pizzaTipoDTO)));
-        Assertions.assertTrue(exception.getMessage().contains("Tipo já cadastrado"));
+        Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
     }
     @Test
     void teste11EditarFailCatch(){

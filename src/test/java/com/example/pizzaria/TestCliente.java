@@ -3,7 +3,6 @@ package com.example.pizzaria;
 import com.example.pizzaria.controller.ClienteController;
 import com.example.pizzaria.dto.ClienteDTO;
 import com.example.pizzaria.entity.Cliente;
-import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.ClienteRepository;
 import com.example.pizzaria.service.ClienteService;
 import org.junit.Assert;
@@ -252,6 +251,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void teste21SetTelCelularComValorEmBranco() {
         ClienteDTO clienteDTO = new ClienteDTO();
         assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(""));
-    }add .
+    }
 
 }

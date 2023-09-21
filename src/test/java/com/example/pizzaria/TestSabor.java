@@ -115,7 +115,8 @@ class TestSabor {
 
     @Test
     void teste7CadastrarFail() {
-        Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        Sabor sabor = criaSabor();
+        Mockito.when(saborRepository.existsByNome(sabor.getNomeSabor())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
         Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
@@ -123,7 +124,8 @@ class TestSabor {
 
     @Test
     void teste11CadastrarControllerCatch() {
-        Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        Sabor sabor = criaSabor();
+        Mockito.when(saborRepository.existsByNome(sabor.getNomeSabor())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
         Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
@@ -140,7 +142,8 @@ class TestSabor {
 
     @Test
     void teste9AtualizarFailIdDiferentes() {
-        Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        Sabor sabor = criaSabor();
+        Mockito.when(saborRepository.existsByNome(sabor.getNomeSabor())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> saborController.editar(5L, criaSaborDTO(criaSabor())));
         Assertions.assertTrue(exception.getMessage().contains("coincidem"));

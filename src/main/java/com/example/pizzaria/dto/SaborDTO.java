@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.xml.transform.Source;
 
 @Data
 @NotNull(message = "O campo nome é obrigatório")
