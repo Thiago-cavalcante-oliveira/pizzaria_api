@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NotBlank(message = "O campo nome não pode ser vazio")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class ProdutoDiversoDTO extends AbstractEntityDTO{
 
     static final String MESSAGESIZE = "Valor invalido, deve ter entre 3 e 250 caracteres";

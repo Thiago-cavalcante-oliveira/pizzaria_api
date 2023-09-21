@@ -26,8 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -63,8 +62,15 @@ class TestSabor {
 
     @BeforeEach
     void injectDados() {
+        Sabor sabor = new Sabor();
+        sabor.setId(1L);
+        sabor.setNomeSabor("Calabresa");
+        sabor.setValor(10.00);
+        sabor.setIngredientes("Calabresa, queijo, molho de tomate");
+        SaborDTO saborDTO = modelMapper.map(sabor, SaborDTO.class);
+
         Mockito.when(saborRepository.findById(criaSabor().getId())).thenReturn(Optional.of(criaSabor()));
-        Mockito.when(saborRepository.findByNome(criaSaborDTO(criaSabor()).getNome())).thenReturn(criaSabor());
+        Mockito.when(saborRepository.findByNome(saborDTO.getNome())).thenReturn(criaSabor());
         Mockito.when(saborRepository.findAll()).thenReturn(listaSabores());
         Mockito.when(saborRepository.save(criaSabor())).thenReturn(criaSabor());
     }
@@ -143,13 +149,11 @@ class TestSabor {
 
     @Test
     void teste10AtualizarFailDuplicated() {
-        SaborDTO saborDTO = new SaborDTO();
-        saborDTO.setIngredientes("Calabresa, queijo, molho de tomate");
-        saborDTO.setNome("Calabresa");
+        Sabor saborDTO = criaSabor();
         saborDTO.setId(5L);
         Mockito.when(saborRepository.findByNome(Mockito.anyString())).thenReturn(criaSabor());
         ResponseStatusException exceptio = assertThrows(ResponseStatusException.class,
-                () -> saborController.editar(1L, saborDTO));
+                () -> saborController.editar(1L, criaSaborDTO(saborDTO)));
         Assertions.assertFalse(exceptio.getMessage().contains("Sabor já cadastrado"));
     }
 
@@ -166,6 +170,35 @@ class TestSabor {
         Mockito.when(saborRepository.saborExistTb_pizza(Mockito.anyLong())).thenReturn(false);
         Mockito.when(saborRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(criaSabor()));
         Assertions.assertFalse(saborController.deletar(1L).getBody().contains("Tipo de pizza deletado com sucesso"));
+    }
+    @Test
+    public void testEqualsAndHashCodeExcludesSuperclassField() {
+        // Criar duas instâncias de SaborDTO com o mesmo valor para um campo herdado (se houver)
+        Sabor sabor1 = new Sabor();
+        sabor1.setId(1L); // Suponhamos que a classe pai (superclasse) tenha um campo "id"
+        sabor1.setNomeSabor("Pizza Margherita");
+
+        Sabor sabor2 = new Sabor();
+        sabor2.setId(1L); // Mesmo valor para o campo herdado
+        sabor2.setNomeSabor("Pizza Calabresa");
+
+        // Verificar que as instâncias não são iguais
+        assertNotEquals(sabor1, sabor2);
+
+        // Verificar que os códigos hash são diferentes
+        assertNotEquals(sabor1.hashCode(), sabor2.hashCode());
+    }
+
+    @Test
+    public void testAllArgsConstructor() {
+
+        Sabor sabor = new Sabor("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+
+
+        assertNotNull(sabor);
+        assertEquals("Pizza Margherita", sabor.getNomeSabor());
+        assertEquals("Ingredientes da Margherita", sabor.getIngredientes());
+        assertEquals(12.99, sabor.getValor(), 0.001); // Use uma margem de erro pequena para valores double
     }
 
 }

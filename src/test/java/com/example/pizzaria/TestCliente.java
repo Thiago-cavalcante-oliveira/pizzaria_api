@@ -154,6 +154,60 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assert.assertTrue( exception.getMessage().contains("CPF não encontrado"));
     }
 
+    @Test
+<<<<<<< HEAD
+    void teste13AtualizacaoMalSucedida() {
+        Long idInexistente = 100L;
+        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            clienteController.editar(idInexistente, clienteDTO);
+        });
+        System.out.println(exception.getMessage());
+        Assert.assertTrue(exception.getMessage().contains("Registro não encontrado"));
+
+
+    }
+
+
+    @Test
+    void teste14ExclusaoMalSucedida() {
+        Long idInexistente = 100L;
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            clienteController.deletar(idInexistente);
+        });
+        System.out.println(exception.getMessage());
+        Assert.assertTrue(exception.getMessage().contains("Registro não encontrado"));
+    }
+
+    @Test
+    void teste15CadastroComCPFDuplicado() {
+        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
+        Mockito.when(clienteRepository.alreadyExists(clienteDTO.getCpf())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            clienteController.cadastrar(clienteDTO);
+        });
+        System.out.println(exception.getMessage());
+        Assert.assertTrue(exception.getMessage().contains("CPF não encontrado"));
+
+    }
+
+    @Test
+    void teste16ListagemVazia() {
+        Mockito.when(clienteRepository.findAll()).thenReturn(new ArrayList<>());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            clienteController.findAll();
+        });
+        System.out.println(exception.getMessage());
+        Assert.assertTrue(exception.getMessage().contains("Lista não encontrada"));
+    }
+=======
+    void teste13CadastrarFail() {
+        Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(criaClienteDto(criarCliente())));
+        Assert.assertTrue( exception.getMessage().contains("CPF"));
+    }
+
+>>>>>>> 7a80e611d9366761cfeb097cd47760c881f5531c
 
 
 }

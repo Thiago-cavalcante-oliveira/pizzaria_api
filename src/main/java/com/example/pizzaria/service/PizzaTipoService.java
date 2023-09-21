@@ -37,9 +37,7 @@ public class PizzaTipoService {
     public String editar(PizzaTipoDTO pizzaTipoDTO, Long id) {
         if (pizzaTipoDTO.getId() != id) {
             throw new IllegalArgumentException(FAIL);
-        } else if (pizzaTipoRepository.findByNome(pizzaTipoDTO.getNome()).getId() != id) {
-            throw new IllegalArgumentException(DUPLICATED);
-        }
+        } else
         this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
         return EDITED;
     }

@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @NotNull(message = "O item não pode ser nulo")
 @NotBlank(message = "O item não pode ser vazio")
+@EqualsAndHashCode(callSuper=false)
 public class EnderecoDTO extends AbstractEntityDTO {
 
 
