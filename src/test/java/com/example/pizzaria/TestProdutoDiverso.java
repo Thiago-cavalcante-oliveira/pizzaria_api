@@ -207,7 +207,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void testeHashDTO()
     {
-        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l", 7.00, 2);
+        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l",  2, 7.00);
         ProdutoDiversoDTO produtoDiverso2 = new ProdutoDiversoDTO();
         produtoDiverso2.setNome("guarana");
         produtoDiverso2.setTipo("Refrigerente 600ml");
@@ -224,7 +224,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void testeEqualsDTO()
     {
-        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l", 7.00, 2);
+        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l",  2, 7.00);
         ProdutoDiversoDTO produtoDiverso2 = new ProdutoDiversoDTO();
         produtoDiverso2.setNome("coca-cola");
         produtoDiverso2.setTipo("Refrigerente 2l");
