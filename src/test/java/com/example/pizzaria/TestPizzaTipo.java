@@ -2,6 +2,7 @@ package com.example.pizzaria;
 
 
 import com.example.pizzaria.controller.PizzaTipoController;
+import com.example.pizzaria.dto.PizzaDTO;
 import com.example.pizzaria.entity.PizzaTipo;
 import com.example.pizzaria.repository.PizzaTipoRepository;
 
@@ -101,18 +102,44 @@ class TestPizzaTipo {
         Assert.assertEquals("Tipo de pizza cadastrado com sucesso", pizzatipo.getBody());
     }
 
-//    @Test
-//    void teste7CadastrarFail() {
-//        Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
-//        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-//                () -> pizzaTipoController.cadastrar(criaPizzaTipoDTO(criaPizzaTipo())));
-//        Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
-//    }
+    @Test
+    void teste7CadastrarFail() {
+        Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> pizzaTipoController.cadastrar(criaPizzaTipoDTO(criaPizzaTipo())));
+        Assertions.assertFalse(exception.getMessage().contains("Sabor já cadastrado"));
+    }
+
+    @Test
+    void teste8CadastrarFailCatch(){
+        Mockito.when(pizzaTipoRepository.save(Mockito.any())).thenReturn(Optional.empty());
+        assertThrows(ResponseStatusException.class, () -> pizzaTipoController.cadastrar(criaPizzaTipoDTO(criaPizzaTipo())));
+    }
 
     @Test
     void teste4_editar() {
         PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         var pizzatipo = pizzaTipoController.editar(1L, pizzaTipoDTO);
         Assert.assertEquals("Tipo de pizza editado com sucesso", pizzatipo.getBody());
+    }
+
+   @Test
+    void teste9AtualizarFailIdDiferentes() {
+        Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> pizzaTipoController.editar(5L, criaPizzaTipoDTO(criaPizzaTipo())));
+        Assertions.assertFalse(exception.getMessage().contains("coincidem"));
+    }
+    @Test
+    void teste10AtualizarFailDuplicated(){
+        PizzaTipoDTO pizzaTipoDTO = new PizzaTipoDTO();
+        pizzaTipoDTO.setNome("Calabresa");
+        pizzaTipoDTO.setTamanho("Grande");
+        pizzaTipoDTO.setValor(50.00);
+        pizzaTipoDTO.setId(5L);
+        Mockito.when(pizzaTipoRepository.findByNome(Mockito.anyString())).thenReturn(criaPizzaTipo());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> pizzaTipoController.editar(1L, pizzaTipoDTO));
+        Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
     }
 }
