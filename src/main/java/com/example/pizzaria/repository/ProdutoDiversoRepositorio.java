@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 public interface ProdutoDiversoRepositorio extends JpaRepository<ProdutoDiverso, Long>{
 
     @Query("select exists (select p from ProdutoDiverso p where p.tipo = :tipo)")
-    boolean alreadyExists(@Param("cpf") final String tipo);
+    boolean alreadyExists(@Param("tipo") final String tipo);
 
     @Query("select p.id from ProdutoDiverso p where p.tipo = :tipo")
-    Long isTheSame(@Param("cpf") final String tipo);
+    Long isTheSame(@Param("tipo") final String tipo);
 
 }
