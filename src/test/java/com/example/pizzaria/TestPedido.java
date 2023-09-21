@@ -177,14 +177,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    public void testSetId() {
+    void testSetId() {
         Pedido pedido = new Pedido();
         pedido.setId(2L);
         assertEquals(2L, pedido.getId());
     }
 
     @Test
-    public void testGetCliente() {
+    void testGetCliente() {
         Pedido pedido = new Pedido();
         Cliente cliente = new Cliente();
         pedido.setCliente(cliente);
@@ -192,7 +192,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    public void testSetCliente() {
+    void testSetCliente() {
         Pedido pedido = new Pedido();
         Cliente cliente = new Cliente();
         pedido.setCliente(cliente);
@@ -200,14 +200,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    public void testGetSituacaoPedido() {
+    void testGetSituacaoPedido() {
         Pedido pedido = new Pedido();
         pedido.setSituacaoPedido("Em andamento");
         assertEquals("Em andamento", pedido.getSituacaoPedido());
     }
 
     @Test
-    public void testSetSituacaoPedido() {
+    void testSetSituacaoPedido() {
         Pedido pedido = new Pedido();
         pedido.setSituacaoPedido("Concluído");
         assertEquals("Concluído", pedido.getSituacaoPedido());

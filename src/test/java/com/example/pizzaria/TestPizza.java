@@ -143,9 +143,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @Test
     void teste12CadastrarFail(){
+        PizzaDTO pizzaDTO =criaPizzaDTO(criaPizza());
         Mockito.when(pizzaRepository.save(Mockito.any())).thenReturn(Optional.empty());
         Assertions.assertThrows(ResponseStatusException.class, () -> {
-            pizzaController.cadastrar(criaPizzaDTO(criaPizza()));
+            pizzaController.cadastrar(pizzaDTO);
         });
     }
 @Test
@@ -156,7 +157,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         });
 }
     @Test
-    public void teste14GetSetTipo() {
+    void teste14GetSetTipo() {
 
         Pizza pizza = new Pizza();
         PizzaTipo tipo = new PizzaTipo();
@@ -167,7 +168,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     }
 
     @Test
-    public void teste15GetSetSabor() {
+    void teste15GetSetSabor() {
         Pizza pizza = new Pizza();
         List<Sabor> sabores = new ArrayList<>();
         Sabor sabor1 = new Sabor();
@@ -187,7 +188,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     }
 
     @Test
-    public void teste16GetSetValorPizza() {
+    void teste16GetSetValorPizza() {
 
         Pizza pizza = new Pizza();
         pizza.setValorPizza(20.0);

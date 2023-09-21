@@ -101,16 +101,18 @@ class TestPizzaTipo {
 
     @Test
     void teste6CadastrarFail() {
+        PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () -> pizzaTipoController.cadastrar(criaPizzaTipoDTO(criaPizzaTipo())));
+                () -> pizzaTipoController.cadastrar(pizzaTipoDTO));
         Assertions.assertFalse(exception.getMessage().contains("Sabor já cadastrado"));
     }
 
     @Test
     void teste7CadastrarFailCatch(){
+        PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         Mockito.when(pizzaTipoRepository.save(Mockito.any())).thenReturn(Optional.empty());
-        assertThrows(ResponseStatusException.class, () -> pizzaTipoController.cadastrar(criaPizzaTipoDTO(criaPizzaTipo())));
+        assertThrows(ResponseStatusException.class, () -> pizzaTipoController.cadastrar(pizzaTipoDTO));
     }
 
     @Test
@@ -134,27 +136,29 @@ class TestPizzaTipo {
 
    @Test
     void teste10AtualizarFailIdDiferentes() {
+        PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         Mockito.when(pizzaTipoRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () -> pizzaTipoController.editar(5L, criaPizzaTipoDTO(criaPizzaTipo())));
+                () -> pizzaTipoController.editar(5L, pizzaTipoDTO));
         Assertions.assertFalse(exception.getMessage().contains("coincidem"));
     }
     @Test
     void teste10AtualizarFailDuplicated(){
-        PizzaTipo pizzaTipoDTO = new PizzaTipo();
+        PizzaTipoDTO pizzaTipoDTO = new PizzaTipoDTO();
         pizzaTipoDTO.setNome("Calabresa");
         pizzaTipoDTO.setTamanho("Grande");
         pizzaTipoDTO.setValor(50.00);
         pizzaTipoDTO.setId(5L);
-        Mockito.when(pizzaTipoRepository.findByNome(Mockito.anyString())).thenReturn(pizzaTipoDTO);
+        Mockito.when(pizzaTipoRepository.findByNome(Mockito.anyString())).thenReturn(criaPizzaTipo());
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () -> pizzaTipoController.editar(1L, criaPizzaTipoDTO(pizzaTipoDTO)));
+                () -> pizzaTipoController.editar(1L, pizzaTipoDTO));
         Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
     }
     @Test
     void teste11EditarFailCatch(){
+        PizzaTipoDTO pizzaTipoDTO = criaPizzaTipoDTO(criaPizzaTipo());
         Mockito.when(pizzaTipoRepository.save(Mockito.any())).thenReturn(Optional.empty());
-        assertThrows(ResponseStatusException.class, () -> pizzaTipoController.editar(5L,criaPizzaTipoDTO(criaPizzaTipo())));
+        assertThrows(ResponseStatusException.class, () -> pizzaTipoController.editar(5L,pizzaTipoDTO));
     }
 
     @Test
