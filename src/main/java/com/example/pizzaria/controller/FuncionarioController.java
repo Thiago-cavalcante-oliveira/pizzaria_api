@@ -80,12 +80,9 @@ public class FuncionarioController {
     public ResponseEntity<String> deletar(@RequestParam("id") final Long id)
     {
         try {
-            if(this.funcionarioService.deletar(id)){
-                return ResponseEntity.ok(DISABLED);
-            }
-            else{
-                return ResponseEntity.ok(DELETED);
-            }
+            this.funcionarioService.deletar(id);
+            return ResponseEntity.ok(DISABLED);
+
         }
         catch (Exception e)
         {
