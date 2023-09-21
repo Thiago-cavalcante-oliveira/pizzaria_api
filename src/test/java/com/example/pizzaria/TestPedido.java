@@ -216,7 +216,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void TesteGetterSetter(){
         Pedido pedido = new Pedido();
-
         pedido.setAtendente(TestFucionario.criaFuncionario());
         pedido.setEntregador(TestFucionario.criaFuncionario());
         pedido.setDataPedido(TestPedido.criaPedido().getDataPedido());
@@ -242,9 +241,31 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assertions.assertEquals(TestPedido.criaPedido().getPizzas(), pedido.getPizzas());
         Assertions.assertEquals(TestPedido.criaPedido().getEndereco(), pedido.getEndereco());
         Assertions.assertEquals(TestPedido.criaPedido().getEntregador(), pedido.getEntregador());
-
-
-
     }
 
+    @Test
+    void testeHAsh(){
+
+        Pedido pedido = new Pedido();
+        pedido.setAtendente(TestFucionario.criaFuncionario());
+        pedido.setEntregador(TestFucionario.criaFuncionario());
+        pedido.setDataPedido(TestPedido.criaPedido().getDataPedido());
+        pedido.setSituacaoPedido(TestPedido.criaPedido().getSituacaoPedido());
+        pedido.setEndereco(TestPedido.criaPedido().getEndereco());
+        pedido.setPizzas(TestPedido.criaPedido().getPizzas());
+        pedido.setCliente(TestPedido.criaPedido().getCliente());
+        pedido.setFormaPagamento(TestPedido.criaPedido().getFormaPagamento());
+        pedido.setEntrega(TestPedido.criaPedido().isEntrega());
+        pedido.setProdutos(TestPedido.criaPedido().getProdutos());
+        pedido.setValorTotal(criaPedido().getValorTotal());
+        pedido.setId(TestPedido.criaPedido().getId());
+
+        Pedido pedido1 = new Pedido();
+        pedido1.setId(10L);
+        Set<Pizza> pizzas = new HashSet<>();
+        pizzas.add(TestPizza.criaPizza());
+        pedido1.setPizzas(pizzas);
+        pedido1.setEntrega(false);
+
+    }
 }
