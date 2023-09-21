@@ -1,7 +1,9 @@
 package com.example.pizzaria;
 
 import com.example.pizzaria.controller.FuncionarioController;
+import com.example.pizzaria.dto.ClienteDTO;
 import com.example.pizzaria.dto.FuncionarioDTO;
+import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import com.example.pizzaria.service.FuncionarioService;
@@ -23,8 +25,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -232,5 +234,46 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
 
+    @Test
+    void teste23HashDto() {
+
+        FuncionarioDTO funcionario = new FuncionarioDTO();
+        funcionario.setId(1L);
+        funcionario.setNome("Eduardo");
+        funcionario.setCpf("109.999.888-78");
+        funcionario.setFuncao("Gerente");
+
+        FuncionarioDTO funcionario2 = new FuncionarioDTO();
+        funcionario2.setId(1L);
+        funcionario2.setNome("Eduardo souza");
+        funcionario2.setCpf("109.429.688-78");
+        funcionario2.setFuncao("Atendente");
+
+
+        assertNotEquals(funcionario, funcionario2);
+
+        assertNotEquals(funcionario.hashCode(), funcionario.hashCode());
+    }
+
+    @Test
+    void teste23HashEntity() {
+
+        Funcionario funcionario = new Funcionario();
+        funcionario.setId(1L);
+        funcionario.setNome("Eduardo");
+        funcionario.setCpf("109.999.888-78");
+        funcionario.setFuncao("Gerente");
+
+        FuncionarioDTO funcionario2 = new FuncionarioDTO();
+        funcionario2.setId(1L);
+        funcionario2.setNome("Eduardo souza");
+        funcionario2.setCpf("109.429.688-78");
+        funcionario2.setFuncao("Atendente");
+
+
+        assertNotEquals(funcionario, funcionario2);
+
+        assertNotEquals(funcionario.hashCode(), funcionario.hashCode());
+    }
 
 }
