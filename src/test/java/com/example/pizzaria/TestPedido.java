@@ -6,6 +6,7 @@ import com.example.pizzaria.entity.*;
 import com.example.pizzaria.repository.PedidoRepository;
 import com.example.pizzaria.service.PedidoService;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,8 +14,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
  class TestPedido {
@@ -127,6 +131,36 @@ import java.util.*;
     {
         var teste = controller.deletar(1l);
         Assert.assertTrue(teste.getBody().contains("sucesso"));
+    }
+
+    @Test
+    void testeDeletarFail()
+    {
+        Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        assertThrows(ResponseStatusException.class, () -> controller.deletar(1L));
+    }
+
+    @Test
+    void testeFindByIdFail() {
+
+        Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        assertThrows(ResponseStatusException.class, () -> controller.findById(1L));
+
+    }
+
+    @Test
+    void testeFindAllFailMessage() {
+        Mockito.when(repositorio.findAll()).thenReturn(new ArrayList<>());
+        assertThrows(ResponseStatusException.class, () -> controller.findAll());
+        //System.out.println(exception);
+        //Assertions.assertTrue(exception.getMessage().contains("Sabor não cadastrado"));
+    }
+
+    @Test
+    void testeAtualizarFailIdDiferentes() {
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () ->  controller.editar(2l, criaPedidoDTO(criaPedido())));
+        Assertions.assertFalse(exception.getMessage().contains("coincidem"));
     }
 
 }

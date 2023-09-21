@@ -23,6 +23,9 @@ public class PedidoService {
 
     public List<PedidoDTO> findAll(){
         List<Pedido> pedidos = this.pedidoRepository.findAll();
+        if(pedidos.isEmpty()){
+            throw new IllegalArgumentException(FAIL);
+        }
         List<PedidoDTO> pedidosDTO = new ArrayList<>();
         for(Pedido i : pedidos)
         {
@@ -45,6 +48,9 @@ public class PedidoService {
     public void editar(PedidoDTO pedidoDTO, Long id)
     {
         Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
+        if (!(pedido.getId().equals(id))) {
+            throw new IllegalArgumentException("Os IDs não coincidem");
+        }
         modelMapper.map(pedidoDTO, pedido);
         this.pedidoRepository.save(pedido);
     }
