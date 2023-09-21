@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -115,11 +116,21 @@ class TestSabor {
     }
 
     @Test
+    void teste11CadastrarControllerCatch() {
+        Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
+        Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
+
+    }
+
+    @Test
     void teste8AtualizarSuccess() {
         SaborDTO saborDTO = criaSaborDTO(criaSabor());
         var sabor = saborController.editar(1l, saborDTO);
         Assert.assertEquals(200, sabor.getStatusCodeValue());
     }
+
 
     @Test
     void teste9AtualizarFailIdDiferentes() {
@@ -128,6 +139,7 @@ class TestSabor {
                 () -> saborController.editar(5L, criaSaborDTO(criaSabor())));
         Assertions.assertTrue(exception.getMessage().contains("coincidem"));
     }
+
 
     @Test
     void teste10AtualizarFailDuplicated() {
@@ -149,8 +161,12 @@ class TestSabor {
                 () -> saborController.deletar(1L));
         Assertions.assertTrue(exception.getMessage().contains("Sabor desativado"));
     }
-
-
+    @Test
+    void teste12DeletarSuccess() {
+        Mockito.when(saborRepository.saborExistTb_pizza(Mockito.anyLong())).thenReturn(false);
+        Mockito.when(saborRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(criaSabor()));
+        Assertions.assertFalse(saborController.deletar(1L).getBody().contains("Tipo de pizza deletado com sucesso"));
+    }
 
 }
 

@@ -49,7 +49,6 @@ public class PizzaTipoService {
     }
 
     public List<PizzaTipoDTO> findAll() {
-
         List<PizzaTipo> pizzaTipos = this.pizzaTipoRepository.findAll();
         List<PizzaTipoDTO> pizzaTipoDTO = new ArrayList<>();
         for (PizzaTipo i : pizzaTipos) {
@@ -63,7 +62,7 @@ public class PizzaTipoService {
 
     public String deletar(Long id) {
         if (!pizzaTipoRepository.existsById(id)) {
-            throw new IllegalArgumentException(DUPLICATED);
+            throw new IllegalArgumentException(FAIL);
         } else if (pizzaTipoRepository.pizzaTipoExistTb_pizza(id)) {
             PizzaTipo salvarEmBanco = this.pizzaTipoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             salvarEmBanco.setAtivo(false);
