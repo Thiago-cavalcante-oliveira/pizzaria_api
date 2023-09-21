@@ -1,5 +1,6 @@
 package com.example.pizzaria.entity;
 
+import com.example.pizzaria.dto.EnderecoDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class Endereco extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
+
 
 
 }
