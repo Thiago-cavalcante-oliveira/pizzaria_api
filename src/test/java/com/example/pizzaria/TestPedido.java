@@ -170,7 +170,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
     @Test
-    public void testGetId() {
+    void testGetId() {
         Pedido pedido = new Pedido();
         pedido.setId(1L);
         assertEquals(1L, pedido.getId());

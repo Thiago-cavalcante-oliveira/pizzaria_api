@@ -80,14 +80,14 @@ class TestSaborDTO {
         sabor2.setNome("Pizza Calabresa");
 
         // Verificar que as instâncias não são iguais
-        assertFalse(sabor1.equals(sabor2));
+        assertNotEquals(sabor1,sabor2);
 
         // Verificar que os códigos hash são diferentes
         assertNotEquals(sabor1.hashCode(), sabor2.hashCode());
     }
 
     @Test
-    public void testAllArgsConstructor() {
+    void testAllArgsConstructor() {
         // Crie uma instância de SaborDTO usando o construtor gerado pelo Lombok
         SaborDTO sabor = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
 

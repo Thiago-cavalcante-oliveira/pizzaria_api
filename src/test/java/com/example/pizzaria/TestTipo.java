@@ -56,7 +56,7 @@ class TestTipoPizzaDTO {
        pizzaTipoDTO2.setNome("Portuguesa");
          pizzaTipoDTO2.setTamanho("Pequena");
 
-        assertFalse(pizzaTipoDTO1.equals(pizzaTipoDTO2));
+        assertNotEquals(pizzaTipoDTO1, pizzaTipoDTO2);
 
         assertNotEquals(pizzaTipoDTO1.hashCode(), pizzaTipoDTO2.hashCode());
     }

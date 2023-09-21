@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assertions.assertEquals(50.0, pizzaTipoDTO.getValor());
     }
     @Test
-    public void testEqualsAndHashCodeExcludesSuperclassField() {
+    void testEqualsAndHashCodeExcludesSuperclassField() {
 
         PizzaTipo pizzaTipoDTO1 = new PizzaTipo();
         pizzaTipoDTO1.setTamanho("Grande");
@@ -53,7 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         pizzaTipoDTO2.setNome("Portuguesa");
         pizzaTipoDTO2.setTamanho("Pequena");
 
-        assertFalse(pizzaTipoDTO1.equals(pizzaTipoDTO2));
+        assertNotEquals(pizzaTipoDTO1, pizzaTipoDTO2);
 
         assertNotEquals(pizzaTipoDTO1.hashCode(), pizzaTipoDTO2.hashCode());
     }

@@ -115,17 +115,19 @@ class TestSabor {
 
     @Test
     void teste7CadastrarFail() {
+        SaborDTO saborDTO = criaSaborDTO(criaSabor());
         Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
+                () -> saborController.cadastrar(saborDTO));
         Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
     }
 
     @Test
     void teste11CadastrarControllerCatch() {
+        SaborDTO saborDTO = criaSaborDTO(criaSabor());
         Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () -> saborController.cadastrar(criaSaborDTO(criaSabor())));
+                () -> saborController.cadastrar(saborDTO));
         Assertions.assertTrue(exception.getMessage().contains("Sabor já cadastrado"));
 
     }
@@ -140,20 +142,21 @@ class TestSabor {
 
     @Test
     void teste9AtualizarFailIdDiferentes() {
+        SaborDTO saborDTO = criaSaborDTO(criaSabor());
         Mockito.when(saborRepository.existsByNome(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () -> saborController.editar(5L, criaSaborDTO(criaSabor())));
+                () -> saborController.editar(5L, saborDTO));
         Assertions.assertTrue(exception.getMessage().contains("coincidem"));
     }
 
 
     @Test
     void teste10AtualizarFailDuplicated() {
-        Sabor saborDTO = criaSabor();
+        SaborDTO saborDTO = criaSaborDTO(criaSabor());
         saborDTO.setId(5L);
         Mockito.when(saborRepository.findByNome(Mockito.anyString())).thenReturn(criaSabor());
         ResponseStatusException exceptio = assertThrows(ResponseStatusException.class,
-                () -> saborController.editar(1L, criaSaborDTO(saborDTO)));
+                () -> saborController.editar(1L, saborDTO));
         Assertions.assertFalse(exceptio.getMessage().contains("Sabor já cadastrado"));
     }
 
@@ -172,7 +175,7 @@ class TestSabor {
         Assertions.assertFalse(saborController.deletar(5L).getBody().contains("Tipo de pizza deletado com sucesso"));
     }
     @Test
-    public void testEqualsAndHashCodeExcludesSuperclassField() {
+    void testEqualsAndHashCodeExcludesSuperclassField() {
         // Criar duas instâncias de SaborDTO com o mesmo valor para um campo herdado (se houver)
         Sabor sabor1 = new Sabor();
         sabor1.setId(1L); // Suponhamos que a classe pai (superclasse) tenha um campo "id"
@@ -190,7 +193,7 @@ class TestSabor {
     }
 
     @Test
-    public void testAllArgsConstructor() {
+    void testAllArgsConstructor() {
 
         Sabor sabor = new Sabor("Pizza Margherita", "Ingredientes da Margherita", 12.99);
 
