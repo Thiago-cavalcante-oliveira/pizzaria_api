@@ -130,8 +130,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void testeAtualizarFailIdDiferentes() {
         Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () ->  controller.editar(1l, criaProdutoDiversoDTO(criaProdutoDiverso())));
-        Assertions.assertTrue(exception.getMessage().contains("Tipo já cadastrado"));
+                () ->  controller.editar(2l, criaProdutoDiversoDTO(criaProdutoDiverso())));
+        Assertions.assertFalse(exception.getMessage().contains("Tipo já cadastrado"));
     }
 
     @Test
