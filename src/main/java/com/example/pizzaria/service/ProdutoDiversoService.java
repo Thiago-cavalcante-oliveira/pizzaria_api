@@ -10,7 +10,6 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ProdutoDiversoService {
@@ -33,14 +32,17 @@ public class ProdutoDiversoService {
 
     public void editar(ProdutoDiversoDTO produtoDiversoDTO, Long id) {
 
-        ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
-        if (!(produtoDiverso.getId().equals(id))) {
+        if (!(produtoDiversoDTO.getId().equals(id))) {
             throw new IllegalArgumentException("Os IDs não coincidem");
         }
         if(this.produtoDiversoRepositorio.alreadyExists(produtoDiversoDTO.getTipo()))
         {
             Assert.isTrue( this.produtoDiversoRepositorio.isTheSame(produtoDiversoDTO.getTipo()).equals(id) , TIPODUPLICATED);
         }
+
+        ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
+
+
         modelMapper.map(produtoDiversoDTO,produtoDiverso);
         this.produtoDiversoRepositorio.save(produtoDiverso);
     }
@@ -50,6 +52,9 @@ public class ProdutoDiversoService {
     }
    public List<ProdutoDiversoDTO> findAll() {
 List<ProdutoDiverso> produtoDiversos = this.produtoDiversoRepositorio.findAll();
+       if(produtoDiversos.isEmpty()){
+           throw new IllegalArgumentException(FAIL);
+       }
 List<ProdutoDiversoDTO> produtoDiversosDTO = new ArrayList<>();
        for (ProdutoDiverso i: produtoDiversos) {
            produtoDiversosDTO.add(modelMapper.map((i), ProdutoDiversoDTO.class));
