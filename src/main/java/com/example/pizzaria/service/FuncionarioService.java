@@ -57,20 +57,21 @@ public class FuncionarioService {
 
     public void editar(FuncionarioDTO funcionarioDTO, Long id)
     {
-        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         if(this.funcionarioRepository.alreadyExists(funcionarioDTO.getCpf()))
         {
             Assert.isTrue( this.funcionarioRepository.isTheSame(funcionarioDTO.getCpf()).equals(id) , DUPLICATED);
         }
+        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
+
         modelMapper.map(funcionarioDTO,funcionario);
         this.funcionarioRepository.save(funcionario);
     }
 
-    public boolean deletar(Long id)    {
+    public void deletar(Long id)
+    {
         Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         funcionario.setAtivo(false);
         this.funcionarioRepository.save(funcionario);
-        return true;
     }
 
 }

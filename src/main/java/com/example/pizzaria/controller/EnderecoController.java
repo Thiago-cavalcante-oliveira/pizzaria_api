@@ -48,6 +48,9 @@ public class EnderecoController {
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody final EnderecoDTO enderecoDTO){
         try{
+            if (enderecoDTO == null || enderecoDTO.getTelResidencia() == null || enderecoDTO.getTelResidencia().isEmpty()) {
+                throw new IllegalArgumentException("O campo 'Telefone' é obrigatório.");
+            }
             this.enderecoService.cadastrar(enderecoDTO);
 
             return ResponseEntity.ok(SUCESSO);
