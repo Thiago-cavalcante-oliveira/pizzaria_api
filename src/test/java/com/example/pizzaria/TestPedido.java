@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -166,6 +167,50 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void testeCadastrarFail() {
         PedidoDTO pedidoDTO = null;
         assertThrows(ResponseStatusException.class, () -> controller.cadastrar(pedidoDTO));
+    }
+
+    @Test
+    public void testGetId() {
+        Pedido pedido = new Pedido();
+        pedido.setId(1L);
+        assertEquals(1L, pedido.getId());
+    }
+
+    @Test
+    public void testSetId() {
+        Pedido pedido = new Pedido();
+        pedido.setId(2L);
+        assertEquals(2L, pedido.getId());
+    }
+
+    @Test
+    public void testGetCliente() {
+        Pedido pedido = new Pedido();
+        Cliente cliente = new Cliente();
+        pedido.setCliente(cliente);
+        assertEquals(cliente, pedido.getCliente());
+    }
+
+    @Test
+    public void testSetCliente() {
+        Pedido pedido = new Pedido();
+        Cliente cliente = new Cliente();
+        pedido.setCliente(cliente);
+        assertEquals(cliente, pedido.getCliente());
+    }
+
+    @Test
+    public void testGetSituacaoPedido() {
+        Pedido pedido = new Pedido();
+        pedido.setSituacaoPedido("Em andamento");
+        assertEquals("Em andamento", pedido.getSituacaoPedido());
+    }
+
+    @Test
+    public void testSetSituacaoPedido() {
+        Pedido pedido = new Pedido();
+        pedido.setSituacaoPedido("Concluído");
+        assertEquals("Concluído", pedido.getSituacaoPedido());
     }
 
 }
