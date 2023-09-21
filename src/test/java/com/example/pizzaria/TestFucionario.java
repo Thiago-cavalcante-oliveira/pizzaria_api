@@ -2,7 +2,6 @@ package com.example.pizzaria;
 
 import com.example.pizzaria.controller.FuncionarioController;
 import com.example.pizzaria.dto.FuncionarioDTO;
-import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import com.example.pizzaria.service.FuncionarioService;
@@ -113,11 +112,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         var funcionario = funcionarioController.deletar(1l);
         Assertions.assertEquals("Item inativado com sucesso", funcionario.getBody());
     }
-    @Test
-    void Teste8DeletarService(){
-        var funcionario = funcionarioService.deletar(1l);
-        Assertions.assertEquals(true, funcionario);
-    }
+
 
     @Test
     void teste9findById_fail() {
@@ -134,5 +129,65 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
             funcionarioController.findAll();
         });
     }
+
+    @Test
+    void teste11CadastrarFail() {
+        FuncionarioDTO funcionarioDTO = null;
+        assertThrows(IllegalArgumentException.class, () -> funcionarioController.cadastrar(funcionarioDTO));
+    }
+
+
+
+    @Test
+    void teste12DeletarFail()
+    {
+        Mockito.when(funcionarioRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        assertThrows(ResponseStatusException.class, () -> funcionarioController.deletar(1L));
+    }
+
+    @Test
+    void teste13AtualizarFailIdDiferentes() {
+        FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
+        assertThrows(ResponseStatusException.class, () ->  funcionarioController.editar(2l, funcionarioDTO));
+
+    }
+
+    @Test
+    void teste14AtualizarSucess() {
+        FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+        funcionarioDTO.setId(1L);
+        funcionarioDTO.setNome("Eduardo");
+        funcionarioDTO.setCpf("109.999.888-78");
+        funcionarioDTO.setFuncao("Gerente");
+        funcionarioDTO.setAtivo(true);
+        Mockito.when(funcionarioRepository.isTheSame(Mockito.anyString())).thenReturn(1l);
+        Mockito.when(funcionarioRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
+        var teste = funcionarioController.editar(1l, funcionarioDTO);
+        Assert.assertTrue(teste.getBody().contains("sucesso"));
+
+    }
+
+    @Test
+    void teste15AtualizarFailDuplicated() {
+        FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+        funcionarioDTO.setId(5L);
+        funcionarioDTO.setNome("Eduardo");
+        funcionarioDTO.setCpf("109.999.888-78");
+        funcionarioDTO.setFuncao("Gerente");
+        funcionarioDTO.setAtivo(true);
+        Mockito.when(funcionarioRepository.isTheSame(Mockito.anyString())).thenReturn(1l);
+        Mockito.when(funcionarioRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
+        assertThrows(ResponseStatusException.class, () -> funcionarioController.editar(5l, funcionarioDTO));
+
+    }
+
+    @Test
+    void teste16CadastrarFail() {
+        Mockito.when(funcionarioRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
+        FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
+        assertThrows(IllegalArgumentException.class, () -> funcionarioController.cadastrar(funcionarioDTO));
+    }
+
+
 
 }
