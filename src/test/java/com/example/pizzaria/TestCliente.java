@@ -202,8 +202,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
     @Test
     void teste13CadastrarFail() {
+        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
         Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(criaClienteDto(criarCliente())));
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(clienteDTO));
         Assert.assertTrue( exception.getMessage().contains("CPF"));
     }
 

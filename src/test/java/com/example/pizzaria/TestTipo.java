@@ -1,12 +1,10 @@
 package com.example.pizzaria;
 
 import com.example.pizzaria.dto.PizzaTipoDTO;
-import com.example.pizzaria.dto.SaborDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
@@ -44,7 +42,7 @@ class TestTipoPizzaDTO {
         Assertions.assertEquals(50.0, pizzaTipoDTO.getValor());
     }
     @Test
-    public void testEqualsAndHashCodeExcludesSuperclassField() {
+    void testEqualsAndHashCodeExcludesSuperclassField() {
 
         PizzaTipoDTO pizzaTipoDTO1 = new PizzaTipoDTO();
         pizzaTipoDTO1.setTamanho("Grande");
@@ -56,7 +54,7 @@ class TestTipoPizzaDTO {
        pizzaTipoDTO2.setNome("Portuguesa");
          pizzaTipoDTO2.setTamanho("Pequena");
 
-        assertFalse(pizzaTipoDTO1.equals(pizzaTipoDTO2));
+        assertNotEquals(pizzaTipoDTO1, pizzaTipoDTO2);
 
         assertNotEquals(pizzaTipoDTO1.hashCode(), pizzaTipoDTO2.hashCode());
     }

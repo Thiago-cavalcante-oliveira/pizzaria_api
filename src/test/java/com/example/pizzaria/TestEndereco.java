@@ -145,9 +145,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @Test
     void Teste11AtualizarMalSucedida() {
+        EnderecoDTO enderecoDTO = criaEnderecoDTO(criaEndereco());
         Mockito.when(enderecoRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            enderecoController.editar(5L, criaEnderecoDTO(criaEndereco()));
+            enderecoController.editar(5L, enderecoDTO);
         });
         System.out.println(exception.getMessage());
         Assert.assertTrue(exception.getMessage().contains("Registro não encontrado"));
