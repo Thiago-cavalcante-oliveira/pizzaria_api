@@ -6,6 +6,7 @@ import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.entity.ProdutoDiverso;
 import com.example.pizzaria.repository.ProdutoDiversoRepositorio;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -169,5 +170,73 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
         assertThrows(ResponseStatusException.class, () -> controller.editar(5l, produtoDiversoDTO));
     }
+
+    @Test
+    void testeHashEntity()
+    {
+        ProdutoDiverso produtoDiverso1 = new ProdutoDiverso("coca-cola", "Refrigerente 2l", 7.00, 2);
+        ProdutoDiverso produtoDiverso2 = new ProdutoDiverso();
+        produtoDiverso2.setNome("guarana");
+        produtoDiverso2.setTipo("Refrigerente 600ml");
+        produtoDiverso2.setPreco(3.00);
+        produtoDiverso2.setQuantidade(5);
+
+        Assertions.assertNotEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
+        Assertions.assertNotEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
+        Assertions.assertNotEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
+        Assertions.assertNotEquals(produtoDiverso1.getQuantidade(), produtoDiverso2.getQuantidade());
+
+    }
+
+    @Test
+    void testeEqualsEntity()
+    {
+        ProdutoDiverso produtoDiverso1 = new ProdutoDiverso("coca-cola", "Refrigerente 2l", 7.00, 2);
+        ProdutoDiverso produtoDiverso2 = new ProdutoDiverso();
+        produtoDiverso2.setNome("coca-cola");
+        produtoDiverso2.setTipo("Refrigerente 2l");
+        produtoDiverso2.setPreco(7.00);
+        produtoDiverso2.setQuantidade(2);
+
+        Assertions.assertEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
+        Assertions.assertEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
+        Assertions.assertEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
+        Assertions.assertEquals(produtoDiverso1.getQuantidade(), produtoDiverso2.getQuantidade());
+    }
+
+    @Test
+    void testeHashDTO()
+    {
+        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l", 7.00, 2);
+        ProdutoDiversoDTO produtoDiverso2 = new ProdutoDiversoDTO();
+        produtoDiverso2.setNome("guarana");
+        produtoDiverso2.setTipo("Refrigerente 600ml");
+        produtoDiverso2.setPreco(3.00);
+        produtoDiverso2.setQuantidade(5);
+
+        Assertions.assertNotEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
+        Assertions.assertNotEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
+        Assertions.assertNotEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
+        Assertions.assertNotEquals(produtoDiverso1.getQuantidade(), produtoDiverso2.getQuantidade());
+
+    }
+
+    @Test
+    void testeEqualsDTO()
+    {
+        ProdutoDiversoDTO produtoDiverso1 = new ProdutoDiversoDTO("coca-cola", "Refrigerente 2l", 7.00, 2);
+        ProdutoDiversoDTO produtoDiverso2 = new ProdutoDiversoDTO();
+        produtoDiverso2.setNome("coca-cola");
+        produtoDiverso2.setTipo("Refrigerente 2l");
+        produtoDiverso2.setPreco(7.00);
+        produtoDiverso2.setQuantidade(2);
+
+        Assertions.assertEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
+        Assertions.assertEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
+        Assertions.assertEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
+        Assertions.assertEquals(produtoDiverso1.getQuantidade(), produtoDiverso2.getQuantidade());
+    }
+
+
 
 }
