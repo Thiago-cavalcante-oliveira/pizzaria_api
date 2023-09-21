@@ -7,13 +7,17 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.xml.transform.Source;
 
 @Data
 @NotNull(message = "O campo nome é obrigatório")
 @NotBlank(message = "O campo nome não pode ser vazio")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class SaborDTO extends AbstractEntityDTO {
 
     static final String MESSAGESIZE = "Valor invalido, deve ter entre 3 e 250 caracteres";
@@ -26,6 +30,7 @@ public class SaborDTO extends AbstractEntityDTO {
 
     @Min(value = 0, message = MESSAGEVALUE)
     private double valor;
+
 
 
 }

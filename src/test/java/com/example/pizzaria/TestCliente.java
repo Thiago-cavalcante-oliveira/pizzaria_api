@@ -154,6 +154,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assert.assertTrue( exception.getMessage().contains("CPF não encontrado"));
     }
 
+    @Test
+    void teste13CadastrarFail() {
+        Mockito.when(clienteRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> clienteController.cadastrar(criaClienteDto(criarCliente())));
+        Assert.assertTrue( exception.getMessage().contains("CPF"));
+    }
+
 
 
 }

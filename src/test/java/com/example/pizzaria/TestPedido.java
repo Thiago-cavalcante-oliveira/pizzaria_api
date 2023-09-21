@@ -158,9 +158,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @Test
     void testeAtualizarFailIdDiferentes() {
+        Pedido pedido = criaPedido();
+        pedido.setId(2L);
+        Mockito.when(repositorio.findById(Mockito.anyLong())).thenReturn(Optional.of(pedido));
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                () ->  controller.editar(2l, criaPedidoDTO(criaPedido())));
-        Assertions.assertFalse(exception.getMessage().contains("coincidem"));
+                () ->  controller.editar(1l, criaPedidoDTO((pedido))));
+        Assertions.assertTrue(exception.getMessage().contains("coincidem"));
+
+
     }
 
 }

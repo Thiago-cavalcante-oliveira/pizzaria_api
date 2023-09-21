@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
@@ -19,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NotNull(message = "O item não pode ser nulo")
 @NotBlank(message = "O item não pode ser vazio")
-
+@EqualsAndHashCode(callSuper=false)
 public class PedidoDTO extends AbstractEntityDTO {
     static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
 

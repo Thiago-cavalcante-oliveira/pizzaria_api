@@ -38,7 +38,8 @@ public class SaborService {
         Long idFront = id;
         if (!Objects.equals(saborDTO.getId(), idFront)) {
             throw new IllegalArgumentException("Os IDs não coincidem");
-        } else if (!Objects.equals(saborRepository.findByNome(saborDTO.getNome()).getId(), idFront)) {
+        } else
+            if (!Objects.equals(saborRepository.findByNome(saborDTO.getNome()).getId(), idFront)) {
             throw new IllegalArgumentException(DUPLICATED);
         }
         this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
