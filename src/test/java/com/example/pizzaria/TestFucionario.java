@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -72,45 +73,45 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void Teste1FindById(){
         var funcionario = funcionarioController.findById(1l);
-        Assertions.assertEquals(1L, Objects.requireNonNull(funcionario.getBody()).getId(), 0);
+        assertEquals(1L, Objects.requireNonNull(funcionario.getBody()).getId(), 0);
     }
 
     @Test
     void Teste2FindByIdService(){
         var funcionario = funcionarioService.findById(1L);
-        Assertions.assertEquals(1L, funcionario.getId(), 0);
+        assertEquals(1L, funcionario.getId(), 0);
     }
 
     @Test
     void Teste3FindByAll(){
         var funcionario = funcionarioController.findAll();
-        Assertions.assertEquals(1, funcionario.getBody().size());
+        assertEquals(1, funcionario.getBody().size());
     }
     @Test
     void Teste4FindByAllService(){
         var funcionario = funcionarioService.findAll();
-        Assertions.assertEquals(1, funcionario.size());
+        assertEquals(1, funcionario.size());
     }
 
     @Test
     void Teste5CadastrarFuncionario(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.cadastrar(funcionarioDTO);
-        Assertions.assertEquals("Operacao realizada com sucesso", funcionario.getBody());
+        assertEquals("Operacao realizada com sucesso", funcionario.getBody());
     }
 
     @Test
     void Teste6Atualizar(){
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.editar(1L, funcionarioDTO);
-        Assertions.assertEquals(200, funcionario.getStatusCodeValue());
+        assertEquals(200, funcionario.getStatusCodeValue());
     }
 
 
     @Test
     void Teste7Deletar(){
         var funcionario = funcionarioController.deletar(1l);
-        Assertions.assertEquals("Item inativado com sucesso", funcionario.getBody());
+        assertEquals("Item inativado com sucesso", funcionario.getBody());
     }
 
 
@@ -186,6 +187,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Mockito.when(funcionarioRepository.alreadyExists(Mockito.anyString())).thenReturn(true);
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         assertThrows(IllegalArgumentException.class, () -> funcionarioController.cadastrar(funcionarioDTO));
+    }
+
+    @Test
+    void teste17GetSetNome() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setNome("Eduardo");
+        assertEquals("Eduardo", funcionario.getNome());
+    }
+
+    @Test
+    void teste18GetSetCpf() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setCpf("123.456.789-00");
+        assertEquals("123.456.789-00", funcionario.getCpf());
+    }
+
+    @Test
+    void teste19GetSetFuncao() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setFuncao("Gerente");
+        assertEquals("Gerente", funcionario.getFuncao());
     }
 
 
