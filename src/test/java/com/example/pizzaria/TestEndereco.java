@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -138,6 +139,37 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assert.assertThrows(ResponseStatusException.class, () -> {
             enderecoController.findAll();
         });
+    }
+
+
+    @Test
+    void Teste11AtualizarMalSucedida() {
+        Mockito.when(enderecoRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            enderecoController.editar(5L, criaEnderecoDTO(criaEndereco()));
+        });
+        System.out.println(exception.getMessage());
+        Assert.assertTrue(exception.getMessage().contains("Registro não encontrado"));
+    }
+
+    @Test
+    void Teste12DeleteMalSucedida() {
+        Mockito.when(enderecoRepository.doesExist(Mockito.anyLong())).thenReturn(false);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            enderecoController.deletar(5L);
+        });
+        System.out.println(exception.getMessage());
+        Assert.assertTrue(exception.getMessage().contains("Registro não encontrado"));
+    }
+
+    @Test
+    void Teste13CadastroDadosInvalidos() {
+        EnderecoDTO enderecoInvalido = new EnderecoDTO();
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            enderecoController.cadastrar(enderecoInvalido);
+        });
+        System.out.println(exception.getMessage());
+        Assert.assertTrue(exception.getMessage().contains("Falha ao cadastrar endereco"));
     }
 
 
