@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -207,5 +208,50 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assert.assertTrue( exception.getMessage().contains("CPF"));
     }
 
+
+    @Test
+    void teste14GetSetNome() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setNome("Eduardo");
+        assertEquals("Eduardo", clienteDTO.getNome());
+    }
+
+    @Test
+    void teste15GetSetTelCelular() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setTelCelular("45 99985-5563");
+        assertEquals("45 99985-5563", clienteDTO.getTelCelular());
+    }
+
+    @Test
+    void teste16GetSetCpf() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setCpf("109.999.789-98");
+        assertEquals("109.999.789-98", clienteDTO.getCpf());
+    }
+
+    @Test
+    void teste17SetNomeComValorNulo() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setNome(null));
+    }
+
+    @Test
+    void teste18SetNomeComValorEmBranco() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setNome(""));
+    }
+
+    @Test
+    void teste20SetTelCelularComValorNulo() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(null));
+    }
+
+    @Test
+    void teste21SetTelCelularComValorEmBranco() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(""));
+    }add .
 
 }

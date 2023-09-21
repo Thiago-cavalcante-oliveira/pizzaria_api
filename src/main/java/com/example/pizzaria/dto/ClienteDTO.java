@@ -26,4 +26,25 @@ public class ClienteDTO extends AbstractEntityDTO{
 
     @CPF(message = MESSAGECPF)
     private String cpf;
+
+    public void setNome(String nome) {
+        if (nome == null) {
+            throw new IllegalArgumentException("Nome não pode ser nulo");
+        } else if (nome == "") {
+            throw new IllegalArgumentException("Nome não pode ser Branco");
+        }
+        this.nome = nome;
+    }
+
+    public void setTelCelular(String telCelular) {
+        if (telCelular == null) {
+            throw new IllegalArgumentException("Telefone celular não pode ser nulo");
+        } else if (telCelular == "") {
+            throw new IllegalArgumentException("Telefone celular não pode ser Branco");
+        }
+        this.telCelular = telCelular;
+    }
+
+
+
 }
