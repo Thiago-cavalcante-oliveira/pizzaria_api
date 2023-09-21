@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -173,5 +174,46 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
 
+    @Test
+    void teste14GetSetTelResidencia() {
+        Endereco endereco = new Endereco();
+        endereco.setTelResidencia("1234567890");
+        assertEquals("1234567890", endereco.getTelResidencia());
+    }
+
+    @Test
+    void teste15GetSetRua() {
+        Endereco endereco = new Endereco();
+        endereco.setRua("Rua Teste");
+        assertEquals("Rua Teste", endereco.getRua());
+    }
+
+    @Test
+    void teste16GetSetNuEndereco() {
+        Endereco endereco = new Endereco();
+        endereco.setNuEndereco(123);
+        assertEquals(123, endereco.getNuEndereco());
+    }
+
+    @Test
+    void teste17GetSetBairro() {
+        Endereco endereco = new Endereco();
+        endereco.setBairro("Bairro Teste");
+        assertEquals("Bairro Teste", endereco.getBairro());
+    }
+
+    @Test
+    void teste18GetSetCep() {
+        Endereco endereco = new Endereco();
+        endereco.setCep("12345-678");
+        assertEquals("12345-678", endereco.getCep());
+    }
+
+    @Test
+    void teste19GetSetComplemento() {
+        Endereco endereco = new Endereco();
+        endereco.setComplemento("Casa");
+        assertEquals("Casa", endereco.getComplemento());
+    }
 
 }

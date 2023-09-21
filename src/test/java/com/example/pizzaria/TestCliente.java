@@ -252,6 +252,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     void teste21SetTelCelularComValorEmBranco() {
         ClienteDTO clienteDTO = new ClienteDTO();
         assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(""));
-    }add .
+    }
 
 }
