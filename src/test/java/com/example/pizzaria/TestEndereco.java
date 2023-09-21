@@ -1,7 +1,9 @@
 package com.example.pizzaria;
 
 import com.example.pizzaria.controller.EnderecoController;
+import com.example.pizzaria.dto.ClienteDTO;
 import com.example.pizzaria.dto.EnderecoDTO;
+import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.EnderecoRepository;
@@ -23,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -215,6 +217,47 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Endereco endereco = new Endereco();
         endereco.setComplemento("Casa");
         assertEquals("Casa", endereco.getComplemento());
+    }
+
+    @Test
+    void teste20HashEntity() {
+
+        Endereco endereco = new Endereco("45 99999-8855","Jose epinafio teles Costa", 1445,"Morumbi", "85858-330","casa",testCliente.criarCliente());
+
+        Endereco endereco1 = new Endereco();
+        endereco1.setId(2l);
+        endereco1.setCep("85858-990");
+        endereco1.setNuEndereco(1495);
+        endereco1.setRua("Jose teles Costa");
+        endereco1.setBairro("Morumbi IV");
+        endereco1.setTelResidencia("45 96669-8855");
+        endereco1.setComplemento("Ap");
+        endereco1.setCliente(testCliente.criarCliente());
+
+
+        assertNotEquals(endereco, endereco1);
+
+        assertNotEquals(endereco.hashCode(), endereco1.hashCode());
+    }
+
+    @Test
+    void teste21HashDto() {
+
+        EnderecoDTO endereco = new EnderecoDTO("45 99999-8855","Jose epinafio teles Costa", 1445,"Morumbi", "85858-330","casa",testCliente.criaClienteDto(testCliente.criarCliente()));
+
+        EnderecoDTO endereco1 = new EnderecoDTO();
+        endereco1.setId(2l);
+        endereco1.setCep("85858-990");
+        endereco1.setNuEndereco(1495);
+        endereco1.setRua("Jose teles Costa");
+        endereco1.setBairro("Morumbi IV");
+        endereco1.setTelResidencia("45 96669-8855");
+        endereco1.setComplemento("Ap");
+        endereco1.setCliente(testCliente.criaClienteDto(testCliente.criarCliente()));
+
+
+        assertNotEquals(endereco, endereco1);
+        assertNotEquals(endereco.hashCode(), endereco1.hashCode());
     }
 
 }
