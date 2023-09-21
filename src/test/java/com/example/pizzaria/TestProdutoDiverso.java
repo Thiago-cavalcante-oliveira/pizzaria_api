@@ -121,9 +121,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void testeCadastrarFail() {
         Mockito.when(repositorio.alreadyExists(Mockito.anyString())).thenReturn(true);
-        Assertions.assertThrows(ResponseStatusException.class, () -> {
-            controller.cadastrar(criaProdutoDiversoDTO(criaProdutoDiverso()));
-        }, "Tipo já cadastrado");
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> controller.cadastrar(criaProdutoDiversoDTO(criaProdutoDiverso())));
+        Assertions.assertTrue(exception.getMessage().contains("Tipo já cadastrado"));
     }
 
     @Test
