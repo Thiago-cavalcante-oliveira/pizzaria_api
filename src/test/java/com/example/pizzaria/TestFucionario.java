@@ -6,6 +6,7 @@ import com.example.pizzaria.dto.FuncionarioDTO;
 import com.example.pizzaria.dto.ProdutoDiversoDTO;
 import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Funcionario;
+import com.example.pizzaria.entity.PizzaTipo;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import com.example.pizzaria.service.FuncionarioService;
 import org.junit.Assert;
@@ -245,7 +246,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         funcionario.setFuncao("Gerente");
 
         FuncionarioDTO funcionario2 = new FuncionarioDTO();
-        funcionario2.setId(1L);
+        funcionario2.setId(2L);
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
         funcionario2.setFuncao("Atendente");
@@ -266,7 +267,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         funcionario.setFuncao("Gerente");
 
         FuncionarioDTO funcionario2 = new FuncionarioDTO();
-        funcionario2.setId(1L);
+        funcionario2.setId(2L);
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
         funcionario2.setFuncao("Atendente");
@@ -306,4 +307,37 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assertions.assertEquals(funcionarioDTO.getFuncao(), funcionarioDTO1.getFuncao());
     }
 
+    @Test
+    public void teste25Equals() {
+        Funcionario funcionarioDTO = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
+        Funcionario funcionarioDTO1 = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
+
+        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
+        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
+
+        Funcionario funcionarioDTO3 = new Funcionario("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
+        Funcionario funcionarioDTO4 = new Funcionario("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
+
+        // Verificar se as instâncias não são iguais
+        assertFalse(funcionarioDTO.equals(funcionarioDTO3));
+        assertFalse(funcionarioDTO.equals(funcionarioDTO4));
+        assertFalse(funcionarioDTO3.equals(funcionarioDTO4));
+    }
+
+    @Test
+    public void teste26EqualsDTO() {
+        FuncionarioDTO funcionarioDTO = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
+        FuncionarioDTO funcionarioDTO1 = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
+
+        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
+        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
+
+        FuncionarioDTO funcionarioDTO3 = new FuncionarioDTO("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
+        FuncionarioDTO funcionarioDTO4 = new FuncionarioDTO("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
+
+        // Verificar se as instâncias não são iguais
+        assertFalse(funcionarioDTO.equals(funcionarioDTO3));
+        assertFalse(funcionarioDTO.equals(funcionarioDTO4));
+        assertFalse(funcionarioDTO3.equals(funcionarioDTO4));
+    }
 }
