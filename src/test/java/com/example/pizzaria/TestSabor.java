@@ -211,21 +211,21 @@ class TestSabor {
         SaborDTO saborDTO1 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
         SaborDTO saborDTO2 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
 
-        assertTrue(sabor1.equals(sabor2));
-        assertTrue(sabor2.equals(sabor1));
-        assertTrue(saborDTO1.equals(saborDTO2));
-        assertTrue(saborDTO2.equals(saborDTO1));
+        assertEquals(sabor1,sabor2);
+        assertEquals(sabor2,sabor1);
+        assertEquals(saborDTO1,saborDTO2);
+        assertEquals(saborDTO2,saborDTO1);
 
         Sabor sabor3 = new Sabor("Pizza Calabresa", "Ingredientes da Calabresa", 13.99);
         Sabor sabor4 = new Sabor("Pizza Pepperoni", "Ingredientes do Pepperoni", 11.99);
         SaborDTO saborDTO3 = new SaborDTO("Pizza Pepperoni", "Ingredientes do Pepperoni", 11.99);
         SaborDTO saborDTO4 = new SaborDTO("Pizza Pepperoni", "Ingredientes do Pepperoni", 15.99);
 
-        assertFalse(sabor1.equals(sabor3));
-        assertFalse(sabor1.equals(sabor4));
-        assertFalse(sabor3.equals(sabor4));
-        assertTrue(saborDTO3.equals(saborDTO4));
-        assertTrue(saborDTO4.equals(saborDTO3));
+        assertNotEquals(sabor1,sabor3);
+        assertNotEquals(sabor2,sabor4);
+        assertNotEquals(sabor3,sabor4);
+        assertNotEquals(saborDTO3,saborDTO4);
+        assertNotEquals(saborDTO4,saborDTO3);
 
 
     }
