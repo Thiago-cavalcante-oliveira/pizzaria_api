@@ -191,17 +191,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     @Test
     void testeEqualsEntity()
     {
-        ProdutoDiverso produtoDiverso1 = new ProdutoDiverso("coca-cola", "Refrigerente 2l", 7.00, 2);
+        ProdutoDiverso produtoDiverso1 = new ProdutoDiverso("coca-cola", "Refrigerente 2l",  7.00, 2);
+        produtoDiverso1.setId(1l);
+        produtoDiverso1.setAtivo(true);
         ProdutoDiverso produtoDiverso2 = new ProdutoDiverso();
+        produtoDiverso2.setId(1l);
+        produtoDiverso2.setAtivo(true);
         produtoDiverso2.setNome("coca-cola");
         produtoDiverso2.setTipo("Refrigerente 2l");
         produtoDiverso2.setPreco(7.00);
         produtoDiverso2.setQuantidade(2);
 
-        Assertions.assertEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
-        Assertions.assertEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
-        Assertions.assertEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
-        Assertions.assertEquals(produtoDiverso1.getQuantidade(), produtoDiverso2.getQuantidade());
+        ProdutoDiverso produtoDiverso3 = new ProdutoDiverso("guarana", "Refrigerente 600ml",  4.00, 3);
+        produtoDiverso3.setId(2l);
+
+
+        Assertions.assertTrue(produtoDiverso1.equals(produtoDiverso2));
+        Assertions.assertTrue(produtoDiverso2.equals(produtoDiverso1));
+
+        Assertions.assertFalse(produtoDiverso3.equals(produtoDiverso1));
+        Assertions.assertFalse(produtoDiverso1.equals(produtoDiverso3));
     }
 
     @Test
@@ -241,13 +250,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         produtoDiverso2.setPreco(7.00);
         produtoDiverso2.setQuantidade(2);
 
+        ProdutoDiversoDTO produtoDiverso3 = new ProdutoDiversoDTO("guarana", "Refrigerente 600ml",  3, 4.00);
 
-        Assertions.assertEquals(produtoDiverso1.getId(), produtoDiverso2.getId());
-        Assertions.assertEquals(produtoDiverso1.isAtivo(), produtoDiverso2.isAtivo());
-        Assertions.assertEquals(produtoDiverso1.getNome(), produtoDiverso2.getNome());
-        Assertions.assertEquals(produtoDiverso1.getTipo(), produtoDiverso2.getTipo());
-        Assertions.assertEquals(produtoDiverso1.getPreco(), produtoDiverso2.getPreco());
-        Assertions.assertEquals(produtoDiverso1.getQuantidade(), produtoDiverso2.getQuantidade());
+        Assertions.assertTrue(produtoDiverso1.equals(produtoDiverso2));
+        Assertions.assertTrue(produtoDiverso2.equals(produtoDiverso1));
+
+        Assertions.assertFalse(produtoDiverso3.equals(produtoDiverso1));
+        Assertions.assertFalse(produtoDiverso1.equals(produtoDiverso3));
     }
 
 
