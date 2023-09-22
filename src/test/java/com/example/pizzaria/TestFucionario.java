@@ -250,7 +250,7 @@ class TestFucionario {
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
         funcionario2.setFuncao("Atendente");
-        Assertions.assertEquals(funcionario, funcionario2);
+        Assertions.assertNotEquals(funcionario, funcionario2);
         assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
     }
 
@@ -263,7 +263,7 @@ class TestFucionario {
         funcionario.setCpf("109.999.888-78");
         funcionario.setFuncao("Gerente");
 
-        FuncionarioDTO funcionario2 = new FuncionarioDTO();
+        Funcionario funcionario2 = new Funcionario();
         funcionario2.setId(2L);
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
@@ -310,12 +310,14 @@ class TestFucionario {
         Assertions.assertEquals(funcionarioDTO, funcionarioDTO1);
         Assertions.assertEquals(funcionarioDTO1, funcionarioDTO);
 
-        Funcionario funcionarioDTO3 = new Funcionario("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
+        Funcionario funcionarioDTO3 = new Funcionario("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
         Funcionario funcionarioDTO4 = new Funcionario("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
 
         // Verificar se as instâncias não são iguais
-        Assertions.assertNotEquals(funcionarioDTO4, funcionarioDTO3);
-        Assertions.assertNotEquals(funcionarioDTO3, funcionarioDTO3);
+        Assertions.assertEquals(funcionarioDTO4, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO4);
+
     }
 
     @Test

@@ -200,9 +200,9 @@ class TestPizzaTipo {
 
 
         Assertions.assertEquals(sabor1, sabor2);
-        Assertions.assertTrue(sabor2.equals(sabor1));
-        Assertions.assertTrue(pizzaTipoDTO1.equals(pizzaTipoDTO2));
-        Assertions.assertTrue(pizzaTipoDTO2.equals(pizzaTipoDTO1));
+        Assertions.assertEquals(sabor2, sabor1);
+        Assertions.assertEquals(pizzaTipoDTO1, pizzaTipoDTO2);
+        Assertions.assertEquals(pizzaTipoDTO2, pizzaTipoDTO1);
 
 
         PizzaTipo sabor3 = new PizzaTipo("Pizza Calabresa", "Ingredientes da Calabresa", 13.99);
@@ -210,11 +210,11 @@ class TestPizzaTipo {
         PizzaTipoDTO pizzaTipoDTO3 = modelMapper.map(sabor3, PizzaTipoDTO.class);
         PizzaTipoDTO pizzaTipoDTO4 = modelMapper.map(sabor4, PizzaTipoDTO.class);
 
-        assertFalse(sabor1.equals(sabor3));
-        assertFalse(sabor1.equals(sabor4));
-        assertFalse(sabor3.equals(sabor4));
-        Assertions.assertFalse(pizzaTipoDTO3.equals(pizzaTipoDTO4));
-        Assertions.assertFalse(pizzaTipoDTO4.equals(pizzaTipoDTO3));
+        Assertions.assertNotEquals(sabor1, sabor3);
+        Assertions.assertNotEquals(sabor4, sabor1);
+        Assertions.assertNotEquals(sabor4,sabor3);
+        Assertions.assertNotEquals(pizzaTipoDTO3, pizzaTipoDTO4);
+        Assertions.assertNotEquals(pizzaTipoDTO4, pizzaTipoDTO3);
     }
 }
 
