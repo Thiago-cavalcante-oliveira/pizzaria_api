@@ -1,9 +1,7 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.ClienteDTO;
-import com.example.pizzaria.dto.EnderecoDTO;
 import com.example.pizzaria.entity.Cliente;
-import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

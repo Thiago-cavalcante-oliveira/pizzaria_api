@@ -19,8 +19,6 @@ public class ClienteController {
     private ClienteService clienteService;
 
     static final String SUCESSO = "Operação realizada com sucesso";
-    static final String FAIL = "Operação falhou";
-    static final String DELETE = "Cliente deletado";
     static final String DISABLE = "Cliente desativado";
 
     @GetMapping("all")

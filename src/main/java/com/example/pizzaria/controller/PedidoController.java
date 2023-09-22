@@ -15,7 +15,6 @@ import java.util.List;
 public class PedidoController {
 
     static final String SUCESSO = "Operacao realizada com sucesso";
-    static final String DELETED = "Item deletado com sucesso";
     static final String DISABLED = "Item inativado com sucesso";
 
     @Autowired

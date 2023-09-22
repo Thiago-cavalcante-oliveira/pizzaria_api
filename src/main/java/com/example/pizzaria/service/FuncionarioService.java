@@ -1,7 +1,6 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.FuncionarioDTO;
-import com.example.pizzaria.dto.SaborDTO;
 import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import org.modelmapper.ModelMapper;
