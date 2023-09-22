@@ -205,12 +205,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         ProdutoDiverso produtoDiverso3 = new ProdutoDiverso("guarana", "Refrigerente 600ml",  4.00, 3);
         produtoDiverso3.setId(2l);
 
+        Assertions.assertEquals(produtoDiverso2, produtoDiverso1);
+        Assertions.assertEquals(produtoDiverso1, produtoDiverso2);
 
-        Assertions.assertTrue(produtoDiverso1.equals(produtoDiverso2));
-        Assertions.assertTrue(produtoDiverso2.equals(produtoDiverso1));
-
-        Assertions.assertFalse(produtoDiverso3.equals(produtoDiverso1));
-        Assertions.assertFalse(produtoDiverso1.equals(produtoDiverso3));
+        Assertions.assertNotEquals(produtoDiverso1, produtoDiverso3);
+        Assertions.assertNotEquals(produtoDiverso3, produtoDiverso1);
     }
 
     @Test
@@ -252,11 +251,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
         ProdutoDiversoDTO produtoDiverso3 = new ProdutoDiversoDTO("guarana", "Refrigerente 600ml",  3, 4.00);
 
-        Assertions.assertTrue(produtoDiverso1.equals(produtoDiverso2));
-        Assertions.assertTrue(produtoDiverso2.equals(produtoDiverso1));
+        Assertions.assertEquals(produtoDiverso2, produtoDiverso1);
+        Assertions.assertEquals(produtoDiverso1, produtoDiverso2);
 
-        Assertions.assertFalse(produtoDiverso3.equals(produtoDiverso1));
-        Assertions.assertFalse(produtoDiverso1.equals(produtoDiverso3));
+        Assertions.assertNotEquals(produtoDiverso1, produtoDiverso3);
+        Assertions.assertNotEquals(produtoDiverso3, produtoDiverso1);
     }
 
 
