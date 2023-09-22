@@ -206,22 +206,28 @@ class TestSabor {
 
     @Test
     public void testEquals() {
-        // Criar duas instâncias de Sabor com campos iguais
         Sabor sabor1 = new Sabor("Pizza Margherita", "Ingredientes da Margherita", 12.99);
         Sabor sabor2 = new Sabor("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+        SaborDTO saborDTO1 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+        SaborDTO saborDTO2 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
 
-        // Verificar se as instâncias são iguais
         assertTrue(sabor1.equals(sabor2));
         assertTrue(sabor2.equals(sabor1));
+        assertTrue(saborDTO1.equals(saborDTO2));
+        assertTrue(saborDTO2.equals(saborDTO1));
 
-        // Criar duas instâncias de Sabor com campos diferentes
         Sabor sabor3 = new Sabor("Pizza Calabresa", "Ingredientes da Calabresa", 13.99);
         Sabor sabor4 = new Sabor("Pizza Pepperoni", "Ingredientes do Pepperoni", 11.99);
+        SaborDTO saborDTO3 = new SaborDTO("Pizza Pepperoni", "Ingredientes do Pepperoni", 11.99);
+        SaborDTO saborDTO4 = new SaborDTO("Pizza Pepperoni", "Ingredientes do Pepperoni", 15.99);
 
-        // Verificar se as instâncias não são iguais
         assertFalse(sabor1.equals(sabor3));
         assertFalse(sabor1.equals(sabor4));
         assertFalse(sabor3.equals(sabor4));
+        assertTrue(saborDTO3.equals(saborDTO4));
+        assertTrue(saborDTO4.equals(saborDTO3));
+
+
     }
 }
 

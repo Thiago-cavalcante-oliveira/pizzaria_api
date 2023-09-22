@@ -245,15 +245,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         funcionario.setFuncao("Gerente");
 
         FuncionarioDTO funcionario2 = new FuncionarioDTO();
-        funcionario2.setId(1L);
+        funcionario2.setId(2L);
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
         funcionario2.setFuncao("Atendente");
-
-
         assertNotEquals(funcionario, funcionario2);
-
-        assertNotEquals(funcionario.hashCode(), funcionario.hashCode());
+        assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
     }
 
     @Test
@@ -266,7 +263,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         funcionario.setFuncao("Gerente");
 
         FuncionarioDTO funcionario2 = new FuncionarioDTO();
-        funcionario2.setId(1L);
+        funcionario2.setId(2L);
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
         funcionario2.setFuncao("Atendente");
@@ -274,7 +271,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
         assertNotEquals(funcionario, funcionario2);
 
-        assertNotEquals(funcionario.hashCode(), funcionario.hashCode());
+        assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
     }
 
     @Test

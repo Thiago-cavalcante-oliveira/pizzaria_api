@@ -195,19 +195,26 @@ class TestPizzaTipo {
         // Criar duas instâncias de Sabor com campos iguais
         PizzaTipo sabor1 = new PizzaTipo("Pizza Margherita", "Ingredientes da Margherita", 12.99);
         PizzaTipo sabor2 = new PizzaTipo("Pizza Margherita", "Ingredientes da Margherita", 12.99);
+        PizzaTipoDTO pizzaTipoDTO1 = modelMapper.map(sabor1, PizzaTipoDTO.class);
+        PizzaTipoDTO pizzaTipoDTO2 = modelMapper.map(sabor2, PizzaTipoDTO.class);
 
-        // Verificar se as instâncias são iguais
+
         Assertions.assertTrue(sabor1.equals(sabor2));
         Assertions.assertTrue(sabor2.equals(sabor1));
+        Assertions.assertTrue(pizzaTipoDTO1.equals(pizzaTipoDTO2));
+        Assertions.assertTrue(pizzaTipoDTO2.equals(pizzaTipoDTO1));
 
-        // Criar duas instâncias de Sabor com campos diferentes
+
         PizzaTipo sabor3 = new PizzaTipo("Pizza Calabresa", "Ingredientes da Calabresa", 13.99);
         PizzaTipo sabor4 = new PizzaTipo("Pizza Pepperoni", "Ingredientes do Pepperoni", 11.99);
+        PizzaTipoDTO pizzaTipoDTO3 = modelMapper.map(sabor3, PizzaTipoDTO.class);
+        PizzaTipoDTO pizzaTipoDTO4 = modelMapper.map(sabor4, PizzaTipoDTO.class);
 
-        // Verificar se as instâncias não são iguais
         assertFalse(sabor1.equals(sabor3));
         assertFalse(sabor1.equals(sabor4));
         assertFalse(sabor3.equals(sabor4));
+        Assertions.assertFalse(pizzaTipoDTO3.equals(pizzaTipoDTO4));
+        Assertions.assertFalse(pizzaTipoDTO4.equals(pizzaTipoDTO3));
     }
 }
 
