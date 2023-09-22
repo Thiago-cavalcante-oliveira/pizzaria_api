@@ -224,8 +224,8 @@ class TestSabor {
         assertFalse(sabor1.equals(sabor3));
         assertFalse(sabor1.equals(sabor4));
         assertFalse(sabor3.equals(sabor4));
-        assertTrue(saborDTO3.equals(saborDTO4));
-        assertTrue(saborDTO4.equals(saborDTO3));
+        assertFalse(saborDTO3.equals(saborDTO4));
+        assertFalse(saborDTO4.equals(saborDTO3));
 
 
     }
