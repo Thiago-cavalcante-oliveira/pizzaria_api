@@ -303,7 +303,7 @@ class TestFucionario {
     }
 
     @Test
-    public void teste25Equals() {
+    void teste25Equals() {
         Funcionario funcionarioDTO = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
         Funcionario funcionarioDTO1 = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
 
@@ -319,7 +319,7 @@ class TestFucionario {
     }
 
     @Test
-    public void teste26EqualsDTO() {
+    void teste26EqualsDTO() {
         FuncionarioDTO funcionarioDTO = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
         FuncionarioDTO funcionarioDTO1 = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
 

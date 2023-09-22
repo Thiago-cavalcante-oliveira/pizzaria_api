@@ -345,7 +345,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     }
 
     @Test
-    public void teste29Equals() {
+    void teste29Equals() {
         ClienteDTO cliente = new ClienteDTO("Eduardo", "45 99815-3620", "109.855.666.38");
         ClienteDTO cliente1 = new ClienteDTO("Eduardo", "45 99815-3620", "109.855.666.38");
 
@@ -361,7 +361,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     }
 
     @Test
-    public void teste30Equals() {
+    void teste30Equals() {
         Cliente cliente = new Cliente("Eduardo", "45 99815-3620", "109.855.666.38");
         Cliente cliente1 = new Cliente("Eduardo", "45 99815-3620", "109.855.666.38");
 
