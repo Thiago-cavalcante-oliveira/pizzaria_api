@@ -270,8 +270,8 @@ class TestFucionario {
         funcionario2.setFuncao("Atendente");
 
 
-        Assertions.assertEquals(funcionario, funcionario2);
-        assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
+        Assertions.assertNotEquals(funcionario, funcionario2);
+        Assertions.assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
     }
 
     @Test
@@ -308,15 +308,14 @@ class TestFucionario {
         Funcionario funcionarioDTO1 = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
 
         Assertions.assertEquals(funcionarioDTO, funcionarioDTO1);
-        Assertions.assertEquals(funcionarioDTO, funcionarioDTO1);
+        Assertions.assertEquals(funcionarioDTO1, funcionarioDTO);
 
         Funcionario funcionarioDTO3 = new Funcionario("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
         Funcionario funcionarioDTO4 = new Funcionario("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
 
         // Verificar se as instâncias não são iguais
-        Assertions.assertEquals(funcionarioDTO, funcionarioDTO3);
-        Assertions.assertEquals(funcionarioDTO, funcionarioDTO3);
-        Assertions.assertEquals(funcionarioDTO3, funcionarioDTO4);
+        Assertions.assertNotEquals(funcionarioDTO4, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO3, funcionarioDTO3);
     }
 
     @Test
@@ -328,10 +327,12 @@ class TestFucionario {
         Assertions.assertEquals(funcionarioDTO1,funcionarioDTO);
 
         FuncionarioDTO funcionarioDTO3 = new FuncionarioDTO("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
-        FuncionarioDTO funcionarioDTO4 = new FuncionarioDTO("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
+        FuncionarioDTO funcionarioDTO4 = new FuncionarioDTO("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
 
         // Verificar se as instâncias não são iguais
-        Assertions.assertNotEquals(funcionarioDTO3, funcionarioDTO4);
-        Assertions.assertNotEquals(funcionarioDTO4, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO4);
+        Assertions.assertEquals(funcionarioDTO, funcionarioDTO1);
+
     }
 }
