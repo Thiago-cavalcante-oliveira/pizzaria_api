@@ -343,4 +343,36 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assertions.assertEquals(cliente.getCpf(), cliente1.getCpf());
         Assertions.assertEquals(cliente.getTelCelular(), cliente1.getTelCelular());
     }
+
+    @Test
+    public void teste29Equals() {
+        ClienteDTO cliente = new ClienteDTO("Eduardo", "45 99815-3620", "109.855.666.38");
+        ClienteDTO cliente1 = new ClienteDTO("Eduardo", "45 99815-3620", "109.855.666.38");
+
+        Assertions.assertTrue(cliente.equals(cliente1));
+        Assertions.assertTrue(cliente1.equals(cliente));
+
+        ClienteDTO cliente3 = new ClienteDTO("Eduardo Souza", "45 97775-3620", "109.888.000.38");
+        ClienteDTO cliente4 = new ClienteDTO("Eduardo Carlos", "45 77777-3620", "000.855.666.38");
+
+        assertFalse(cliente.equals(cliente3));
+        assertFalse(cliente.equals(cliente4));
+        assertFalse(cliente3.equals(cliente4));
+    }
+
+    @Test
+    public void teste30Equals() {
+        Cliente cliente = new Cliente("Eduardo", "45 99815-3620", "109.855.666.38");
+        Cliente cliente1 = new Cliente("Eduardo", "45 99815-3620", "109.855.666.38");
+
+        Assertions.assertTrue(cliente.equals(cliente1));
+        Assertions.assertTrue(cliente1.equals(cliente));
+
+        Cliente cliente3 = new Cliente("Eduardo Souza", "45 97775-3620", "109.888.000.38");
+        Cliente cliente4 = new Cliente("Eduardo Carlos", "45 77777-3620", "000.855.666.38");
+
+        assertFalse(cliente.equals(cliente3));
+        assertFalse(cliente.equals(cliente4));
+        assertFalse(cliente3.equals(cliente4));
+    }
 }
