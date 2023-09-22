@@ -191,7 +191,7 @@ class TestPizzaTipo {
 
 
     @Test
-    public void testEquals() {
+     void testEquals() {
         // Criar duas instâncias de Sabor com campos iguais
         PizzaTipo sabor1 = new PizzaTipo("Pizza Margherita", "Ingredientes da Margherita", 12.99);
         PizzaTipo sabor2 = new PizzaTipo("Pizza Margherita", "Ingredientes da Margherita", 12.99);

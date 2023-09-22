@@ -99,7 +99,7 @@ class TestSaborDTO {
     }
 
     @Test
-    public void testEquals() {
+   void testEquals() {
         // Criar duas instâncias de Sabor com campos iguais
         SaborDTO sabor1 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
         SaborDTO sabor2 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
