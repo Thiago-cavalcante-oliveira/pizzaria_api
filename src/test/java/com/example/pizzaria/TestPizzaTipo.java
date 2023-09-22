@@ -199,7 +199,7 @@ class TestPizzaTipo {
         PizzaTipoDTO pizzaTipoDTO2 = modelMapper.map(sabor2, PizzaTipoDTO.class);
 
 
-        Assertions.assertTrue(sabor1.equals(sabor2));
+        Assertions.assertEquals(sabor1, sabor2);
         Assertions.assertTrue(sabor2.equals(sabor1));
         Assertions.assertTrue(pizzaTipoDTO1.equals(pizzaTipoDTO2));
         Assertions.assertTrue(pizzaTipoDTO2.equals(pizzaTipoDTO1));
