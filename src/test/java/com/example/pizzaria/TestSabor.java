@@ -205,7 +205,7 @@ class TestSabor {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Sabor sabor1 = new Sabor("Pizza Margherita", "Ingredientes da Margherita", 12.99);
         Sabor sabor2 = new Sabor("Pizza Margherita", "Ingredientes da Margherita", 12.99);
         SaborDTO saborDTO1 = new SaborDTO("Pizza Margherita", "Ingredientes da Margherita", 12.99);
