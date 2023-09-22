@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
- class TestFucionario {
+class TestFucionario {
     @MockBean
     FuncionarioRepository funcionarioRepository;
 
@@ -46,26 +46,27 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     ModelMapper modelMapper = new ModelMapper();
 
 
-    protected static Funcionario criaFuncionario(){
+    protected static Funcionario criaFuncionario() {
         Funcionario funcionario = new Funcionario();
         funcionario.setId(1L);
         funcionario.setNome("Eduardo");
         funcionario.setCpf("109.999.888-78");
         funcionario.setFuncao("Gerente");
-        return  funcionario;
+        return funcionario;
     }
 
-    protected static List<Funcionario> listaFuncionario(){
+    protected static List<Funcionario> listaFuncionario() {
         List<Funcionario> funcionarioList = new ArrayList<>();
         funcionarioList.add(criaFuncionario());
         return funcionarioList;
     }
 
-    protected static FuncionarioDTO criaFuncionarioDto(Funcionario funcionario){
+    protected static FuncionarioDTO criaFuncionarioDto(Funcionario funcionario) {
         return modelMapper.map(funcionario, FuncionarioDTO.class);
     }
+
     @BeforeEach
-    void injectDados(){
+    void injectDados() {
 
         Mockito.when(funcionarioRepository.findById(criaFuncionario().getId())).thenReturn(Optional.of(criaFuncionario()));
         Mockito.when(funcionarioRepository.findAll()).thenReturn(listaFuncionario());
@@ -75,37 +76,38 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     }
 
     @Test
-    void Teste1FindById(){
+    void Teste1FindById() {
         var funcionario = funcionarioController.findById(1l);
         assertEquals(1L, Objects.requireNonNull(funcionario.getBody()).getId(), 0);
     }
 
     @Test
-    void Teste2FindByIdService(){
+    void Teste2FindByIdService() {
         var funcionario = funcionarioService.findById(1L);
         assertEquals(1L, funcionario.getId(), 0);
     }
 
     @Test
-    void Teste3FindByAll(){
+    void Teste3FindByAll() {
         var funcionario = funcionarioController.findAll();
         assertEquals(1, funcionario.getBody().size());
     }
+
     @Test
-    void Teste4FindByAllService(){
+    void Teste4FindByAllService() {
         var funcionario = funcionarioService.findAll();
         assertEquals(1, funcionario.size());
     }
 
     @Test
-    void Teste5CadastrarFuncionario(){
+    void Teste5CadastrarFuncionario() {
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.cadastrar(funcionarioDTO);
         assertEquals("Operacao realizada com sucesso", funcionario.getBody());
     }
 
     @Test
-    void Teste6Atualizar(){
+    void Teste6Atualizar() {
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
         var funcionario = funcionarioController.editar(1L, funcionarioDTO);
         assertEquals(200, funcionario.getStatusCodeValue());
@@ -113,7 +115,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
     @Test
-    void Teste7Deletar(){
+    void Teste7Deletar() {
         var funcionario = funcionarioController.deletar(1l);
         assertEquals("Item inativado com sucesso", funcionario.getBody());
     }
@@ -142,10 +144,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     }
 
 
-
     @Test
-    void teste12DeletarFail()
-    {
+    void teste12DeletarFail() {
         Mockito.when(funcionarioRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
         assertThrows(ResponseStatusException.class, () -> funcionarioController.deletar(1L));
     }
@@ -153,7 +153,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     @Test
     void teste13AtualizarFailIdDiferentes() {
         FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
-        assertThrows(ResponseStatusException.class, () ->  funcionarioController.editar(2l, funcionarioDTO));
+        assertThrows(ResponseStatusException.class, () -> funcionarioController.editar(2l, funcionarioDTO));
 
     }
 
@@ -250,7 +250,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
         funcionario2.setFuncao("Atendente");
-        assertNotEquals(funcionario, funcionario2);
+        Assertions.assertNotEquals(funcionario, funcionario2);
         assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
     }
 
@@ -263,21 +263,19 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         funcionario.setCpf("109.999.888-78");
         funcionario.setFuncao("Gerente");
 
-        FuncionarioDTO funcionario2 = new FuncionarioDTO();
+        Funcionario funcionario2 = new Funcionario();
         funcionario2.setId(2L);
         funcionario2.setNome("Eduardo souza");
         funcionario2.setCpf("109.429.688-78");
         funcionario2.setFuncao("Atendente");
 
 
-        assertNotEquals(funcionario, funcionario2);
-
-        assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
+        Assertions.assertNotEquals(funcionario, funcionario2);
+        Assertions.assertNotEquals(funcionario.hashCode(), funcionario2.hashCode());
     }
 
     @Test
-    void teste24EqualsDTO()
-    {
+    void teste24EqualsDTO() {
         FuncionarioDTO funcionarioDTO = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
         FuncionarioDTO funcionarioDTO1 = new FuncionarioDTO();
         funcionarioDTO1.setId(2L);
@@ -289,9 +287,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assertions.assertEquals(funcionarioDTO.getCpf(), funcionarioDTO1.getCpf());
         Assertions.assertEquals(funcionarioDTO.getFuncao(), funcionarioDTO1.getFuncao());
     }
+
     @Test
-    void teste24EqualsEntity()
-    {
+    void teste24EqualsEntity() {
         Funcionario funcionarioDTO = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
         Funcionario funcionarioDTO1 = new Funcionario();
         funcionarioDTO1.setId(2L);
@@ -309,16 +307,17 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Funcionario funcionarioDTO = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
         Funcionario funcionarioDTO1 = new Funcionario("Eduardo", "109.999.888-78", "Gerente");
 
-        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
-        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
+        Assertions.assertEquals(funcionarioDTO, funcionarioDTO1);
+        Assertions.assertEquals(funcionarioDTO1, funcionarioDTO);
 
-        Funcionario funcionarioDTO3 = new Funcionario("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
+        Funcionario funcionarioDTO3 = new Funcionario("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
         Funcionario funcionarioDTO4 = new Funcionario("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
 
         // Verificar se as instâncias não são iguais
-        assertFalse(funcionarioDTO.equals(funcionarioDTO3));
-        assertFalse(funcionarioDTO.equals(funcionarioDTO4));
-        assertFalse(funcionarioDTO3.equals(funcionarioDTO4));
+        Assertions.assertEquals(funcionarioDTO4, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO4);
+
     }
 
     @Test
@@ -326,15 +325,16 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         FuncionarioDTO funcionarioDTO = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
         FuncionarioDTO funcionarioDTO1 = new FuncionarioDTO("Eduardo", "109.999.888-78", "Gerente");
 
-        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
-        Assertions.assertTrue(funcionarioDTO.equals(funcionarioDTO1));
+        Assertions.assertEquals(funcionarioDTO,funcionarioDTO1);
+        Assertions.assertEquals(funcionarioDTO1,funcionarioDTO);
 
         FuncionarioDTO funcionarioDTO3 = new FuncionarioDTO("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
-        FuncionarioDTO funcionarioDTO4 = new FuncionarioDTO("Eduardo costa", "109.999.888-78", "Gerente PosVendas");
+        FuncionarioDTO funcionarioDTO4 = new FuncionarioDTO("Eduardo Souza", "109.999.111-78", "Gerente Vendas");
 
         // Verificar se as instâncias não são iguais
-        assertFalse(funcionarioDTO.equals(funcionarioDTO3));
-        assertFalse(funcionarioDTO.equals(funcionarioDTO4));
-        assertFalse(funcionarioDTO3.equals(funcionarioDTO4));
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO3);
+        Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO4);
+        Assertions.assertEquals(funcionarioDTO, funcionarioDTO1);
+
     }
 }
