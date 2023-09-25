@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NotBlank(message = "O campo não pode ser vazio")
 @NotNull(message = "O campo não pode ser nulo")
-@EqualsAndHashCode(callSuper=false)
+//@EqualsAndHashCode(callSuper=false)
 public class PizzaDTO extends AbstractEntityDTO {
     static final String MESSAGEVALUE = "O valor não pode ser negativo";
 

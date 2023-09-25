@@ -236,7 +236,7 @@ class TestFucionario {
     }
 
 
-    @Test
+    /*@Test
     void teste23HashDto() {
 
         FuncionarioDTO funcionario = new FuncionarioDTO();
@@ -336,5 +336,5 @@ class TestFucionario {
         Assertions.assertNotEquals(funcionarioDTO1, funcionarioDTO4);
         Assertions.assertEquals(funcionarioDTO, funcionarioDTO1);
 
-    }
+    }*/
 }

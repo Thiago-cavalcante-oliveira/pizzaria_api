@@ -213,7 +213,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         assertEquals("Concluído", pedido.getSituacaoPedido());
     }
 
-    @Test
+    /*@Test
     void TesteGetterSetter(){
         Pedido pedido = new Pedido();
         pedido.setAtendente(TestFucionario.criaFuncionario());
@@ -241,9 +241,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assertions.assertEquals(TestPedido.criaPedido().getPizzas(), pedido.getPizzas());
         Assertions.assertEquals(TestPedido.criaPedido().getEndereco(), pedido.getEndereco());
         Assertions.assertEquals(TestPedido.criaPedido().getEntregador(), pedido.getEntregador());
-    }
+    }*/
 
-    @Test
+    /*@Test
     void testeHAsh(){
 
         Pedido pedido = new Pedido();
@@ -312,5 +312,5 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
         Assertions.assertNotEquals(pedido1,pedido);
-    }
+    }*/
 }

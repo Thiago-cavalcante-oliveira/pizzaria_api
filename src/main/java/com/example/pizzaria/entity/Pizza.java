@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+//@EqualsAndHashCode(callSuper=false)
 public class Pizza extends AbstractEntity{
     @JoinColumn(name="co_pizza_tipo")
     @OneToOne

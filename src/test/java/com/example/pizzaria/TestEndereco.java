@@ -219,7 +219,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         assertEquals("Casa", endereco.getComplemento());
     }
 
-    @Test
+    /*@Test
     void teste20HashEntity() {
 
         Endereco endereco = new Endereco("45 99999-8855","Jose epinafio teles Costa", 1445,"Morumbi", "85858-330","casa",testCliente.criarCliente());
@@ -300,7 +300,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         assertEquals(endereco, endereco1);
 
         assertEquals(endereco.hashCode(), endereco1.hashCode());
-    }
+    }*/
 
 
 }

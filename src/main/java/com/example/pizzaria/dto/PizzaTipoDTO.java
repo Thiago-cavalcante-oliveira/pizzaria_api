@@ -13,7 +13,7 @@ import lombok.*;
 @NotBlank(message = "O campo nome não pode ser vazio")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+//@EqualsAndHashCode(callSuper=false)
 public class PizzaTipoDTO extends AbstractEntityDTO {
     static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 250 caracteres.";
     static final String MESSAGEVALUE = "O valor não pode ser negativo";

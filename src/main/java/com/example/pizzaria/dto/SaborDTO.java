@@ -14,7 +14,7 @@ import lombok.*;
 @NotBlank(message = "O campo nome não pode ser vazio")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+//@EqualsAndHashCode(callSuper=false)
 public class SaborDTO extends AbstractEntityDTO {
 
     static final String MESSAGESIZE = "Valor invalido, deve ter entre 3 e 250 caracteres";

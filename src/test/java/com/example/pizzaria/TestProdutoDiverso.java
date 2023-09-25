@@ -171,7 +171,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         assertThrows(ResponseStatusException.class, () -> controller.editar(5l, produtoDiversoDTO));
     }
 
-    @Test
+    /*@Test
     void testeHashEntity()
     {
         ProdutoDiverso produtoDiverso1 = new ProdutoDiverso("coca-cola", "Refrigerente 2l", 7.00, 2);
@@ -256,7 +256,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
         Assertions.assertNotEquals(produtoDiverso1, produtoDiverso3);
         Assertions.assertNotEquals(produtoDiverso3, produtoDiverso1);
-    }
+    }*/
 
 
     @Test

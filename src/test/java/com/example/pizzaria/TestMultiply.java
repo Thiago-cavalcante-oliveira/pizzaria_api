@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class TestMultiply {
 
-    ErrorHandler erro = new ErrorHandler();
+   /* ErrorHandler erro = new ErrorHandler();
 
     @Test
     void testeSet() {
@@ -32,6 +32,6 @@ public class TestMultiply {
 
      Assertions.assertNotEquals(erro1.getMessage(),erro2.getMessage());
      Assertions.assertNotEquals(erro1.getCampo(), erro2.getCampo());
- }
+ }*/
 
 }

@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NotNull(message = "O item não pode ser nulo")
 @NotBlank(message = "O item não pode ser vazio")
-@EqualsAndHashCode(callSuper=false)
+//@EqualsAndHashCode(callSuper=false)
 public class PedidoDTO extends AbstractEntityDTO {
     static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
 

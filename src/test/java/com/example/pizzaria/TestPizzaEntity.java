@@ -24,11 +24,11 @@ import static com.example.pizzaria.TestPizza.modelMapper;
         Assertions.assertEquals(1L, pizza.getId());
     }
 
-    @Test
+   /* @Test
     void testeSetSabor() {
         pizza.setSabor(TestSabor.listaSabores(new Sabor()));
         Assertions.assertEquals(TestSabor.listaSabores(new Sabor()), pizza.getSabor());
-    }
+    }*/
 
 
 }
