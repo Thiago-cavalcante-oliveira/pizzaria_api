@@ -1,7 +1,6 @@
 package com.example.pizzaria.dto;
 
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
