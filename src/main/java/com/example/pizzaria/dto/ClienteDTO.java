@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @NotNull(message = "Erro: o item não pode ser nulo")
 @NotBlank(message = "Erro: o item não pode ser vazio")
 @Getter @Setter
-@EqualsAndHashCode(callSuper=false)
+//@EqualsAndHashCode(callSuper=false)
 public class ClienteDTO extends AbstractEntityDTO{
     static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
     static final String MESSAGECPF = "CPF Ivalido. Informe um CPF valido.";

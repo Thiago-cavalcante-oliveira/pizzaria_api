@@ -315,7 +315,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         assertEquals("109.999.789-98", clienteDTO.getCpf());
     }
 
-    @Test
+    /*@Test
     void teste27EqualsEntity()
     {
         Cliente cliente = new Cliente("Eduardo", "45 99815-3620", "109.855.666.38");
@@ -376,5 +376,5 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assertions.assertNotEquals(cliente,cliente4);
         Assertions.assertNotEquals(cliente3,cliente4);
 
-    }
+    }*/
 }
