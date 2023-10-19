@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/pedido")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PedidoController {
 
     static final String SUCESSO = "Operacao realizada com sucesso";
