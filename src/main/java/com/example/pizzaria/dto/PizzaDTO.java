@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@NotBlank(message = "O campo não pode ser vazio")
+//@NotBlank(message = "O campo não pode ser vazio")
 @NotNull(message = "O campo não pode ser nulo")
 //@EqualsAndHashCode(callSuper=false)
 public class PizzaDTO extends AbstractEntityDTO {
