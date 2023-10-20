@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pizzas")
+@RequestMapping("/api/pizza")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PizzaController {
 
