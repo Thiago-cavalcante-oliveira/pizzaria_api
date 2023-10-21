@@ -26,23 +26,27 @@ public class SaborService {
     static final String DISABLED = "Sabor desativado com sucesso";
     static final String DUPLICATED = "Sabor já cadastrado";
 
-    public String cadastrar(SaborDTO saborDTO) {
+    public SaborDTO cadastrar(SaborDTO saborDTO) {
         if (this.saborRepository.existsByNome(saborDTO.getNome())) {
             throw new IllegalArgumentException(DUPLICATED);
         }
-        this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
-        return SUCCESS;
+        Sabor saborSalvo = this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
+        return modelMapper.map(saborSalvo, SaborDTO.class);
     }
-    public String editar(SaborDTO saborDTO, Long id) {
+    public SaborDTO editar(SaborDTO saborDTO, Long id) {
         Long idFront = id;
         if (!Objects.equals(saborDTO.getId(), idFront)) {
+
             throw new IllegalArgumentException("Os IDs não coincidem");
         } else
-            if (!Objects.equals(saborRepository.findByNome(saborDTO.getNome()).getId(), idFront)) {
-            throw new IllegalArgumentException(DUPLICATED);
-        }
-        this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
-        return EDITED;
+            if(this.saborRepository.alreadyExists(saborDTO.getNome())){
+                if (!Objects.equals(saborRepository.findByNome(saborDTO.getNome()).getId(), idFront)) {
+                    throw new IllegalArgumentException(DUPLICATED);
+                }
+            }
+
+            Sabor saborSalvo = this.saborRepository.save(modelMapper.map(saborDTO, Sabor.class));
+            return modelMapper.map(saborSalvo, SaborDTO.class);
     }
     public List<SaborDTO> findAll() {
         List<Sabor> sabores = this.saborRepository.findAll();
@@ -61,10 +65,11 @@ public class SaborService {
                         return modelMapper.map(this.saborRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL)), SaborDTO.class);
     }
     public String deletar(Long id){
-        if(saborRepository.saborExistTb_pizza(id)){
+        if(true/*saborRepository.saborExistTb_pizza(id)*/){
             Sabor sabor = this.saborRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             sabor.setAtivo(false);
-            throw new IllegalArgumentException(DISABLED);
+            this.saborRepository.save(sabor);
+            return DISABLED;
         }
         else{
             this.saborRepository.deleteById(id);

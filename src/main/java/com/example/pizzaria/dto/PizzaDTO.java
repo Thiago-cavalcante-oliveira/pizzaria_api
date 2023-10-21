@@ -9,16 +9,22 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-//@NotBlank(message = "O campo não pode ser vazio")
-@NotNull(message = "O campo não pode ser nulo")
-//@EqualsAndHashCode(callSuper=false)
+@Getter @Setter
 public class PizzaDTO extends AbstractEntityDTO {
     static final String MESSAGEVALUE = "O valor não pode ser negativo";
 
-    private PizzaTipoDTO tipoDTO;
-    private List<SaborDTO> saborDTO;
+    static final String MESSAGENOTNULL = "é obrigatório";
+
+    static final String MESSAGENOTBLANK = "não pode ser vazio";
+
+    @NotNull(message = "O campo tipo "+ MESSAGENOTBLANK)
+    private PizzaTipoDTO tipo;
+
+    @NotNull(message = "O campo sabor "+ MESSAGENOTBLANK)
+    private List<SaborDTO> sabor;
+
+    @NotNull(message = "O campo valor "+ MESSAGENOTBLANK)
+    //@NotBlank(message = "O campo valor "+ MESSAGENOTNULL)
     @Min(value = 0, message = MESSAGEVALUE)
     private Double valorPizza;
 

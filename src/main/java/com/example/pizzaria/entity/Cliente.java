@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-//@EqualsAndHashCode(callSuper=false)
 public class Cliente extends AbstractEntity{
 
     @Column(name = "nome")

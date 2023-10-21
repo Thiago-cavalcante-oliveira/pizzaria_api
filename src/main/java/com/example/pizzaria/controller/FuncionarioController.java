@@ -1,6 +1,7 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.FuncionarioDTO;
+import com.example.pizzaria.dto.Resposta;
 import com.example.pizzaria.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,12 +49,11 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody final FuncionarioDTO funcionarioDTO){
+    public ResponseEntity<FuncionarioDTO> cadastrar(@RequestBody final FuncionarioDTO funcionarioDTO){
 
         try{
-            this.funcionarioService.cadastrar(funcionarioDTO);
 
-            return ResponseEntity.ok(SUCESSO);
+            return ResponseEntity.ok(this.funcionarioService.cadastrar(funcionarioDTO));
         }
         catch (Exception e)
         {
@@ -62,14 +62,14 @@ public class FuncionarioController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(
+    public ResponseEntity<FuncionarioDTO> editar(
             @RequestParam("id") final Long id,
             @RequestBody final FuncionarioDTO funcionarioDTO)
     {
         try {
-            this.funcionarioService.editar(funcionarioDTO, id);
 
-            return ResponseEntity.ok(SUCESSO);
+
+            return ResponseEntity.ok(this.funcionarioService.editar(funcionarioDTO, id));
         }
         catch (Exception e)
         {
@@ -78,11 +78,12 @@ public class FuncionarioController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id)
+    public ResponseEntity<Resposta> deletar(@RequestParam("id") final Long id)
     {
         try {
-            this.funcionarioService.deletar(id);
-            return ResponseEntity.ok(DISABLED);
+            Resposta resposta = new Resposta();
+            resposta.setMensangem(this.funcionarioService.deletar(id));
+            return ResponseEntity.ok(resposta);
 
         }
         catch (Exception e)

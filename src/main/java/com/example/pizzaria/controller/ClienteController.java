@@ -1,6 +1,7 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.ClienteDTO;
+import com.example.pizzaria.dto.Resposta;
 import com.example.pizzaria.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,12 +48,12 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody final ClienteDTO clienteDTO){
+    public ResponseEntity<ClienteDTO> cadastrar(@RequestBody final ClienteDTO clienteDTO){
 
         try{
-            this.clienteService.cadastrar(clienteDTO);
 
-            return ResponseEntity.ok(SUCESSO);
+
+            return ResponseEntity.ok(this.clienteService.cadastrar(clienteDTO));
         }
         catch (Exception e)
         {
@@ -61,7 +62,7 @@ public class ClienteController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(
+    public ResponseEntity<ClienteDTO> editar(
             @RequestParam("id") final Long id,
             @RequestBody final ClienteDTO clienteDTO)
     {
@@ -75,11 +76,12 @@ public class ClienteController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id)
+    public ResponseEntity<Resposta> deletar(@RequestParam("id") final Long id)
     {
         try {
-            this.clienteService.deletar(id);
-                return ResponseEntity.ok(DISABLE);
+            Resposta resposta = new Resposta();
+            resposta.setMensangem(this.clienteService.deletar(id));
+            return ResponseEntity.ok(resposta);
 
 
         }

@@ -8,43 +8,31 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@NotNull(message = "Erro: o item não pode ser nulo")
-@NotBlank(message = "Erro: o item não pode ser vazio")
 @Getter @Setter
-//@EqualsAndHashCode(callSuper=false)
 public class ClienteDTO extends AbstractEntityDTO{
     static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
     static final String MESSAGECPF = "CPF Ivalido. Informe um CPF valido.";
 
+    static final String MESSAGENOTNULL = "é obrigatório";
+
+    static final String MESSAGENOTBLANK = "não pode ser vazio";
+
+    @NotNull(message = "O campo nome "+ MESSAGENOTBLANK)
+    @NotBlank(message = "O campo nome "+ MESSAGENOTNULL)
     @Size(min = 3, max = 200, message = MESSAGESIZE)
     private String nome;
 
 
+
+    @NotNull(message = "O campo celular "+ MESSAGENOTBLANK)
+    @NotBlank(message = "O campo celular "+ MESSAGENOTNULL)
     @Size(min = 3, max = 200, message = MESSAGESIZE)
     private String telCelular ;
 
 
     @CPF(message = MESSAGECPF)
+    @NotNull(message = "O campo CPF "+ MESSAGENOTBLANK)
+    @NotBlank(message = "O campo CPF "+ MESSAGENOTNULL)
     private String cpf;
-
-    public void setNome(String nome) {
-        if (nome == null) {
-            throw new IllegalArgumentException("Nome não pode ser nulo");
-        } else if (nome.equals("")) {
-            throw new IllegalArgumentException("Nome não pode ser Branco");
-        }
-        this.nome = nome;
-    }
-
-    public void setTelCelular(String telCelular) {
-        if (telCelular == null) {
-            throw new IllegalArgumentException("Telefone celular não pode ser nulo");
-        } else if (telCelular.equals("")) {
-            throw new IllegalArgumentException("Telefone celular não pode ser Branco");
-        }
-        this.telCelular = telCelular;
-    }
-
-
 
 }

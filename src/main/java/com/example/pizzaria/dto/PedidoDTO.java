@@ -9,17 +9,19 @@ import lombok.*;
 
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NotNull(message = "O item não pode ser nulo")
-@NotBlank(message = "O item não pode ser vazio")
-//@EqualsAndHashCode(callSuper=false)
 public class PedidoDTO extends AbstractEntityDTO {
     static final String MESSAGESIZE = "Erro: e preciso ter no minimo 3 e no maximo 200 caracteres.";
+
+    static final String MESSAGENOTNULL = "é obrigatório";
+
+    static final String MESSAGENOTBLANK = "não pode ser vazio";
+
 
     private ClienteDTO cliente;
 
@@ -31,20 +33,26 @@ public class PedidoDTO extends AbstractEntityDTO {
 
     private boolean solicitaEntrega;
 
+
+    @NotNull(message = "O campo pedido "+ MESSAGENOTBLANK)
+    @NotBlank(message = "O campo pedido "+ MESSAGENOTNULL)
     @Size(min = 3, max = 200, message = MESSAGESIZE)
-    private String pedido;
+    private String situacaoPedido;
 
     private double valorTotal;
 
     @Size(min = 3, max = 200, message = MESSAGESIZE)
+
+    @NotNull(message = "O campo forma de pagamento "+ MESSAGENOTBLANK)
+    @NotBlank(message = "O campo forma de pagamento "+ MESSAGENOTNULL)
     private String formaPagamento;
 
     private boolean entrega;
 
     private Date dataPedido;
 
-    private Set<PizzaDTO> pizzas;
+    private List<PizzaDTO> pizzas;
 
-    private Set<ProdutoDiversoDTO> produtos;
+    private List<ProdutoDiversoDTO> produtos;
 
 }

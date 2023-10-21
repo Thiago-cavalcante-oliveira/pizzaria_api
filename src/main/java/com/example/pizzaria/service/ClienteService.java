@@ -2,6 +2,7 @@ package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.ClienteDTO;
 import com.example.pizzaria.entity.Cliente;
+import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 
 @Service
@@ -25,6 +27,13 @@ public class ClienteService {
     static final String CPFDUPLICATED = "CPF já cadastrado";
     static final String SUCESS = "Operação realizada com sucesso";
     static final String FAILLIST = "Lista não encontrada";
+
+    static final String DELETED = "Cliente deletado com sucesso";
+    static final String DISABLED = "Cliente desativado com sucesso";
+
+    static final String FAIL = "Registro não encontrado";
+
+
 
 
     public List<ClienteDTO> findAll()    {
@@ -47,31 +56,37 @@ public class ClienteService {
         return modelMapper.map(cliente, ClienteDTO.class);
     }
 
-    public void cadastrar(ClienteDTO clienteDTO)
+    public ClienteDTO cadastrar(ClienteDTO clienteDTO)
     {
         Assert.isTrue(!(this.clienteRepository.alreadyExists(clienteDTO.getCpf())), CPFNOTFOUND);
-        this.clienteRepository.save(modelMapper.map(clienteDTO, Cliente.class));
+        Cliente clienteSalvo = this.clienteRepository.save(modelMapper.map(clienteDTO, Cliente.class));
+        return modelMapper.map(clienteSalvo, ClienteDTO.class);
     }
 
-    public String editar(ClienteDTO clienteDTO, Long id)    {
+    public ClienteDTO editar(ClienteDTO clienteDTO, Long id)    {
         Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(NOTFOUND));
         if(this.clienteRepository.alreadyExists(clienteDTO.getCpf()))
         {
-            return CPFDUPLICATED;
+            Assert.isTrue( this.clienteRepository.isTheSame(clienteDTO.getCpf()).equals(id) , CPFDUPLICATED);
         }
         modelMapper.map(clienteDTO,cliente);
-        this.clienteRepository.save(cliente);
-        return SUCESS;
+        Cliente clienteSalvo = this.clienteRepository.save(cliente);
+        return modelMapper.map(clienteSalvo, ClienteDTO.class);
 
     }
 
-    public void deletar(Long id) {
-        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(() -> new RuntimeException(NOTFOUND));
-
+    public String deletar(Long id) {
+        if (!clienteRepository.doesExist(id)) {
+            throw new IllegalArgumentException(FAIL);
+        } else if (true /*funcionarioRepository.(id)*/) {
+            Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
             cliente.setAtivo(false);
             this.clienteRepository.save(cliente);
-
-
+            return DISABLED;
+        } else {
+            this.clienteRepository.deleteById(id);
+            return DELETED;
+        }
     }
 
 }

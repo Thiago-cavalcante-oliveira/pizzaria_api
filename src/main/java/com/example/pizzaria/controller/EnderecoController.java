@@ -2,6 +2,7 @@ package com.example.pizzaria.controller;
 
 
 import com.example.pizzaria.dto.EnderecoDTO;
+import com.example.pizzaria.dto.Resposta;
 import com.example.pizzaria.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,14 +48,12 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody final EnderecoDTO enderecoDTO){
+    public ResponseEntity<EnderecoDTO> cadastrar(@RequestBody final EnderecoDTO enderecoDTO){
         try{
-            if (enderecoDTO == null || enderecoDTO.getTelResidencia() == null || enderecoDTO.getTelResidencia().isEmpty()) {
-                throw new IllegalArgumentException("O campo 'Telefone' é obrigatório.");
-            }
-            this.enderecoService.cadastrar(enderecoDTO);
 
-            return ResponseEntity.ok(SUCESSO);
+
+
+            return ResponseEntity.ok(this.enderecoService.cadastrar(enderecoDTO));
         }
         catch (Exception e)
         {
@@ -63,14 +62,14 @@ public class EnderecoController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(
+    public ResponseEntity<EnderecoDTO> editar(
             @RequestParam("id") final Long id,
             @RequestBody final EnderecoDTO enderecoDTO)
     {
         try {
-            this.enderecoService.editar(enderecoDTO, id);
 
-            return ResponseEntity.ok(SUCESSO);
+
+            return ResponseEntity.ok(this.enderecoService.editar(enderecoDTO, id));
         }
         catch (Exception e)
         {
@@ -79,15 +78,12 @@ public class EnderecoController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id)
+    public ResponseEntity<Resposta> deletar(@RequestParam("id") final Long id)
     {
         try {
-            if(this.enderecoService.deletar(id)){
-                return ResponseEntity.ok(DELETED);
-            }
-            else{
-                return ResponseEntity.ok(DISABLED);
-            }
+            Resposta resposta = new Resposta();
+            resposta.setMensangem(this.enderecoService.deletar(id));
+            return ResponseEntity.ok(resposta);
         }
         catch (Exception e)
         {

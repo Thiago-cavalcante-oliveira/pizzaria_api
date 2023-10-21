@@ -1,6 +1,7 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.ProdutoDiversoDTO;
+import com.example.pizzaria.dto.Resposta;
 import com.example.pizzaria.service.ProdutoDiversoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,12 @@ public class ProdutoDiversoController {
     static final String DELETED = "Item deletado com sucesso";
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
+    public ResponseEntity<ProdutoDiversoDTO> cadastrar(@RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
 
         try {
-            this.produtoDiversoService.cadastrar(produtoDiversoDTO);
 
-            return ResponseEntity.ok(SUCCESS);
+
+            return ResponseEntity.ok(this.produtoDiversoService.cadastrar(produtoDiversoDTO));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -34,12 +35,12 @@ public class ProdutoDiversoController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(@RequestParam("id") final Long id, @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
+    public ResponseEntity<ProdutoDiversoDTO> editar(@RequestParam("id") final Long id, @RequestBody final ProdutoDiversoDTO produtoDiversoDTO) {
 
         try {
-            this.produtoDiversoService.editar(produtoDiversoDTO, id);
 
-            return ResponseEntity.ok(SUCCESS);
+
+            return ResponseEntity.ok(this.produtoDiversoService.editar(produtoDiversoDTO, id));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -64,10 +65,11 @@ public class ProdutoDiversoController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id) {
+    public ResponseEntity<Resposta> deletar(@RequestParam("id") final Long id) {
         try {
-            this.produtoDiversoService.deletar(id);
-            return ResponseEntity.ok(DELETED);
+            Resposta resposta = new Resposta();
+            resposta.setMensangem(this.produtoDiversoService.deletar(id));
+            return ResponseEntity.ok(resposta);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

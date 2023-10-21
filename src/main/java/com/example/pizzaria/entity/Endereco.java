@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-//@EqualsAndHashCode(callSuper=false)
 public class Endereco extends AbstractEntity {
 
 

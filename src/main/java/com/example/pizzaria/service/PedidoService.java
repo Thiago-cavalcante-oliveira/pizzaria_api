@@ -21,6 +21,9 @@ public class PedidoService {
     private ModelMapper modelMapper;
     static final String FAIL = "Registro nao encontrado.";
 
+    static final String DISABLED = "Pedido desativado com sucesso";
+
+
     public List<PedidoDTO> findAll(){
         List<Pedido> pedidos = this.pedidoRepository.findAll();
         if(pedidos.isEmpty()){
@@ -40,26 +43,33 @@ public class PedidoService {
         return modelMapper.map(pedido, PedidoDTO.class);
     }
 
-    public void cadastrar(PedidoDTO pedidoDTO)
+    public PedidoDTO cadastrar(PedidoDTO pedidoDTO)
     {
-        this.pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
+
+
+        Pedido pedidoSalvo = this.pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
+        return modelMapper.map(pedidoSalvo, PedidoDTO.class);
     }
 
-    public void editar(PedidoDTO pedidoDTO, Long id)
+    public PedidoDTO editar(PedidoDTO pedidoDTO, Long id)
     {
         if (!(pedidoDTO.getId().equals(id))) {
             throw new IllegalArgumentException("Os IDs não coincidem");
         }
-        Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
-        modelMapper.map(pedidoDTO, pedido);
-        this.pedidoRepository.save(pedido);
+
+        Pedido pedidoSalvo = this.pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
+        return modelMapper.map(pedidoSalvo, PedidoDTO.class);
     }
 
-    public void deletar(Long id)
+    public String deletar(Long id)
     {
+        if (!pedidoRepository.doesExist(id)) {
+            throw new IllegalArgumentException(FAIL);
+        }
         Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
         pedido.setAtivo(false);
         this.pedidoRepository.save(pedido);
+        return DISABLED;
     }
 
 }

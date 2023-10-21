@@ -7,16 +7,14 @@ import lombok.*;
 
 @Entity
 @Table(name = "tb_tipo_pizzas", schema = "public")
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(callSuper=false)
 public class PizzaTipo extends AbstractEntity{
-@Column(name = "nm_tipo_pizza")
+    @Column(name = "nm_tipo_pizza")
     private String nome;
-@Column(name = "tm_pizza")
+    @Column(name = "tm_pizza")
     private String tamanho;
-@Column(name = "vl_tm_pizza")
+    @Column(name = "vl_tm_pizza")
     private double valor;
 }

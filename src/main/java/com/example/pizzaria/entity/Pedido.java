@@ -3,16 +3,16 @@ package com.example.pizzaria.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_pedidos", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-//@EqualsAndHashCode(callSuper=false)
 public class Pedido extends AbstractEntity{
 
     @ManyToOne
@@ -57,7 +57,7 @@ public class Pedido extends AbstractEntity{
             inverseJoinColumns = @JoinColumn(name = "id_pizza_fk")
     )
     @Getter @Setter
-    private Set<Pizza> pizzas = new HashSet<>();
+    private List<Pizza> pizzas;
 
     @ManyToMany
     @JoinTable(
@@ -65,7 +65,7 @@ public class Pedido extends AbstractEntity{
             joinColumns = @JoinColumn(name = "id_pedido_fk"),
             inverseJoinColumns = @JoinColumn(name = "id_produto_fk")
     )
-    private Set<ProdutoDiverso> produtos = new HashSet<>();
+    private List<ProdutoDiverso> produtos;
 
 
 }

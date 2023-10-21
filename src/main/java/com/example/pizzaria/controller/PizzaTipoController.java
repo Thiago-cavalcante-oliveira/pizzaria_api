@@ -1,6 +1,7 @@
 package com.example.pizzaria.controller;
 
 import com.example.pizzaria.dto.PizzaTipoDTO;
+import com.example.pizzaria.dto.Resposta;
 import com.example.pizzaria.service.PizzaTipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class PizzaTipoController {
     private PizzaTipoService pizzaTipoService;
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody final PizzaTipoDTO pizzaTipoDTO) {
+    public ResponseEntity<PizzaTipoDTO> cadastrar(@RequestBody final PizzaTipoDTO pizzaTipoDTO) {
         try {
             return ResponseEntity.ok(this.pizzaTipoService.cadastrar(pizzaTipoDTO));
         } catch (Exception e) {
@@ -28,7 +29,7 @@ public class PizzaTipoController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(@RequestParam("id") final Long id, @RequestBody final PizzaTipoDTO pizzaTipoDTO) {
+    public ResponseEntity<PizzaTipoDTO> editar(@RequestParam("id") final Long id, @RequestBody final PizzaTipoDTO pizzaTipoDTO) {
         try {
             return ResponseEntity.ok(this.pizzaTipoService.editar(pizzaTipoDTO, id));
         } catch (Exception e) {
@@ -55,9 +56,11 @@ public class PizzaTipoController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id) {
+    public ResponseEntity<Resposta> deletar(@RequestParam("id") final Long id) {
         try {
-            return ResponseEntity.ok(this.pizzaTipoService.deletar(id));
+            Resposta resposta = new Resposta();
+            resposta.setMensangem(this.pizzaTipoService.deletar(id));
+            return ResponseEntity.ok(resposta);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

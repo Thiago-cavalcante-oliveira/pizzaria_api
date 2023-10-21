@@ -2,6 +2,7 @@ package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.FuncionarioDTO;
 import com.example.pizzaria.entity.Funcionario;
+import com.example.pizzaria.entity.PizzaTipo;
 import com.example.pizzaria.repository.FuncionarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.List;
 @Service
 public class FuncionarioService {
 
+
+
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
@@ -23,6 +26,9 @@ public class FuncionarioService {
     static final String FAIL = "Registro não encontrado";
     static final String DUPLICATED = "CPF já cadastrado";
     static final String FAILLIST = "Lista não encontrada";
+
+    static final String DELETED = "Funcionario deletado com sucesso";
+    static final String DISABLED = "Funcionario desativado com sucesso";
 
 
     public List<FuncionarioDTO> findAll(){
@@ -48,13 +54,14 @@ public class FuncionarioService {
         return modelMapper.map(funcionario, FuncionarioDTO.class);
     }
 
-    public void cadastrar(FuncionarioDTO funcionarioDTO)
+    public FuncionarioDTO cadastrar(FuncionarioDTO funcionarioDTO)
     {
         Assert.isTrue(!(this.funcionarioRepository.alreadyExists(funcionarioDTO.getCpf())), DUPLICATED);
-        this.funcionarioRepository.save(modelMapper.map(funcionarioDTO, Funcionario.class));
+        Funcionario funcionarioSalvo = this.funcionarioRepository.save(modelMapper.map(funcionarioDTO, Funcionario.class));
+        return modelMapper.map(funcionarioSalvo, FuncionarioDTO.class);
     }
 
-    public void editar(FuncionarioDTO funcionarioDTO, Long id)
+    public FuncionarioDTO editar(FuncionarioDTO funcionarioDTO, Long id)
     {
         if(this.funcionarioRepository.alreadyExists(funcionarioDTO.getCpf()))
         {
@@ -63,14 +70,26 @@ public class FuncionarioService {
         Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
 
         modelMapper.map(funcionarioDTO,funcionario);
-        this.funcionarioRepository.save(funcionario);
+        Funcionario funcionarioSalvo = this.funcionarioRepository.save(funcionario);
+        return modelMapper.map(funcionarioSalvo, FuncionarioDTO.class);
     }
 
-    public void deletar(Long id)
+    public String deletar(Long id)
     {
-        Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
-        funcionario.setAtivo(false);
-        this.funcionarioRepository.save(funcionario);
+
+
+
+        if (!funcionarioRepository.doesExist(id)) {
+            throw new IllegalArgumentException(FAIL);
+        } else if (true /*funcionarioRepository.(id)*/) {
+                Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
+                funcionario.setAtivo(false);
+                this.funcionarioRepository.save(funcionario);
+            return DISABLED;
+        } else {
+            this.funcionarioRepository.deleteById(id);
+            return DELETED;
+        }
     }
 
 }

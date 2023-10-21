@@ -1,7 +1,9 @@
 package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.PizzaTipoDTO;
+import com.example.pizzaria.dto.SaborDTO;
 import com.example.pizzaria.entity.PizzaTipo;
+import com.example.pizzaria.entity.Sabor;
 import com.example.pizzaria.repository.PizzaTipoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PizzaTipoService {
@@ -26,22 +29,28 @@ public class PizzaTipoService {
     static final String DUPLICATED = "Tipo de pizza já cadastrado";
 
 
-    public String cadastrar(PizzaTipoDTO pizzaTipoDTO) {
+    public PizzaTipoDTO cadastrar(PizzaTipoDTO pizzaTipoDTO) {
         if (pizzaTipoRepository.existsByNome(pizzaTipoDTO.getNome())) {
             throw new IllegalArgumentException(DUPLICATED);
         }
-        this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
-        return SUCCESS;
+        PizzaTipo pizzaTipoSalvo = this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
+        return modelMapper.map(pizzaTipoSalvo, PizzaTipoDTO.class);
     }
 
-    public String editar(PizzaTipoDTO pizzaTipoDTO, Long id) {
-        if (pizzaTipoDTO.getId() != id) {
-            throw new IllegalArgumentException(FAIL);
+    public PizzaTipoDTO editar(PizzaTipoDTO pizzaTipoDTO, Long id) {
+        Long idFront = id;
+        if (!Objects.equals(pizzaTipoDTO.getId(), idFront)) {
+
+            throw new IllegalArgumentException("Os IDs não coincidem");
+        } else
+        if(this.pizzaTipoRepository.alreadyExists(pizzaTipoDTO.getNome())){
+            if (!Objects.equals(pizzaTipoRepository.findByNome(pizzaTipoDTO.getNome()).getId(), idFront)) {
+                throw new IllegalArgumentException(DUPLICATED);
+            }
         }
-        else{
-            this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
-            return EDITED;
-        }
+
+        PizzaTipo pizzaTipoSalvo = this.pizzaTipoRepository.save(modelMapper.map(pizzaTipoDTO, PizzaTipo.class));
+        return modelMapper.map(pizzaTipoSalvo, PizzaTipoDTO.class);
     }
 
 

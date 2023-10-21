@@ -2,6 +2,7 @@ package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.PizzaDTO;
 import com.example.pizzaria.entity.Pizza;
+import com.example.pizzaria.entity.ProdutoDiverso;
 import com.example.pizzaria.repository.PizzaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class PizzaService {
     static final String FAIL = "Pizza não cadastrada";
     static final String EDITED = "Pizza editada com sucesso";
     static final String DELETED = "Pizza deletada com sucesso";
+
+    static final String DISABLED = "Produto desativado com sucesso";
+
 
 
 
@@ -46,29 +50,30 @@ public class PizzaService {
         }
     }
 
-    public String cadastrar(PizzaDTO pizza) {
-        this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
-        return SUCCESS;
+    public PizzaDTO cadastrar(PizzaDTO pizza) {
+        Pizza pizzaSalva = this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
+        return modelMapper.map(pizzaSalva, PizzaDTO.class);
     }
 
-    public String editar(PizzaDTO pizza, Long id) {
+    public PizzaDTO editar(PizzaDTO pizza, Long id) {
         if (!Objects.equals(pizza.getId(), id)) {
             throw new IllegalArgumentException("Os IDs não coincidem");
         }
-        else if (!pizzaRepository.existsById(id)) {
-            throw new IllegalArgumentException(FAIL);
-        }
         else {
 
-            this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
-            return EDITED;
+            Pizza pizzaSalva = this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
+            return modelMapper.map(pizzaSalva, PizzaDTO.class);
         }
     }
 
     public String deletar(Long id) {
-        if (!pizzaRepository.existsById(id)) {
-            throw new IllegalArgumentException(FAIL);
-        } else {
+        if(true/*saborRepository.saborExistTb_pizza(id)*/){
+            Pizza pizza = this.pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
+            pizza.setAtivo(false);
+            this.pizzaRepository.save(pizza);
+            return DISABLED;
+        }
+        else{
             this.pizzaRepository.deleteById(id);
             return DELETED;
         }

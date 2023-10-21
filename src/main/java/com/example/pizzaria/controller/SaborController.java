@@ -1,5 +1,6 @@
 package com.example.pizzaria.controller;
 
+import com.example.pizzaria.dto.Resposta;
 import com.example.pizzaria.dto.SaborDTO;
 import com.example.pizzaria.service.SaborService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class SaborController {
     private SaborService saborService;
 
 @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody final SaborDTO saborDTO){
+    public ResponseEntity<SaborDTO> cadastrar(@RequestBody final SaborDTO saborDTO){
         try{
             return ResponseEntity.ok( this.saborService.cadastrar(saborDTO));
         }
@@ -30,7 +31,7 @@ public class SaborController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editar(@RequestParam("id") final Long id, @RequestBody final SaborDTO saborDTO){
+    public ResponseEntity<SaborDTO> editar(@RequestParam("id") final Long id, @RequestBody final SaborDTO saborDTO){
         try{
             return ResponseEntity.ok( this.saborService.editar(saborDTO, id));
         }
@@ -61,9 +62,11 @@ public class SaborController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id) {
+    public ResponseEntity<Resposta> deletar(@RequestParam("id") final Long id) {
         try {
-            return ResponseEntity.ok(this.saborService.deletar(id));
+            Resposta resposta = new Resposta();
+            resposta.setMensangem(this.saborService.deletar(id));
+            return ResponseEntity.ok(resposta);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

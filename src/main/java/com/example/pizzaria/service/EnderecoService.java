@@ -2,6 +2,7 @@ package com.example.pizzaria.service;
 
 import com.example.pizzaria.dto.EnderecoDTO;
 import com.example.pizzaria.entity.Endereco;
+import com.example.pizzaria.entity.Funcionario;
 import com.example.pizzaria.repository.EnderecoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class EnderecoService {
 
     static final String FAIL = "Registro não encontrado";
     static final String FAILLIST = "Lista não encontrada";
+
+    static final String DELETED = "Endereco deletado com sucesso";
+    static final String DISABLED = "Endereco desativado com sucesso";
 
 
     public List<EnderecoDTO> findAll() {
@@ -44,23 +48,32 @@ public class EnderecoService {
         return modelMapper.map(endereco, EnderecoDTO.class);
     }
 
-    public void cadastrar(EnderecoDTO enderecoDTO) {
+    public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO) {
 
-        this.enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
+        Endereco enderecoSalvo = this.enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
+        return modelMapper.map(enderecoSalvo, EnderecoDTO.class);
     }
 
-    public void editar(EnderecoDTO enderecoDTO, Long id) {
+    public EnderecoDTO editar(EnderecoDTO enderecoDTO, Long id) {
         Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
 
         modelMapper.map(enderecoDTO, endereco);
-        this.enderecoRepository.save(endereco);
+        Endereco enderecoSalvo =  this.enderecoRepository.save(endereco);
+        return modelMapper.map(enderecoSalvo, EnderecoDTO.class);
     }
 
-    public boolean deletar(Long id) {
-        Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
-        endereco.setAtivo(false);
-        this.enderecoRepository.save(endereco);
-        return true;
+    public String deletar(Long id) {
+        if (!enderecoRepository.doesExist(id)) {
+            throw new IllegalArgumentException(FAIL);
+        } else if (true /*funcionarioRepository.(id)*/) {
+            Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
+            endereco.setAtivo(false);
+            this.enderecoRepository.save(endereco);
+            return DISABLED;
+        } else {
+            this.enderecoRepository.deleteById(id);
+            return DELETED;
+        }
     }
 
 

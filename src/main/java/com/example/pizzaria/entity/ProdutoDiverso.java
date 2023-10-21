@@ -5,11 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "tb_produtos_diversos", schema = "public") // nome da tabela no banco de dados
-@Getter
-@Setter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@EqualsAndHashCode(callSuper=false)
 public class ProdutoDiverso extends AbstractEntity {
 
     @Column(name = "nm_produto")
