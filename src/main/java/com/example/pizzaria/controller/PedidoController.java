@@ -34,6 +34,18 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("situacao")
+    public ResponseEntity<List<PedidoDTO>> findBySituacao(@RequestParam("s") final String situacao)
+    {
+        try{
+            return ResponseEntity.ok(this.pedidoService.findBySituacao(situacao));
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity<PedidoDTO> findById(@RequestParam("id") final Long id){
 

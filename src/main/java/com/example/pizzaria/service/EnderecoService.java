@@ -42,6 +42,21 @@ public class EnderecoService {
         }
     }
 
+    public List<EnderecoDTO> findByCliente(Long id) {
+        List<Endereco> enderecos = this.enderecoRepository.findByClienteId(id);
+        List<EnderecoDTO> enderecosDTO = new ArrayList<>();
+
+        if(enderecos.isEmpty()){
+            throw new IllegalArgumentException(FAILLIST);
+        }else{
+            for (Endereco i : enderecos
+            ) {
+                enderecosDTO.add(modelMapper.map(i, EnderecoDTO.class));
+            }
+            return enderecosDTO;
+        }
+    }
+
     public EnderecoDTO findById(Long id) {
         Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException(FAIL));
 

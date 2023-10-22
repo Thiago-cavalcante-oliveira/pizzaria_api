@@ -37,6 +37,19 @@ public class PedidoService {
         return pedidosDTO;
     }
 
+    public List<PedidoDTO> findBySituacao(String situacao){
+        List<Pedido> pedidos = this.pedidoRepository.findPedidoBySituacaoPedido(situacao);
+        if(pedidos.isEmpty()){
+            throw new IllegalArgumentException(FAIL);
+        }
+        List<PedidoDTO> pedidosDTO = new ArrayList<>();
+        for(Pedido i : pedidos)
+        {
+            pedidosDTO.add(modelMapper.map(i, PedidoDTO.class));
+        }
+        return pedidosDTO;
+    }
+
     public PedidoDTO findById(Long id)
     {
         Pedido pedido = this.pedidoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));

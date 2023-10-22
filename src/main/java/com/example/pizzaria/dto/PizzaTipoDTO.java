@@ -21,20 +21,22 @@ public class PizzaTipoDTO extends AbstractEntityDTO {
     @NotNull(message = "O campo nome "+ MESSAGENOTBLANK)
     @NotBlank(message = "O campo nome "+ MESSAGENOTNULL)
     @Size(min = 3, max = 250, message = MESSAGESIZE)
-    @JsonProperty("nome")
     private String nome;
 
     @NotNull(message = "O campo tamanho "+ MESSAGENOTBLANK)
     @NotBlank(message = "O campo tamanho "+ MESSAGENOTNULL)
     @Size(min = 3, max = 250, message = MESSAGESIZE)
-    @JsonProperty("tamanho")
     private String tamanho;
 
     @NotNull(message = "O campo valor "+ MESSAGENOTBLANK)
     @NotBlank(message = "O campo valor "+ MESSAGENOTNULL)
     @Min(value = 0, message = MESSAGEVALUE)
-    @JsonProperty("valor")
     private double valor;
+
+    @NotNull(message = "O campo quantiade de sabores "+ MESSAGENOTBLANK)
+    @NotBlank(message = "O campo quantiade de sabores "+ MESSAGENOTNULL)
+    @Min(value = 0, message = MESSAGEVALUE)
+    private int qntSabores;
 
 
 }

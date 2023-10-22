@@ -2,7 +2,6 @@ package com.example.pizzaria;
 
 import com.example.pizzaria.dto.PizzaDTO;
 import com.example.pizzaria.controller.PizzaController;
-import com.example.pizzaria.entity.Endereco;
 import com.example.pizzaria.entity.Pizza;
 import com.example.pizzaria.entity.PizzaTipo;
 import com.example.pizzaria.entity.Sabor;
@@ -172,19 +171,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         Pizza pizza = new Pizza();
         List<Sabor> sabores = new ArrayList<>();
         Sabor sabor1 = new Sabor();
-        sabor1.setNomeSabor("Calabresa");
+        sabor1.setNome("Calabresa");
         sabores.add(sabor1);
 
         Sabor sabor2 = new Sabor();
-        sabor2.setNomeSabor("Margarita");
+        sabor2.setNome("Margarita");
         sabores.add(sabor2);
 
         pizza.setSabor(sabores);
 
         List<Sabor> saboresObtidos = pizza.getSabor();
 
-        assertEquals("Calabresa", saboresObtidos.get(0).getNomeSabor());
-        assertEquals("Margarita", saboresObtidos.get(1).getNomeSabor());
+        assertEquals("Calabresa", saboresObtidos.get(0).getNome());
+        assertEquals("Margarita", saboresObtidos.get(1).getNome());
     }
 
     @Test

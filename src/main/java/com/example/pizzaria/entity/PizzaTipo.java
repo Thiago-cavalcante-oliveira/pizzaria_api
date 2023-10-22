@@ -17,4 +17,8 @@ public class PizzaTipo extends AbstractEntity{
     private String tamanho;
     @Column(name = "vl_tm_pizza")
     private double valor;
+
+    @Column(name = "qnt_sabores")
+    private int qntSabores;
+
 }

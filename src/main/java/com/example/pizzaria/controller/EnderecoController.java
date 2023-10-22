@@ -36,6 +36,18 @@ public class EnderecoController {
         }
     }
 
+    @GetMapping("cliente")
+    public ResponseEntity<List<EnderecoDTO>> findByCliente(@RequestParam("id") final Long id)
+    {
+        try{
+            return ResponseEntity.ok(this.enderecoService.findByCliente(id));
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity<EnderecoDTO> findById(@RequestParam("id") final Long id){
         try{

@@ -16,6 +16,5 @@ public class ProdutoDiverso extends AbstractEntity {
     private String tipo;
     @Column(name = "nu_preco_produto")
     private double preco;
-    @Column(name = "qt_produtos")
-    private int quantidade;
+
 }

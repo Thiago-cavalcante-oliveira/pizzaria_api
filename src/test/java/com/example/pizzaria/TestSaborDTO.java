@@ -28,14 +28,14 @@ class TestSaborDTO {
 
     @Test
     void testeGetNomeSabor() {
-        sabor.setNomeSabor("Calabresa");
-        Assertions.assertEquals("Calabresa", sabor.getNomeSabor());
+        sabor.setNome("Calabresa");
+        Assertions.assertEquals("Calabresa", sabor.getNome());
     }
 
     @Test
     void testeSetSabor() {
-        sabor.setNomeSabor("Portuguesa");
-        Assertions.assertEquals("Portuguesa", sabor.getNomeSabor());
+        sabor.setNome("Portuguesa");
+        Assertions.assertEquals("Portuguesa", sabor.getNome());
     }
 
     @Test

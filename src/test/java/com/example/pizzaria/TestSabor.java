@@ -44,7 +44,7 @@ class TestSabor {
     protected static Sabor criaSabor() {
         Sabor sabor = new Sabor();
         sabor.setId(1L);
-        sabor.setNomeSabor("Calabresa");
+        sabor.setNome("Calabresa");
         sabor.setValor(10.00);
         sabor.setIngredientes("Calabresa, queijo, molho de tomate");
         return sabor;
@@ -64,7 +64,7 @@ class TestSabor {
     void injectDados() {
         Sabor sabor = new Sabor();
         sabor.setId(1L);
-        sabor.setNomeSabor("Calabresa");
+        sabor.setNome("Calabresa");
         sabor.setValor(10.00);
         sabor.setIngredientes("Calabresa, queijo, molho de tomate");
         SaborDTO saborDTO = modelMapper.map(sabor, SaborDTO.class);
@@ -199,7 +199,7 @@ class TestSabor {
 
 
         assertNotNull(sabor);
-        assertEquals("Pizza Margherita", sabor.getNomeSabor());
+        assertEquals("Pizza Margherita", sabor.getNome());
         assertEquals("Ingredientes da Margherita", sabor.getIngredientes());
         assertEquals(12.99, sabor.getValor(), 0.001); // Use uma margem de erro pequena para valores double
     }

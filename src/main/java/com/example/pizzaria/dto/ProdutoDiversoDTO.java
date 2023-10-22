@@ -29,11 +29,6 @@ public class ProdutoDiversoDTO extends AbstractEntityDTO{
     @Size(min = 3, max = 250, message = MESSAGESIZE)
     private String tipo;
 
-    @NotNull(message = "O campo quantidade "+ MESSAGENOTBLANK)
-    @NotBlank(message = "O campo quantidade "+ MESSAGENOTNULL)
-    @Min(value = 0, message = MESSAGEQTD)
-    private int quantidade;
-
     @NotNull(message = "O campo preço "+ MESSAGENOTBLANK)
     @NotBlank(message = "O campo preço "+ MESSAGENOTNULL)
     @Min(value = 0, message = MESSAGEQTD)
