@@ -80,7 +80,7 @@ public class EnderecoService {
     public String deletar(Long id) {
         if (!enderecoRepository.doesExist(id)) {
             throw new IllegalArgumentException(FAIL);
-        } else if (true /*funcionarioRepository.(id)*/) {
+        } else if (this.enderecoRepository.existsInPedido(id)) {
             Endereco endereco = this.enderecoRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
             endereco.setAtivo(false);
             this.enderecoRepository.save(endereco);

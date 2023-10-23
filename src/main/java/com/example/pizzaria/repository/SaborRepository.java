@@ -12,12 +12,8 @@ public interface SaborRepository extends JpaRepository<Sabor, Long> {
     @Query("SELECT sabor FROM Sabor sabor where sabor.nome = :nome")
     Sabor findByNome(String nome);
 
-    /*
-    @Query ("SELECT EXISTS(SELECT p FROM Pizza p WHERE :idSabor MEMBER OF p.sabor)")
-    boolean saborExistTb_pizza(Long idSabor);
-
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Pizza p WHERE :idSabor MEMBER OF p.sabor")
-    boolean saborExistTb_pizza(Long idSabor);*/
+    @Query(value = "SELECT EXISTS (SELECT p FROM tb_sabor_pizza p WHERE p.id_sabor_fk = :id)", nativeQuery = true)
+    boolean existsInPedido(@Param("id") final Long id);
 
     @Query("select exists (select s from Sabor s where s.nome = :nome)")
     boolean alreadyExists(@Param("nome") final String nome);

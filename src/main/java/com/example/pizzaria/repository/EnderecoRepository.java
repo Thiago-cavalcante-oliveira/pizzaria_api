@@ -16,5 +16,8 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
     List<Endereco> findByClienteId(Long id);
 
+    @Query ("SELECT EXISTS(SELECT p FROM Pedido p WHERE p.endereco.id = :id)")
+    boolean existsInPedido(Long id);
+
 
 }

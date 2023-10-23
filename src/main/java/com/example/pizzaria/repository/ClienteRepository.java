@@ -17,4 +17,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     @Query("select exists (select c from Cliente c where c.id = :id)")
     boolean doesExist(@Param("id") final Long id);
+
+    @Query ("SELECT EXISTS(SELECT p FROM Pedido p WHERE p.cliente.id = :id)")
+    boolean existsInPedido(Long id);
+
+    @Query ("SELECT EXISTS(SELECT e FROM Endereco e WHERE e.cliente.id = :id)")
+    boolean existsInEndereco(Long id);
 }

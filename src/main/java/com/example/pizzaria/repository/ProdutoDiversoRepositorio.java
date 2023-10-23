@@ -13,4 +13,6 @@ public interface ProdutoDiversoRepositorio extends JpaRepository<ProdutoDiverso,
     @Query("select p.id from ProdutoDiverso p where p.nome = :nome")
     Long isTheSame(@Param("nome") final String nome);
 
+    @Query(value = "SELECT EXISTS (SELECT p FROM tb_produtos_pedido p WHERE p.id_produto_fk = :id)", nativeQuery = true)
+    boolean existsInPedido(@Param("id") final Long id);
 }

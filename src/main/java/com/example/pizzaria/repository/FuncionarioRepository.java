@@ -17,4 +17,11 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 
     @Query("select exists (select f from Funcionario f where f.id = :id)")
     boolean doesExist(@Param("id") final Long id);
+
+    @Query ("SELECT EXISTS(SELECT p FROM Pedido p WHERE p.atendente.id = :id)")
+    boolean existsInAtendentePedido(Long id);
+
+
+    @Query ("SELECT EXISTS(SELECT p FROM Pedido p WHERE p.entregador.id = :id)")
+    boolean existsInEntregadorPedido(Long id);
 }

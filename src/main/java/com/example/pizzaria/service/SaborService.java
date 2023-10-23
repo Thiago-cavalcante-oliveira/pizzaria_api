@@ -65,7 +65,7 @@ public class SaborService {
                         return modelMapper.map(this.saborRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL)), SaborDTO.class);
     }
     public String deletar(Long id){
-        if(true/*saborRepository.saborExistTb_pizza(id)*/){
+        if(this.saborRepository.existsInPedido(id)){
             Sabor sabor = this.saborRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             sabor.setAtivo(false);
             this.saborRepository.save(sabor);

@@ -81,7 +81,7 @@ public class FuncionarioService {
 
         if (!funcionarioRepository.doesExist(id)) {
             throw new IllegalArgumentException(FAIL);
-        } else if (true /*funcionarioRepository.(id)*/) {
+        } else if (this.funcionarioRepository.existsInAtendentePedido(id) || this.funcionarioRepository.existsInEntregadorPedido(id)) {
                 Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
                 funcionario.setAtivo(false);
                 this.funcionarioRepository.save(funcionario);

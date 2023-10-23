@@ -70,7 +70,7 @@ List<ProdutoDiversoDTO> produtoDiversosDTO = new ArrayList<>();
     }
 
     public String deletar(Long id){
-        if(true/*saborRepository.saborExistTb_pizza(id)*/){
+        if(this.produtoDiversoRepositorio.existsInPedido(id)){
             ProdutoDiverso produtoDiverso = this.produtoDiversoRepositorio.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             produtoDiverso.setAtivo(false);
             this.produtoDiversoRepositorio.save(produtoDiverso);

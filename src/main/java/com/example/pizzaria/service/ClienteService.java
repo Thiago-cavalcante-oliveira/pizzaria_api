@@ -78,7 +78,7 @@ public class ClienteService {
     public String deletar(Long id) {
         if (!clienteRepository.doesExist(id)) {
             throw new IllegalArgumentException(FAIL);
-        } else if (true /*funcionarioRepository.(id)*/) {
+        } else if (this.clienteRepository.existsInPedido(id) || this.clienteRepository.existsInEndereco(id)) {
             Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
             cliente.setAtivo(false);
             this.clienteRepository.save(cliente);

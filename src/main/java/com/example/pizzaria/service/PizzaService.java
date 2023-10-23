@@ -67,7 +67,7 @@ public class PizzaService {
     }
 
     public String deletar(Long id) {
-        if(true/*saborRepository.saborExistTb_pizza(id)*/){
+        if(this.pizzaRepository.existsInPedido(id)){
             Pizza pizza = this.pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL));
             pizza.setAtivo(false);
             this.pizzaRepository.save(pizza);
