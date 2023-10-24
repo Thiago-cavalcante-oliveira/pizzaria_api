@@ -56,6 +56,16 @@ public class ClienteService {
         return modelMapper.map(cliente, ClienteDTO.class);
     }
 
+    public ClienteDTO findByCpf(String cpf)
+    {
+        Cliente cliente = this.clienteRepository.findClienteByCpf(cpf);
+        if(cliente == null)
+        {
+            throw new RuntimeException(NOTFOUND);
+        }
+        return modelMapper.map(cliente, ClienteDTO.class);
+    }
+
     public ClienteDTO cadastrar(ClienteDTO clienteDTO)
     {
         Assert.isTrue(!(this.clienteRepository.alreadyExists(clienteDTO.getCpf())), CPFNOTFOUND);

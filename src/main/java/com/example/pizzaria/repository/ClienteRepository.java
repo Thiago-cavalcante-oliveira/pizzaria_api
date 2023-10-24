@@ -23,4 +23,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     @Query ("SELECT EXISTS(SELECT e FROM Endereco e WHERE e.cliente.id = :id)")
     boolean existsInEndereco(Long id);
+
+    Cliente findClienteByCpf(String cpf);
 }

@@ -47,6 +47,18 @@ public class ClienteController {
         }
     }
 
+    @GetMapping("cpf")
+    public ResponseEntity<ClienteDTO> findByCpf(@RequestParam("cpf") final String cpf){
+
+        try{
+            return ResponseEntity.ok(this.clienteService.findByCpf(cpf));
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<ClienteDTO> cadastrar(@RequestBody final ClienteDTO clienteDTO){
 
