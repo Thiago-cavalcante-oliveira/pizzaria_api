@@ -8,7 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -59,7 +61,7 @@ public class PedidoService {
     public PedidoDTO cadastrar(PedidoDTO pedidoDTO)
     {
 
-
+        pedidoDTO.setDataPedido(adicionarData());
         Pedido pedidoSalvo = this.pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
         return modelMapper.map(pedidoSalvo, PedidoDTO.class);
     }
@@ -83,6 +85,15 @@ public class PedidoService {
         pedido.setAtivo(false);
         this.pedidoRepository.save(pedido);
         return DISABLED;
+    }
+
+    private String adicionarData(){
+
+        Date data = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        String strDate = format.format(data);
+
+        return strDate;
     }
 
 }

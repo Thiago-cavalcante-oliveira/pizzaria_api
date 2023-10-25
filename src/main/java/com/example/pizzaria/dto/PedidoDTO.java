@@ -49,7 +49,7 @@ public class PedidoDTO extends AbstractEntityDTO {
 
     private boolean entrega;
 
-    private Date dataPedido;
+    private String dataPedido;
 
     private List<PizzaDTO> pizzas;
 

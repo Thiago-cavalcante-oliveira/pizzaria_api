@@ -47,7 +47,7 @@ public class Pedido extends AbstractEntity{
     private boolean entrega;
 
     @Column(name = "dt_pedido")
-    private Date dataPedido;
+    private String dataPedido;
 
 
     @ManyToMany
