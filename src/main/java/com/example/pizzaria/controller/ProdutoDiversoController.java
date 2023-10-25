@@ -55,6 +55,15 @@ public class ProdutoDiversoController {
         }
     }
 
+    @GetMapping("ativo")
+    public ResponseEntity<List<ProdutoDiversoDTO>> findAllAtivo() {
+        try {
+            return ResponseEntity.ok(this.produtoDiversoService.findAllAtivo());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity<ProdutoDiversoDTO> findById(@RequestParam("id") final Long id) {
         try {

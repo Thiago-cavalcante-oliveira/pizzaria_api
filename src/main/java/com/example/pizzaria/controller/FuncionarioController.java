@@ -36,6 +36,18 @@ public class FuncionarioController {
         }
     }
 
+    @GetMapping("ativo")
+    public ResponseEntity<List<FuncionarioDTO>> findAllAtivo()
+    {
+        try{
+            return ResponseEntity.ok(this.funcionarioService.findAllAtivo());
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity<FuncionarioDTO> findById(@RequestParam("id") final Long id){
 

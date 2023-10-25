@@ -62,11 +62,26 @@ List<ProdutoDiverso> produtoDiversos = this.produtoDiversoRepositorio.findAll();
        if(produtoDiversos.isEmpty()){
            throw new IllegalArgumentException(FAIL);
        }
+
 List<ProdutoDiversoDTO> produtoDiversosDTO = new ArrayList<>();
        for (ProdutoDiverso i: produtoDiversos) {
            produtoDiversosDTO.add(modelMapper.map((i), ProdutoDiversoDTO.class));
        }
          return produtoDiversosDTO;
+    }
+
+
+    public List<ProdutoDiversoDTO> findAllAtivo() {
+        List<ProdutoDiverso> produtoDiversos = this.produtoDiversoRepositorio.findAllByAtivoIsTrue();
+        if(produtoDiversos.isEmpty()){
+            throw new IllegalArgumentException(FAIL);
+        }
+
+        List<ProdutoDiversoDTO> produtoDiversosDTO = new ArrayList<>();
+        for (ProdutoDiverso i: produtoDiversos) {
+            produtoDiversosDTO.add(modelMapper.map((i), ProdutoDiversoDTO.class));
+        }
+        return produtoDiversosDTO;
     }
 
     public String deletar(Long id){

@@ -51,6 +51,17 @@ public class SaborController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @GetMapping("/ativo")
+    public ResponseEntity <List<SaborDTO>> findAllAtivo(){
+        try{
+            return ResponseEntity.ok(this.saborService.findAllAtivo());
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
     @GetMapping
     public ResponseEntity<SaborDTO> findById(@RequestParam final Long id){
     try{

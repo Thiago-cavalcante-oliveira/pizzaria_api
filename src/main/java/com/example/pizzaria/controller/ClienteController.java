@@ -35,6 +35,18 @@ public class ClienteController {
         }
     }
 
+    @GetMapping("ativo")
+    public ResponseEntity<List<ClienteDTO>> findAllAtivo()
+    {
+        try{
+            return ResponseEntity.ok(this.clienteService.findAllAtivo());
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity<ClienteDTO> findById(@RequestParam("id") final Long id){
 

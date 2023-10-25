@@ -1,5 +1,6 @@
 package com.example.pizzaria.repository;
 
+import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     boolean doesExist(@Param("id") final Long id);
 
     List<Pedido> findPedidoBySituacaoPedido(String situacao);
+
+    List<Pedido> findAllByAtivoIsTrue();
+
 }

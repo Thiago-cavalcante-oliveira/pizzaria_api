@@ -50,6 +50,20 @@ public class ClienteService {
         }
     }
 
+    public List<ClienteDTO> findAllAtivo()    {
+        List<Cliente> clientes = this.clienteRepository.findAllByAtivoIsTrue();
+        List<ClienteDTO> clientesDTO = new ArrayList<>();
+        if(clientes.isEmpty()){
+            throw new IllegalArgumentException(FAILLIST);
+        }else{
+            for (Cliente i : clientes
+            ) {
+                clientesDTO.add(modelMapper.map(i, ClienteDTO.class));
+            }
+            return clientesDTO;
+        }
+    }
+
     public ClienteDTO findById(Long id)
     {
         Cliente cliente = this.clienteRepository.findById(id).orElseThrow(()-> new RuntimeException(NOTFOUND));

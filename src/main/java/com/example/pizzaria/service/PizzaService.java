@@ -50,6 +50,20 @@ public class PizzaService {
         }
     }
 
+    public List<PizzaDTO> findAllAtivo() {
+        List<Pizza> pizzas = this.pizzaRepository.findAllByAtivoIsTrue();
+        if (pizzas.isEmpty()) {
+            throw new IllegalArgumentException(FAIL);
+        } else {
+            List<PizzaDTO> pizzasDTO = new ArrayList<>();
+            for (Pizza i : pizzas
+            ) {
+                pizzasDTO.add(modelMapper.map(i, PizzaDTO.class));
+            }
+            return pizzasDTO;
+        }
+    }
+
     public PizzaDTO cadastrar(PizzaDTO pizza) {
         Pizza pizzaSalva = this.pizzaRepository.save(modelMapper.map(pizza, Pizza.class));
         return modelMapper.map(pizzaSalva, PizzaDTO.class);

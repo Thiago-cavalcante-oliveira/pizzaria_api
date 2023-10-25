@@ -1,9 +1,12 @@
 package com.example.pizzaria.repository;
 
+import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Sabor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface SaborRepository extends JpaRepository<Sabor, Long> {
 
@@ -17,5 +20,8 @@ public interface SaborRepository extends JpaRepository<Sabor, Long> {
 
     @Query("select exists (select s from Sabor s where s.nome = :nome)")
     boolean alreadyExists(@Param("nome") final String nome);
+
+    List<Sabor> findAllByAtivoIsTrue();
+
 
 }

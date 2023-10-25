@@ -61,6 +61,20 @@ public class SaborService {
         return saboresDTO;
 
     }}
+
+    public List<SaborDTO> findAllAtivo() {
+        List<Sabor> sabores = this.saborRepository.findAllByAtivoIsTrue();
+        if(sabores.isEmpty()){
+            throw new IllegalArgumentException(FAIL);
+        }else{
+            List<SaborDTO> saboresDTO = new ArrayList<>();
+            for (Sabor i : sabores
+            ) {
+                saboresDTO.add(modelMapper.map(i, SaborDTO.class));
+            }
+            return saboresDTO;
+
+        }}
     public SaborDTO findById(Long id) {
                         return modelMapper.map(this.saborRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(FAIL)), SaborDTO.class);
     }

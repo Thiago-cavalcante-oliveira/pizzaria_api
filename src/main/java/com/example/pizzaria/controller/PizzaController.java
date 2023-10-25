@@ -33,7 +33,13 @@ public class PizzaController {
             return ResponseEntity.ok(pizzaService.findAll());
 }
 
-@PostMapping
+    @GetMapping("/ativo")
+    public ResponseEntity<List<PizzaDTO>> findAllAtivo(){
+        return ResponseEntity.ok(pizzaService.findAllAtivo());
+    }
+
+
+    @PostMapping
     public ResponseEntity<PizzaDTO> cadastrar(@Validated @RequestBody final PizzaDTO pizza){
         try{
             return ResponseEntity.ok(this.pizzaService.cadastrar(pizza));

@@ -34,6 +34,18 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("ativo")
+    public ResponseEntity<List<PedidoDTO>> findAllAtivo()
+    {
+        try{
+            return ResponseEntity.ok(this.pedidoService.findAllAtivo());
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping("situacao")
     public ResponseEntity<List<PedidoDTO>> findBySituacao(@RequestParam("s") final String situacao)
     {

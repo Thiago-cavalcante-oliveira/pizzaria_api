@@ -39,6 +39,19 @@ public class PedidoService {
         return pedidosDTO;
     }
 
+    public List<PedidoDTO> findAllAtivo(){
+        List<Pedido> pedidos = this.pedidoRepository.findAllByAtivoIsTrue();
+        if(pedidos.isEmpty()){
+            throw new IllegalArgumentException(FAIL);
+        }
+        List<PedidoDTO> pedidosDTO = new ArrayList<>();
+        for(Pedido i : pedidos)
+        {
+            pedidosDTO.add(modelMapper.map(i, PedidoDTO.class));
+        }
+        return pedidosDTO;
+    }
+
     public List<PedidoDTO> findBySituacao(String situacao){
         List<Pedido> pedidos = this.pedidoRepository.findPedidoBySituacaoPedido(situacao);
         if(pedidos.isEmpty()){

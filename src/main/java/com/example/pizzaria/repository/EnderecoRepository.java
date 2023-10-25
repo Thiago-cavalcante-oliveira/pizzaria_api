@@ -1,5 +1,6 @@
 package com.example.pizzaria.repository;
 
+import com.example.pizzaria.entity.Cliente;
 import com.example.pizzaria.entity.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,9 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
     @Query ("SELECT EXISTS(SELECT p FROM Pedido p WHERE p.endereco.id = :id)")
     boolean existsInPedido(Long id);
+
+    List<Endereco> findAllByAtivoIsTrue();
+
 
 
 }

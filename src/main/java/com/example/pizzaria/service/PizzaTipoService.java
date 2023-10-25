@@ -71,6 +71,19 @@ public class PizzaTipoService {
         return pizzaTipoDTO;
     }
 
+    public List<PizzaTipoDTO> findAllAtivo() {
+        List<PizzaTipo> pizzaTipos = this.pizzaTipoRepository.findAllByAtivoIsTrue();
+        List<PizzaTipoDTO> pizzaTipoDTO = new ArrayList<>();
+        for (PizzaTipo i : pizzaTipos) {
+            pizzaTipoDTO.add(modelMapper.map(i, PizzaTipoDTO.class));
+        }
+        if(pizzaTipoDTO.isEmpty()){
+            throw new IllegalArgumentException(FAIL);
+        }
+        return pizzaTipoDTO;
+    }
+
+
     public String deletar(Long id) {
         if (!pizzaTipoRepository.existsById(id)) {
             throw new IllegalArgumentException(FAIL);

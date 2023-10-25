@@ -46,6 +46,15 @@ public class PizzaTipoController {
         }
     }
 
+    @GetMapping("ativo")
+    public ResponseEntity<List<PizzaTipoDTO>> findAllAtivo() {
+        try {
+            return ResponseEntity.ok(this.pizzaTipoService.findAllAtivo());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity<PizzaTipoDTO> buscar(@RequestParam("id") final Long id) {
         try {

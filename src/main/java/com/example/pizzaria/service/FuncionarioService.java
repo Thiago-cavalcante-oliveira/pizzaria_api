@@ -47,6 +47,22 @@ public class FuncionarioService {
         }
     }
 
+    public List<FuncionarioDTO> findAllAtivo(){
+
+        List<Funcionario> funcionarios = this.funcionarioRepository.findAllByAtivoIsTrue();
+        List<FuncionarioDTO> funcionariosDTO = new ArrayList<>();
+
+        if(funcionarios.isEmpty()){
+            throw new IllegalArgumentException(FAILLIST);
+        } else{
+            for(Funcionario i : funcionarios)
+            {
+                funcionariosDTO.add(modelMapper.map(i, FuncionarioDTO.class));
+            }
+            return funcionariosDTO;
+        }
+    }
+
     public FuncionarioDTO findById(Long id)
     {
         Funcionario funcionario = this.funcionarioRepository.findById(id).orElseThrow(()-> new RuntimeException(FAIL));
