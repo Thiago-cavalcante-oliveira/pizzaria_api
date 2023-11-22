@@ -25,7 +25,7 @@ public class LoginService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDTO.getLogin(),
-                        loginDTO.getPassword()
+                        loginDTO.getSenha()
                 )
         );
         User user = repository.findByUsername(loginDTO.getLogin()).orElseThrow();
