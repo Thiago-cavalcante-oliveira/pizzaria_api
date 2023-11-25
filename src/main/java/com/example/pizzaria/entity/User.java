@@ -25,6 +25,8 @@ public class User implements UserDetails {
     private String password;
     private String role;
 
+    private Long id_cliente;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -55,7 +57,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

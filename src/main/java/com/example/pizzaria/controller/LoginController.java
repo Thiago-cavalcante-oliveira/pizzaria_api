@@ -1,5 +1,7 @@
 package com.example.pizzaria.controller;
 
+import com.example.pizzaria.dto.ClienteDTO;
+import com.example.pizzaria.dto.DadosCliente;
 import com.example.pizzaria.dto.LoginDTO;
 import com.example.pizzaria.dto.UserDTO;
 import com.example.pizzaria.service.LoginService;
@@ -10,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/login")
@@ -28,6 +31,20 @@ public class LoginController {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("create")
+    public ResponseEntity<UserDTO> cadastrar(@RequestBody DadosCliente dadosCliente){
+
+        try{
+
+
+            return ResponseEntity.ok(this.loginService.createUser(dadosCliente.getLogin(), dadosCliente.getCliente()));
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
