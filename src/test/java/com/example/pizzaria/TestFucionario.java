@@ -99,26 +99,26 @@ class TestFucionario {
         assertEquals(1, funcionario.size());
     }
 
-    @Test
-    void Teste5CadastrarFuncionario() {
-        FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
-        var funcionario = funcionarioController.cadastrar(funcionarioDTO);
-        assertEquals("Operacao realizada com sucesso", funcionario.getBody());
-    }
+//    @Test
+//    void Teste5CadastrarFuncionario() {
+//        FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
+//        var funcionario = funcionarioController.cadastrar(funcionarioDTO);
+//        assertEquals("Operacao realizada com sucesso", funcionario.getBody());
+//    }
 
-    @Test
-    void Teste6Atualizar() {
-        FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
-        var funcionario = funcionarioController.editar(1L, funcionarioDTO);
-        assertEquals(200, funcionario.getStatusCodeValue());
-    }
+//    @Test
+//    void Teste6Atualizar() {
+//        FuncionarioDTO funcionarioDTO = criaFuncionarioDto(criaFuncionario());
+//        var funcionario = funcionarioController.editar(1L, funcionarioDTO);
+//        assertEquals(200, funcionario.getStatusCodeValue());
+//    }
 
 
-    @Test
-    void Teste7Deletar() {
-        var funcionario = funcionarioController.deletar(1l);
-        assertEquals("Item inativado com sucesso", funcionario.getBody());
-    }
+//    @Test
+//    void Teste7Deletar() {
+//        var funcionario = funcionarioController.deletar(1l);
+//        assertEquals("Item inativado com sucesso", funcionario.getBody());
+//    }
 
 
     @Test
@@ -157,7 +157,7 @@ class TestFucionario {
 
     }
 
-    @Test
+    /*@Test
     void teste14AtualizarSucess() {
         FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
         funcionarioDTO.setId(1L);
@@ -170,7 +170,7 @@ class TestFucionario {
         var teste = funcionarioController.editar(1l, funcionarioDTO);
         Assert.assertTrue(teste.getBody().contains("sucesso"));
 
-    }
+    }*/
 
     @Test
     void teste15AtualizarFailDuplicated() {

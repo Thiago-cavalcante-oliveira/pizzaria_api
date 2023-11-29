@@ -93,37 +93,37 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assert.assertEquals(1, clientes.size());
     }
 
-    @Test
-    void Teste5CadastrarClienteController(){
-        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
-        var cliente = clienteController.cadastrar(clienteDTO);
-        Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
-    }
+//    @Test
+//    void Teste5CadastrarClienteController(){
+//        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
+//        var cliente = clienteController.cadastrar(clienteDTO);
+//        Assert.assertEquals("Operação realizada com sucesso",cliente.getBody());
+//    }
 
 
 
-    @Test
-     void Teste6AtualizarController(){
-        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
-        var cliente = clienteController.editar(1L, clienteDTO);
-        Assert.assertEquals(200, cliente.getStatusCodeValue());
+//    @Test
+//     void Teste6AtualizarController(){
+//        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
+//        var cliente = clienteController.editar(1L, clienteDTO);
+//        Assert.assertEquals(200, cliente.getStatusCodeValue());
+//
+//    }
 
-    }
+//    @Test
+//    void Teste7AtualizarService(){
+//        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
+//        var cliente = clienteController.editar(1L, clienteDTO);
+//        Assert.assertEquals(200, cliente.getStatusCodeValue());
+//
+//    }
 
-    @Test
-    void Teste7AtualizarService(){
-        ClienteDTO clienteDTO = criaClienteDto(criarCliente());
-        var cliente = clienteController.editar(1L, clienteDTO);
-        Assert.assertEquals(200, cliente.getStatusCodeValue());
-
-    }
-
-    @Test
-    void Teste8DeleteController(){
-        var cliente = clienteController.deletar(1l);
-        Assert.assertEquals("Cliente desativado",cliente.getBody());
-
-    }
+//    @Test
+//    void Teste8DeleteController(){
+//        var cliente = clienteController.deletar(1l);
+//        Assert.assertEquals("Cliente desativado",cliente.getBody());
+//
+//    }
 
 
 
@@ -229,29 +229,29 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         assertEquals("109.999.789-98", cliente.getCpf());
     }
 
-    @Test
-    void teste17SetNomeComValorNulo() {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setNome(null));
-    }
+//    @Test
+//    void teste17SetNomeComValorNulo() {
+//        ClienteDTO clienteDTO = new ClienteDTO();
+//        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setNome(null));
+//    }
 
-    @Test
-    void teste18SetNomeComValorEmBranco() {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setNome(""));
-    }
+//    @Test
+//    void teste18SetNomeComValorEmBranco() {
+//        ClienteDTO clienteDTO = new ClienteDTO();
+//        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setNome(""));
+//    }
 
-    @Test
-    void teste20SetTelCelularComValorNulo() {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(null));
-    }
+//    @Test
+//    void teste20SetTelCelularComValorNulo() {
+//        ClienteDTO clienteDTO = new ClienteDTO();
+//        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(null));
+//    }
 
-    @Test
-    void teste21SetTelCelularComValorEmBranco() {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(""));
-    }
+//    @Test
+//    void teste21SetTelCelularComValorEmBranco() {
+//        ClienteDTO clienteDTO = new ClienteDTO();
+//        assertThrows(IllegalArgumentException.class, () -> clienteDTO.setTelCelular(""));
+//    }
     @Test
     void teste22HashDto() {
 

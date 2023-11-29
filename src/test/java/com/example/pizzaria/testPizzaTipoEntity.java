@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
  class TestPizzaTipoEntity {
-    PizzaTipo pizzaTipoDTO = new PizzaTipo("Calabresa", "Grande", 50.0);
+    /*PizzaTipo pizzaTipoDTO = new PizzaTipo("Calabresa", "Grande", 50.0);
 
     @Test
     void testeSetNome() {

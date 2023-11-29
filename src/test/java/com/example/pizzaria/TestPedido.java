@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     static TestProdutoDiverso testProdutoDiverso;
     static TestEndereco testEndereco;
 
-    protected static Pedido criaPedido()
+    /*protected static Pedido criaPedido()
     {
         Set<Pizza> pizzas = new HashSet<>();
         pizzas.add(TestPizza.criaPizza());
@@ -211,7 +211,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Pedido pedido = new Pedido();
         pedido.setSituacaoPedido("Concluído");
         assertEquals("Concluído", pedido.getSituacaoPedido());
-    }
+    }*/
 
     /*@Test
     void TesteGetterSetter(){

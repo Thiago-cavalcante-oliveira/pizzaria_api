@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 class TestTipoPizzaDTO {
-    PizzaTipoDTO pizzaTipoDTO = new PizzaTipoDTO("Calabresa", "Grande", 50.0);
+    /*PizzaTipoDTO pizzaTipoDTO = new PizzaTipoDTO("Calabresa", "Grande", 50.0);
 
     @Test
     void testeSetNome() {

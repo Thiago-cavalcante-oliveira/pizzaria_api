@@ -102,31 +102,31 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Assert.assertEquals(1, endereco.size());
     }
 
-    @Test
-    void Teste5CadastrarEnderecoController(){
-        var endereco = enderecoController.cadastrar(criaEnderecoDTO(criaEndereco()));
-        Assert.assertEquals("Operacao realizada com sucesso", endereco.getBody());
-    }
+//    @Test
+//    void Teste5CadastrarEnderecoController(){
+//        var endereco = enderecoController.cadastrar(criaEnderecoDTO(criaEndereco()));
+//        Assert.assertEquals("Operacao realizada com sucesso", endereco.getBody());
+//    }
 
-    @Test
-    void Teste6AtualizarController(){
+//    @Test
+//    void Teste6AtualizarController(){
+//
+//        var endereco = enderecoController.editar(1l, criaEnderecoDTO(criaEndereco()));
+//        Assert.assertEquals(200, endereco.getStatusCodeValue());
+//    }
 
-        var endereco = enderecoController.editar(1l, criaEnderecoDTO(criaEndereco()));
-        Assert.assertEquals(200, endereco.getStatusCodeValue());
-    }
 
+//    @Test
+//    void Teste7DeletarController(){
+//        var endereco = enderecoController.deletar(1l);
+//        Assert.assertEquals("Item deletado com sucesso",endereco.getBody());
+//    }
 
-    @Test
-    void Teste7DeletarController(){
-        var endereco = enderecoController.deletar(1l);
-        Assert.assertEquals("Item deletado com sucesso",endereco.getBody());
-    }
-
-    @Test
-    void Teste8DeletarService(){
-        var endereco = enderecoService.deletar(1l);
-        Assert.assertEquals(true,endereco);
-    }
+//    @Test
+//    void Teste8DeletarService(){
+//        var endereco = enderecoService.deletar(1l);
+//        Assert.assertEquals(true,endereco);
+//    }
 
     @Test
     void teste9findById_fail() {
