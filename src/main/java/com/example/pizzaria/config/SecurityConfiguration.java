@@ -38,7 +38,46 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("api/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/login/create").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "api/cliente").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "api/cliente").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "api/cliente").permitAll()
+                        .requestMatchers(HttpMethod.GET, "api/cliente/*").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "api/pedido").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "api/pedido").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "api/pedido").permitAll()
+                        .requestMatchers(HttpMethod.GET, "api/pedido/*").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "api/endereco").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "api/endereco").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "api/endereco").permitAll()
+                        .requestMatchers(HttpMethod.GET, "api/endereco/*").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "api/pizza").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "api/pizza").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "api/pizza").permitAll()
+                        .requestMatchers(HttpMethod.GET, "api/pizza/*").permitAll()
+
+
+
+                        .requestMatchers(HttpMethod.POST,"api/sabor" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"api/sabor" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"api/sabor" ).hasAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST,"api/produto_diverso" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"api/produto_diverso" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"api/produto_diverso" ).hasAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST,"api/pizza_tipo" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"api/pizza_tipo" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"api/pizza_tipo" ).hasAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST,"api/funcionario" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"api/funcionario" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"api/funcionario" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"api/funcionario/*" ).hasAuthority("ADMIN")
+
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
